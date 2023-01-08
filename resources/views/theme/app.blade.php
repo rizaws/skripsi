@@ -19,14 +19,26 @@
     
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
 
+    {{-- mazer datatbles --}}
+    <link
+      rel="stylesheet"
+      href="{{ asset('theme') }}/assets/extensions/simple-datatables/style.css"
+    />
+    <link rel="stylesheet" href="{{ asset('theme') }}/assets/css/pages/simple-datatables.css" />
+
+    {{-- toast --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
+
     
     @yield('styles')
 
 </head>
 
 <body>
+    <script src="{{ asset('theme') }}/assets/js/initTheme.js"></script>
     <div id="app">
         @include('theme.navbar')
+        
         @yield('content')
         
     </div>
@@ -34,9 +46,29 @@
     <script src="{{ asset('theme') }}/assets/js/app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    
 
+    {{-- datatbles mazer --}}
+    <script src="{{ asset('theme') }}/assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+    <script src="{{ asset('theme') }}/assets/js/pages/simple-datatables.js"></script>
 
+    {{-- toast --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            toastr.options.timeOut = 1000;
+            @if (Session::has('error'))
+                toastr.error('{{ Session::get('error') }}');
+            @elseif(Session::has('sukses'))
+                toastr.success('{{ Session::get('sukses') }}');
+            @endif
+        });
+
+    </script>
     @yield('scripts')
 
 
