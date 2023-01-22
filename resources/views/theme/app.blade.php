@@ -37,8 +37,8 @@
 <body>
     <script src="{{ asset('theme') }}/assets/js/initTheme.js"></script>
     <div id="app">
-        @include('theme.navbar')
         
+        @include('theme.navbar')
         @yield('content')
         
     </div>

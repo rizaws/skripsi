@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SuratMasuk;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
 
 class SuratMasukController extends Controller
@@ -10,12 +11,12 @@ class SuratMasukController extends Controller
     public function index()
     {
         $suratMasuk = SuratMasuk::all();
-        $lastNoSurat = SuratMasuk::latest()->first()['no_surat'];
+        $lastNoSurat = SuratMasuk::latest()->first();
        
         $data = [
             'title' => 'Surat Masuk',
             'suratMasuk' => $suratMasuk,
-            'noSurat' => $lastNoSurat+1 ?? 1001,
+            'noSurat' => !empty($lastNoSurat) ? $lastNoSurat->no_surat+1 : 1001,
         ];
         
         return view('surat_masuk.surat_masuk', $data);
@@ -23,20 +24,28 @@ class SuratMasukController extends Controller
 
     public function store(Request $r)
     {
-    
-        $data = [
-            'no_surat' => $r->no_surat,
-            'tgl_surat' => $r->tgl_surat,
-            'pengirim' => $r->pengirim,
-            'perihal' => $r->perihal,
-            'sifat_surat' => $r->sifat_surat,
-            'ditujukan' => $r->ditujukan,
-            'berkas' => $r->berkas,
-            'petugas' => $r->petugas,
-            'status_disposisi' => 'Belum',
-        ];
-        SuratMasuk::create($data);
-        return redirect()->route('surat_masuk')->with('sukses', 'Tambah surat masuk berhasil');
+        $file = $r->file('berkas');
+        $fileDiterima = ['pdf', 'jpg', 'png', 'jpeg'];
+        $cek = in_array($file->getClientOriginalExtension(), $fileDiterima);
+        if($cek) {
+            $file->move('upload', $file->getClientOriginalName());
+            $data = [
+                'no_surat' => $r->no_surat,
+                'tgl_surat' => $r->tgl_surat,
+                'pengirim' => $r->pengirim,
+                'perihal' => $r->perihal,
+                'sifat_surat' => $r->sifat_surat,
+                'ditujukan' => $r->ditujukan,
+                'berkas' => $file->getClientOriginalName(),
+                'petugas' => $r->petugas,
+                'status_disposisi' => 'Belum',
+            ];
+            SuratMasuk::create($data);
+            return redirect()->route('surat_masuk')->with('sukses', 'Tambah surat masuk berhasil');
+        } else {
+            return redirect()->route('surat_masuk')->with('error', 'File tidak didukung');
+        }
+        
     }
 
     public function update(Request $r)
@@ -47,7 +56,6 @@ class SuratMasukController extends Controller
             'perihal' => $r->perihal,
             'sifat_surat' => $r->sifat_surat,
             'ditujukan' => $r->ditujukan,
-            'berkas' => $r->berkas,
             'petugas' => $r->petugas,
         ]);
         return redirect()->route('surat_masuk')->with('sukses', 'Berhasil edit surat masuk');

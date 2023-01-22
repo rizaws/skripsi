@@ -7,79 +7,39 @@ use Illuminate\Http\Request;
 
 class JenisSuratController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $data = [
+            'title' => 'Jenis Surat',
+            'jenisSurat' => JenisSurat::all()
+        ];
+        return view('jenis_surat.jenis_surat',$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function tambah_js(Request $r)
     {
-        //
+        $data = [
+            'kd_js' => $r->kd_js,
+            'jenis_surat' => $r->jenis_surat,
+            'uraian' => $r->uraian,
+        ];
+        JenisSurat::create($data);
+        return redirect()->route('jenis_surat')->with('sukses', 'Tambah jenis surat berhasil');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function update(Request $r)
     {
-        //
+        JenisSurat::find($r->id_js)->update([
+            'kd_js' => $r->kd_js,
+            'jenis_surat' => $r->jenis_surat,
+            'uraian' => $r->uraian,
+        ]);
+        return redirect()->route('jenis_surat')->with('sukses', 'Berhasil Edit jenis surat');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\JenisSurat  $jenisSurat
-     * @return \Illuminate\Http\Response
-     */
-    public function show(JenisSurat $jenisSurat)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\JenisSurat  $jenisSurat
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(JenisSurat $jenisSurat)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\JenisSurat  $jenisSurat
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, JenisSurat $jenisSurat)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\JenisSurat  $jenisSurat
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(JenisSurat $jenisSurat)
-    {
-        //
+        JenisSurat::find($id)->delete();
+        return redirect()->route('jenis_surat')->with('sukses', 'Berhasil Hapus jenis surat');
     }
 }

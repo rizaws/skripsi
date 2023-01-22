@@ -53,12 +53,12 @@
                 </li>
                 @php
                     $req = [
-                        'surat_masuk', 'surat_keluar', 'divisi'
+                        'surat_masuk', 'surat_keluar', 'divisi', 'surat_disposisi', 'jenis_surat'
                     ];
                 @endphp
                 <li class="sidebar-item  has-sub {{Request::is($req) ? 'active' : ''}}">
                     <a href="#" class='sidebar-link'>
-                        <i class="bi bi-stack"></i>
+                        <i class="bi bi-envelope"></i>
                         <span>Data Surat</span>
                     </a>
 
@@ -67,14 +67,14 @@
                         <li class="submenu-item {{ Request::is('surat_masuk') ? 'active' : '' }}">
                             <a href="{{ route('surat_masuk') }}">Surat Masuk</a>
                         </li>
-                        <li class="submenu-item {{ Request::is('surat_masuk') ? 'active' : '' }}">
-                            <a href="{{ route('surat_masuk') }}">Surat Disposisi</a>
+                        <li class="submenu-item {{ Request::is('surat_disposisi') ? 'active' : '' }}">
+                            <a href="{{ route('surat_disposisi') }}">Surat Disposisi</a>
                         </li>
                         <li class="submenu-item {{ Request::is('surat_keluar') ? 'active' : '' }}">
                             <a href="{{ route('surat_keluar') }}">Surat Keluar</a>
                         </li>
-                        <li class="submenu-item {{ Request::is('surat_keluar') ? 'active' : '' }}">
-                            <a href="{{ route('surat_keluar') }}">Jenis Surat</a>
+                        <li class="submenu-item {{ Request::is('jenis_surat') ? 'active' : '' }}">
+                            <a href="{{ route('jenis_surat') }}">Jenis Surat</a>
                         </li>
                         <li class="submenu-item {{ Request::is('divisi') ? 'active' : '' }}">
                           <a href="{{ route('divisi') }}">Divisi</a>
@@ -85,7 +85,7 @@
 
                 <li class="sidebar-item  has-sub {{Request::is('lap_masuk', 'register') ? 'active' : ''}}">
                     <a href="lap_masuk" class='sidebar-link'>
-                        <i class="bi bi-stack"></i>
+                        <i class="bi bi-calendar-date"></i>
                         <span>Laporan</span>
                     </a>
 
@@ -97,6 +97,12 @@
                     </ul>
                 </li>
 
+                <li class="sidebar-item  {{Request::is('user') ? 'active' : ''}}">
+                  <a href="{{ route('user') }}" class='sidebar-link'>
+                    <i class="bi bi-file-person"></i>
+                      <span>Data User</span>
+                  </a>
+              </li>
                 
 
             </ul>
@@ -142,7 +148,7 @@
                   </li>
                   
                   <li>
-                    <a class="dropdown-item" href="#"
+                    <a class="dropdown-item" href="{{ route('logout') }}"
                       ><i class="icon-mid bi bi-box-arrow-left me-2"></i>
                       Logout</a
                     >

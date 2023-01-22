@@ -29,11 +29,6 @@
                     <h4 class="card-title">Default Layout</h4>
                 </div>
                 <div class="card-body">
-                    <h1>NISA CANTIK</h1>
-                    <h1>NISA CANTIK</h1>
-                    <h1>NISA CANTIK</h1>
-                    <h1>NISA CANTIK</h1>
-                    <h1>NISA CANTIK</h1>
                 </div>
             </div>
         </section>

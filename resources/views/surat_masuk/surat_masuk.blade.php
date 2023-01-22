@@ -21,6 +21,7 @@
                                     <th>Pengirim</th>
                                     <th>Di Tujukan</th>
                                     <th>Status Disposisi</th>
+                                    <th>Berkas</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -29,12 +30,13 @@
                                     <tr>
                                         <td>{{ $no + 1 }}</td>
                                         <td>{{ $d->no_surat }}</td>
-                                        <td>{{ date('d-m-Y', strtotime($d->tgl_surat)) }}</td>
+                                        <td>{{ date('d/m/Y', strtotime($d->tgl_surat)) }}</td>
                                         <td>{{ $d->pengirim }}</td>
                                         <td>{{ $d->ditujukan }}</td>
                                         <td>
-                                            <span class="badge bg-{{ $d->status_disposisi == 'Belum' ? 'primary' : 'warning'}}">{{ $d->status_disposisi }}</span>
+                                            <span class="badge bg-{{ $d->status_disposisi != 'selesai' ? 'danger' : 'primary'}}">{{ strtoupper($d->status_disposisi) }}</span>
                                         </td>
+                                        <td><a href="{{ asset("upload/$d->berkas") }}">{{ Str::limit($d->berkas,10, '...') }}</a></td>
                                         <td align="center">
                                             <a data-bs-toggle="modal" data-bs-target="#modal-edit{{$d->id}}" class="btn icon btn-sm btn-primary"><i
                                                     class="bi bi-pencil"></i></a>
@@ -57,7 +59,7 @@
     <div class="modal fade text-left" id="modal-tambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-            <form action="{{ route('tambah_surat_masuk') }}" method="post">
+            <form action="{{ route('tambah_surat_masuk') }}" enctype="multipart/form-data" method="post">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
@@ -114,11 +116,7 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="">Berkas</label>
-                                    <select name="berkas" class="form-control" id="">
-                                        <option value="">- Pilih Berkas -</option>
-                                        <option value="Pdf">Pdf</option>
-                                        <option value="Kertas">Kertas</option>
-                                    </select>
+                                    <input type="file" class="form-control" name="berkas">
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -204,7 +202,7 @@
                                         <input value="{{ $d->ditujukan }}" type="text" class="form-control" name="ditujukan">
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                {{-- <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="">Berkas</label>
                                         <select name="berkas" class="form-control" id="">
@@ -213,7 +211,7 @@
                                             <option {{ $d->berkas == 'Kertas' ? 'selected' : '' }} value="Kertas">Kertas</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="">Petugas</label>

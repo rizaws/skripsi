@@ -16,31 +16,26 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>No Surat</th>
-                                    <th>Tgl</th>
-                                    <th>Pengirim</th>
-                                    <th>Di Tujukan</th>
-                                    <th>Perihal</th>
-                                    <th>Berkas</th>
+                                    <th>Nip</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>Level</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($suratKeluar as $no => $d)
+                                @foreach ($user as $no => $d)
                                     <tr>
                                         <td>{{ $no + 1 }}</td>
-                                        <td>{{ $d->no_surat }}</td>
-                                        <td>{{ date('d/m/Y', strtotime($d->tgl_surat)) }}</td>
-                                        <td>{{ $d->pengirim }}</td>
-                                        <td>{{ $d->ditujukan }}</td>
-                                        <td>{{ $d->perihal }}</td>
-             
-                                        <td><a href="{{ asset("upload/$d->berkas") }}">{{ Str::limit($d->berkas,10, '...') }}</a></td>
+                                        <td>{{ $d->nip }}</td>
+                                        <td>{{ $d->name }}</td>
+                                        <td>{{ $d->email }}</td>
+                                        <td>{{ $d->level }}</td>
                                         <td align="center">
                                             <a data-bs-toggle="modal" data-bs-target="#modal-edit{{$d->id}}" class="btn icon btn-sm btn-primary"><i
                                                     class="bi bi-pencil"></i></a>
                                             <a onclick="return confirm('Yakin dihapus ?')"
-                                                href="{{ route('hapus_surat_keluar', $d->id) }}"
+                                                href="{{ route('hapus_user', $d->id) }}"
                                                 class="btn  icon btn-sm btn-danger"><i class="bi bi-trash"></i></a>
                                         </td>
                                     </tr>
@@ -57,8 +52,8 @@
     {{-- modal tambah --}}
     <div class="modal fade text-left" id="modal-tambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-            <form action="{{ route('tambah_surat_keluar') }}" enctype="multipart/form-data" method="post">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+            <form action="{{ route('tambah_user') }}" method="post">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
@@ -71,40 +66,38 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-lg-2">
-                                <div class="form-group">
-                                    <label for="basicInput">No Surat</label>
-                                    <input readonly name="no_surat" type="text" class="form-control" id="basicInput" value="{{ $noSurat }}">
-                                </div>
-                            </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="">Tanggal</label>
-                                    <input required type="date" name="tgl_surat" class="form-control">
+                                    <label for="">NIP</label>
+                                    <input type="text" class="form-control" name="nip">
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-5">
                                 <div class="form-group">
-                                    <label for="basicInput">Pengirim</label>
-                                    <input required name="pengirim" type="text" class="form-control"> 
+                                    <label for="">Nama</label>
+                                    <input type="text" class="form-control" name="nama">
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label for="basicInput">Perihal</label>
-                                    <input name="perihal" type="text" class="form-control"> 
+                                    <label for="">Level</label>
+                                    <select name="level" class="form-control" id="">
+                                        <option value="">- Pilih Level -</option>
+                                        <option value="admin">admin</option>
+                                        <option value="user">user</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="">Ditujukan</label>
-                                    <input type="text" class="form-control" name="ditujukan">
+                                    <label for="">Email</label>
+                                    <input type="email" class="form-control" name="email">
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="">Berkas</label>
-                                    <input type="file" class="form-control" name="berkas">
+                                    <label for="">Password</label>
+                                    <input type="password" class="form-control" name="password">
                                 </div>
                             </div>
                         </div>
@@ -125,11 +118,11 @@
     </div>
 
     {{-- modal edit --}}
-    @foreach ($suratKeluar as $d)
+    @foreach ($user as $d)
         <div class="modal fade text-left" id="modal-edit{{$d->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
             aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-                <form action="{{ route('edit_surat_keluar') }}" method="post">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                <form action="{{ route('edit_user') }}" method="post">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
@@ -141,36 +134,34 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_surat_keluar" value="{{ $d->id }}">
                             <div class="row">
-                                <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <label for="basicInput">No Surat</label>
-                                        <input readonly name="no_surat" type="text" class="form-control" id="basicInput" value="{{ $d->no_surat }}">
-                                    </div>
-                                </div>
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label for="">Tanggal</label>
-                                        <input value="{{ $d->tgl_surat }}" required type="date" name="tgl_surat" class="form-control">
+                                        <input type="hidden" name="id_user" value="{{ $d->id }}">
+                                        <label for="">NIP</label>
+                                        <input type="text" value="{{ $d->nip }}" class="form-control" name="nip">
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-5">
                                     <div class="form-group">
-                                        <label for="basicInput">Pengirim</label>
-                                        <input value="{{ $d->pengirim }}" required name="pengirim" type="text" class="form-control"> 
+                                        <label for="">Nama</label>
+                                        <input type="text" value="{{ $d->name }}" class="form-control" name="nama">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="basicInput">Perihal</label>
-                                        <input value="{{ $d->perihal }}" name="perihal" type="text" class="form-control"> 
+                                        <label for="">Level</label>
+                                        <select name="level" class="form-control" id="">
+                                            <option value="">- Pilih Level -</option>
+                                            <option {{ $d->level == 'admin' ? 'selected' : '' }} value="admin">admin</option>
+                                            <option {{ $d->level == 'user' ? 'selected' : '' }} value="user">user</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="">Ditujukan</label>
-                                        <input value="{{ $d->ditujukan }}" type="text" class="form-control" name="ditujukan">
+                                        <label for="">Email</label>
+                                        <input value="{{ $d->email }}" type="email" class="form-control" name="email">
                                     </div>
                                 </div>
                             </div>
