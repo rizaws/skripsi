@@ -37,11 +37,11 @@
     <footer>
         <div class="footer clearfix mb-0 text-muted">
             <div class="float-start">
-                <p>2021 &copy; Mazer</p>
+                <p>2023 &copy; Anisa Salsabila</p>
             </div>
             <div class="float-end">
                 <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                        href="https://saugi.me">Saugi</a></p>
+                        href="https://saugi.me">Anisa Salsabila</a></p>
             </div>
         </div>
     </footer>
