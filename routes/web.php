@@ -6,6 +6,9 @@ use App\Http\Controllers\SuratDisposisiController;
 use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\UserController;
+use App\Models\SuratDisposisi;
+use App\Models\SuratKeluar;
+use App\Models\SuratMasuk;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,7 +68,10 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/dashboard', function () {
     $data = [
-        'title' => 'Dashboard'
+        'title' => 'Dashboard',
+        'sm' => SuratMasuk::count(),
+        'sp' => SuratDisposisi::count(),
+        'sk' => SuratKeluar::count(),
     ];
     return view('dashboard.dashboard', $data);
 })->middleware(['auth'])->name('dashboard');
