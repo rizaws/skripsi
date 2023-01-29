@@ -138,7 +138,7 @@
             Banjarmasin, {{ tanggal(date('Y-m-d')) }}
         </div>
         <div id="footer-jabatan">
-            Kepala Pengadilan
+            Ketua Pengadilan
         </div>
         <style>
             .ttd {
@@ -151,12 +151,12 @@
             <img width="500" height="140" src="{{ asset('upload/ttd2.png') }}" alt="">
         </div> --}}
         <div id="footer-nama">
-            Aftahuddin
+            Rustanto S.H.,M.H
         </div>
     </div>
 </body>
 
 </html><!-- Akhir halaman HTML yang akan di konvert -->
 <script>
-    window.print()
+    // window.print()
 </script>

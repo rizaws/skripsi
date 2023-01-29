@@ -32,6 +32,7 @@ class LaporanController extends Controller
             'jenis' => $r->jenis,
             'tgl1' => $r->tgl1,
             'tgl2' => $r->tgl2,
+            'filter' => 'Pengirim',
             'title' => $r->jenis == 1 ? 'Laporan Surat Masuk' : 'Laporan Surat Disposisi',
         ];
 
@@ -54,6 +55,7 @@ class LaporanController extends Controller
             'query' => SuratKeluar::whereBetween('tgl_surat', [$r->tgl1, $r->tgl2])->where('ditujukan', $r->ditujukan)->get(),
             'tgl1' => $r->tgl1,
             'tgl2' => $r->tgl2,
+            'filter' => 'Ditujukan',
             'title' => 'Laporan Surat Keluar'
         ];
         return view('laporan.surat_keluar.print',$data);
