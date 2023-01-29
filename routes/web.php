@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\JenisSuratController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\SuratDisposisiController;
 use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\UserController;
+use App\Models\Divisi;
+use App\Models\JenisSurat;
 use App\Models\SuratDisposisi;
 use App\Models\SuratKeluar;
 use App\Models\SuratMasuk;
@@ -27,10 +30,6 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/lap_masuk', function () {
-        return view('surat_keluar.surat_keluar', ['title' => 'tes']);
-    })->name('lap_masuk');
-    
     Route::get('divisi', [DivisiController::class, 'index'])->name('divisi');
     Route::post('tambah_divisi', [DivisiController::class, 'store'])->name('tambah_divisi');
     Route::get('hapus_divisi/{id}', [DivisiController::class, 'destroy'])->name('hapus_divisi');
@@ -63,6 +62,19 @@ Route::middleware(['auth'])->group(function () {
     Route::post('tambah_user', [UserController::class, 'create'])->name('tambah_user');
     Route::post('edit_user', [UserController::class, 'update'])->name('edit_user');
     Route::get('/hapus_user/{id}', [UserController::class, 'destroy'])->name('hapus_user');
+    
+    // laporan
+    Route::get('lap_masuk/{jenis}', [LaporanController::class, 'suratMasuk'])->name('lap_masuk');
+    Route::get('saveLapMasuk', [LaporanController::class, 'saveLapMasuk'])->name('saveLapMasuk');
+
+    Route::get('lap_keluar/', [LaporanController::class, 'suratKeluar'])->name('lap_keluar');
+    Route::get('saveLapKeluar', [LaporanController::class, 'saveLapKeluar'])->name('saveLapKeluar');
+
+    Route::get('lap_jenis_surat/', [LaporanController::class, 'jenisSurat'])->name('lap_jenis_surat');
+    Route::get('saveLapJenisSurat', [LaporanController::class, 'saveLapJenisSurat'])->name('saveLapJenisSurat');
+
+    Route::get('lap_divisi/', [LaporanController::class, 'divisi'])->name('lap_divisi');
+    Route::get('saveLapDivisi', [LaporanController::class, 'saveLapDivisi'])->name('saveLapDivisi');
 });
 
 
@@ -72,6 +84,8 @@ Route::get('/dashboard', function () {
         'sm' => SuratMasuk::count(),
         'sp' => SuratDisposisi::count(),
         'sk' => SuratKeluar::count(),
+        'js' => JenisSurat::count(),
+        'dv' => Divisi::count(),
     ];
     return view('dashboard.dashboard', $data);
 })->middleware(['auth'])->name('dashboard');

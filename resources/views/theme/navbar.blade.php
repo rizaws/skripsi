@@ -83,15 +83,32 @@
                     </ul>
                 </li>
 
-                <li class="sidebar-item  has-sub {{Request::is('lap_masuk', 'register') ? 'active' : ''}}">
+                @php
+                    $reqL = [
+                        'lap_masuk/1','lap_masuk/2','lap_keluar'
+                    ];
+                @endphp
+                <li class="sidebar-item  has-sub {{Request::is($reqL) ? 'active' : ''}}">
                     <a href="lap_masuk" class='sidebar-link'>
                         <i class="bi bi-calendar-date"></i>
                         <span>Laporan</span>
                     </a>
 
-                    <ul class="submenu {{Request::is('lap_masuk', 'register') ? 'active' : ''}}">
+                    <ul class="submenu {{Request::is($reqL) ? 'active' : ''}}">
                         <li class="submenu-item">
-                            <a href="{{ route('lap_masuk') }}">Laporan Surat Masuk</a>
+                            <a href="{{ route('lap_masuk',1) }}">Laporan Surat Masuk</a>
+                        </li>
+                        <li class="submenu-item">
+                            <a href="{{ route('lap_masuk',2) }}">Laporan Surat Disposisi</a>
+                        </li>
+                        <li class="submenu-item">
+                            <a href="{{ route('lap_keluar') }}">Laporan Surat Keluar</a>
+                        </li>
+                        <li class="submenu-item">
+                            <a href="{{ route('lap_jenis_surat') }}">Laporan jenis Surat</a>
+                        </li>
+                        <li class="submenu-item">
+                            <a href="{{ route('lap_divisi') }}">Laporan Divisi</a>
                         </li>
                         
                     </ul>
