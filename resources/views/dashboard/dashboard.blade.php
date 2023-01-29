@@ -84,11 +84,11 @@
     <footer>
         <div class="footer clearfix mb-0 text-muted">
             <div class="float-start">
-                <p>2023 &copy; Anisa Salsabila</p>
+                <p>2023 &copy; Pengadilan Negeri Banjarmasin</p>
             </div>
             <div class="float-end">
-                <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                        href="https://saugi.me">Anisa Salsabila</a></p>
+                <p> <span class="text-danger"><i class=" "></i></span> <a
+                        href="https://saugi.me">PN Banjarmasin Kelas 1A</a></p>
             </div>
         </div>
     </footer>
