@@ -25,7 +25,7 @@ class LaporanController extends Controller
     {
         $suratMasuk = SuratMasuk::whereBetween('tgl_surat', [$r->tgl1,$r->tgl2])->where('pengirim', $r->pengirim)->get();
         $suratDisposisi = SuratDisposisi::with([
-            'suratMasuk' => fn($q) => $q->where('pengirim', $r->pengirim)
+            'suratMasuk' => fn($q) => $q->where('pengirim', $r->pengirim);
         ])->whereBetween('tgl_disposisi', [$r->tgl1, $r->tgl2])->orderBy('id', 'DESC')->get();
         $data = [
             'query' => $r->jenis == 1 ? $suratMasuk : $suratDisposisi,
