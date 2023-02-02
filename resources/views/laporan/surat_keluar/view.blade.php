@@ -38,7 +38,7 @@
                 <div class="col-lg-3">
                     <div class="form-group">
                         <label for="">Aksi</label><br>
-                        <button class="btn btn-primary" type="submit">Simpan</button>
+                        <button class="btn btn-primary" type="submit">Cetak</button>
                     </div>
                 </div>
             </div>

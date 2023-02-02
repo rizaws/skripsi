@@ -16,7 +16,7 @@
                                 <h3 class="card-title" style="float: left">{{ $title }}</h3>
                                 <a href="{{ route('saveLapDivisi') }}" class="btn btn-primary" style="float: right"
                                         >
-                                        <i class="bi bi-filetype-pdf"></i> print
+                                        <i class="bi bi-filetype-pdf"></i> Cetak
                                     </a>
                             </div>
                             <div class="card-body">
