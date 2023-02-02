@@ -15,9 +15,9 @@
                         <table class="table" id="table1">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>No</th>
                                     <th>No Surat</th>
-                                    <th>No Agenda</th>
+                                    <th>No Agenda Disposisi</th>
                                     <th>Tgl Disposisi</th>
                                     <th>Pengirim</th>
                                     <th>jenis Surat</th>
