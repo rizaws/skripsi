@@ -8,6 +8,7 @@ use App\Models\SuratDisposisi;
 use App\Models\SuratKeluar;
 use App\Models\SuratMasuk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LaporanController extends Controller
 {
@@ -25,12 +26,7 @@ class LaporanController extends Controller
     {
         $pengirim = $r->pengirim;
         $suratMasuk = SuratMasuk::whereBetween('tgl_surat', [$r->tgl1,$r->tgl2])->where('pengirim', $pengirim)->get();
-        $suratDisposisi = SuratDisposisi::with([
-            'suratMasuk' => function($query) use($pengirim) {
-                $query->where('pengirim', $pengirim);
-            }
-            // fn($q) => $q->where('pengirim', $r->pengirim)
-        ])->whereBetween('tgl_disposisi', [$r->tgl1, $r->tgl2])->orderBy('id', 'DESC')->get();
+        $suratDisposisi = DB::table('surat_disposisis as a')->join('surat_masuk as b', 'a.id_sm', 'b.id')->join('jenis_surats as c', 'a.id_js', 'c.id')->whereBetween('a.tgl_disposisi', [$r->tgl1, $r->tgl2])->where('b.pengirim', $pengirim)->orderBy('a.id', 'DESC')->get();
         $data = [
             'query' => $r->jenis == 1 ? $suratMasuk : $suratDisposisi,
             'jenis' => $r->jenis,

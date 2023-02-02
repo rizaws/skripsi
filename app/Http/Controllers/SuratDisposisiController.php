@@ -19,7 +19,7 @@ class SuratDisposisiController extends Controller
         $data = [
             'title' => 'Surat Disposisi',
             'suratMasuk' => SuratMasuk::where('status_disposisi', '!=', 'selesai')->get(),
-            'suratDisposisi' => SuratDisposisi::with('suratMasuk')->orderBy('id', 'DESC')->get(),
+            'suratDisposisi' => SuratDisposisi::with('suratMasuk')->orderBy('no_surat', 'ASC')->get(),
             'noSurat' => !empty($lastNoSurat) ? $lastNoSurat->no_surat+1 : 1001,
             'js' => JenisSurat::all(),
        ];
@@ -36,7 +36,7 @@ class SuratDisposisiController extends Controller
             'no_surat' => $r->no_surat,
             'isi_disposisi' => $r->isi_disposisi,
             'no_agenda' => $noAgenda,
-            'tgl_disposisi' => date('Y-m-d'),
+            'tgl_disposisi' => $r->tgl_surat,
         ];
         SuratDisposisi::create($data);
         return redirect()->route('surat_disposisi')->with('sukses', 'Berhasil tambah surat disposisi');

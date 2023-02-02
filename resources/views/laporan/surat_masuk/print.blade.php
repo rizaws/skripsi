@@ -63,12 +63,12 @@
                     <td>{{ $d->no_surat }}</td>
                     <td>{{ date('d/m/Y', strtotime($d->tgl_disposisi))}}/{{ $d->no_agenda }}</td>
                     <td>{{ date('d/m/Y', strtotime($d->tgl_disposisi)) }}</td>
-                    <td>{{ $d->suratMasuk->pengirim }}</td>
-                    <td>{{ $d->suratMasuk->ditujukan }}</td>
-                    <td>{{ $d->suratMasuk->perihal }}</td>
-                    <td>{{ $d->jenisSurat->jenis_surat }}</td>
-                    <td>{{ $d->suratMasuk->status_disposisi }}</td>
-                    <td>{{ $d->suratMasuk->berkas }}</td>
+                    <td>{{ $d->pengirim }}</td>
+                    <td>{{ $d->ditujukan }}</td>
+                    <td>{{ $d->perihal }}</td>
+                    <td>{{ $d->jenis_surat }}</td>
+                    <td>{{ $d->status_disposisi }}</td>
+                    <td>{{ $d->berkas }}</td>
                     <td>{{ $d->isi_disposisi }}</td>
 
                 </tr>
