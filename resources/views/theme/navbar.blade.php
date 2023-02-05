@@ -59,25 +59,15 @@
                 <li class="sidebar-item  has-sub {{Request::is($req) ? 'active' : ''}}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-envelope"></i>
-                        <span>Data Surat</span>
+                        <span>Data Master</span>
                     </a>
 
                     <ul class="submenu {{Request::is($req) ? 'active' : ''}}">
                         
                         <li class="submenu-item {{ Request::is('surat_masuk') ? 'active' : '' }}">
-                            <a href="{{ route('surat_masuk') }}">Surat Masuk</a>
+                            <a href="{{ route('dashboard') }}">Surat Masuk</a>
                         </li>
-                        <li class="submenu-item {{ Request::is('surat_disposisi') ? 'active' : '' }}">
-                            <a href="{{ route('surat_disposisi') }}">Surat Disposisi</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('surat_keluar') ? 'active' : '' }}">
-                            <a href="{{ route('surat_keluar') }}">Surat Keluar</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('jenis_surat') ? 'active' : '' }}">
-                            <a href="{{ route('jenis_surat') }}">Jenis Surat</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('divisi') ? 'active' : '' }}">
-                          <a href="{{ route('divisi') }}">Divisi</a>
+                        
                       </li>
                         
                     </ul>
@@ -96,19 +86,7 @@
 
                     <ul class="submenu {{Request::is($reqL) ? 'active' : ''}}">
                         <li class="submenu-item">
-                            <a href="{{ route('lap_masuk',1) }}">Laporan Surat Masuk</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('lap_masuk',2) }}">Laporan Surat Disposisi</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('lap_keluar') }}">Laporan Surat Keluar</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('lap_jenis_surat') }}">Laporan jenis Surat</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('lap_divisi') }}">Laporan Divisi</a>
+                            <a href="{{ route('dashboard') }}">Laporan Surat Masuk</a>
                         </li>
                         
                     </ul>
