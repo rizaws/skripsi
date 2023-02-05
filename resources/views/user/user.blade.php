@@ -16,7 +16,6 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nip</th>
                                     <th>Nama</th>
                                     <th>Email</th>
                                     <th>Level</th>
@@ -27,7 +26,6 @@
                                 @foreach ($user as $no => $d)
                                     <tr>
                                         <td>{{ $no + 1 }}</td>
-                                        <td>{{ $d->nip }}</td>
                                         <td>{{ $d->name }}</td>
                                         <td>{{ $d->email }}</td>
                                         <td>{{ $d->level }}</td>
@@ -66,12 +64,6 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    <label for="">NIP</label>
-                                    <input type="text" class="form-control" name="nip">
-                                </div>
-                            </div>
                             <div class="col-lg-5">
                                 <div class="form-group">
                                     <label for="">Nama</label>
@@ -135,13 +127,6 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <input type="hidden" name="id_user" value="{{ $d->id }}">
-                                        <label for="">NIP</label>
-                                        <input type="text" value="{{ $d->nip }}" class="form-control" name="nip">
-                                    </div>
-                                </div>
                                 <div class="col-lg-5">
                                     <div class="form-group">
                                         <label for="">Nama</label>

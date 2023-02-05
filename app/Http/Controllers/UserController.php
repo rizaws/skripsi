@@ -20,7 +20,6 @@ class UserController extends Controller
     {
         $data = [
             'name' => $r->nama,
-            'nip' => $r->nip,
             'email' => $r->email,
             'level' => $r->level,
             'password' => bcrypt($r->password),
@@ -33,7 +32,6 @@ class UserController extends Controller
     {
         $data = [
             'name' => $r->nama,
-            'nip' => $r->nip,
             'email' => $r->email,
             'level' => $r->level,
         ];

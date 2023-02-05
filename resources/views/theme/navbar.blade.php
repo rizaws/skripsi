@@ -3,7 +3,8 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="{{ route('dashboard') }}"><img style="width: 100px; height: 100px;" src="https://pn-banjarmasin.go.id/images/Galeri/Logo/1_logo-bjm.png"
+                    <a href="{{ route('dashboard') }}"
+                    {{-- ><img style="width: 100px; height: 100px;" src="https://pn-banjarmasin.go.id/images/Galeri/Logo/1_logo-bjm.png" --}}
                             alt="Logo" srcset=""></a>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
