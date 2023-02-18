@@ -1,9 +1,9 @@
-## Surat Disposisi
-<p><b>PKL NISA</b></p>
+## Mazer Crud
+<p><b>Mazer CRUD Laravel 8 Toast</b></p>
 
 ## Setup
 - rename file .env.example dengan .env
-- buat database (db_surat_disposisi) dan ganti di env
+- buat database (nm_db) dan ganti di env
 
 ## Command
 - composer install
@@ -13,5 +13,5 @@
 - php artisan db:seed
 
 # Login
-email : nisa@gmail.com
+email : presiden@gmail.com
 pw : password
