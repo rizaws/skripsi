@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" turbolinks-track="true" href="{{ asset('theme') }}/assets/css/main/app.css">
     <link rel="stylesheet" href="{{ asset('theme') }}/assets/css/main/app-dark.css">
+    <link rel="stylesheet" href="{{ asset('theme') }}/assets/css/pages/fontawesome.css">
     <link rel="shortcut icon" href="{{ asset('theme') }}/assets/images/logo/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('theme') }}/assets/images/logo/favicon.png" type="image/png">
 
@@ -28,6 +29,8 @@
 
     {{-- toast --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     
     @yield('styles')
@@ -53,6 +56,7 @@
 
     {{-- toast --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
+    
     <script>
         $(document).ready(function() {
             $('#table').DataTable();
