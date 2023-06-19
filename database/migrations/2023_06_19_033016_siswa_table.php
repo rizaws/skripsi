@@ -14,10 +14,13 @@ class SiswaTable extends Migration
     public function up()
     {
         Schema::create('siswa', function (Blueprint $table) {
-            $table->integer('id_siswa');
+            $table->bigIncrements('id_siswa');
             $table->string('nama');
             $table->string('id_kelas');
             $table->date('tgl_lahir');
+            $table->string('tempat_lahir');
+            $table->string('nm_ayah');
+            $table->string('nm_ibu');
             $table->string('email');
             $table->string('no_telp');
             $table->string('alamat');
