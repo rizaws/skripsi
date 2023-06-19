@@ -47,7 +47,7 @@
 
     </div>
 
-    
+
 
     {{-- modal tambah --}}
     <x-modal id="modal-tambah" size="modal-lg" title="Tambah {{ $title }}" btnSave="Y">

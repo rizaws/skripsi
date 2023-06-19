@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,15 @@ Route::middleware(['auth'])->group(function () {
     // laporan
     Route::get('lap_masuk/{jenis}', [LaporanController::class, 'suratMasuk'])->name('lap_masuk');
     Route::get('saveLapMasuk', [LaporanController::class, 'saveLapMasuk'])->name('saveLapMasuk');
+
+    // Siswa
+    Route::get('data_siswa', [SiswaController::class, 'index'])->name('data_siswa');
+    Route::get('add_siswa', [SiswaController::class, 'tbh_siswa'])->name('add_siswa');
+    Route::post('save_siswa', [SiswaController::class, 'save_siswa'])->name('save_siswa');
+    Route::get('detail_siswa', [SiswaController::class, 'detail'])->name('detail_siswa');
+    Route::get('delete_siswa', [SiswaController::class, 'delete_siswa'])->name('delete_siswa');
+    Route::get('edit_siswa', [SiswaController::class, 'edit_siswa'])->name('edit_siswa');
+    Route::post('save_edit_siswa', [SiswaController::class, 'save_edit_siswa'])->name('save_edit_siswa');
 
 
 });
