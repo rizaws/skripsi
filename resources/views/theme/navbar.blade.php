@@ -3,14 +3,13 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="{{ route('dashboard') }}" {{--><img style="width: 100px; height: 100px;"
-                            src="https://pn-banjarmasin.go.id/images/Galeri/Logo/1_logo-bjm.png" --}} alt="Logo"
-                            srcset=""></a>
+                    <a href="{{ route('dashboard') }}" {{-- ><img style="width: 100px; height: 100px;"
+                            src="https://pn-banjarmasin.go.id/images/Galeri/Logo/1_logo-bjm.png" --}} alt="Logo" srcset=""></a>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                        aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20" height="20"
-                        preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
+                        aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20"
+                        height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
                         <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round"
                             stroke-linejoin="round">
                             <path
@@ -52,7 +51,7 @@
                     </a>
                 </li>
                 @php
-                $req = ['data_siswa','data_kelas'];
+                    $req = ['data_siswa', 'data_kelas'];
                 @endphp
                 <li class="sidebar-item  has-sub {{ Request::is($req) ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
@@ -75,7 +74,23 @@
             </li>
 
             @php
-            $reqL = ['lap_masuk/1', 'lap_masuk/2', 'lap_keluar'];
+                $reqK = ['absensi_siswa'];
+            @endphp
+            <li class="sidebar-item  has-sub {{ Request::is($reqK) ? 'active' : '' }}">
+                <a href="lap_masuk" class='sidebar-link'>
+                    <i class="fas fa-book"></i>
+                    <span>Data Kegiatan Siswa</span>
+                </a>
+
+                <ul class="submenu {{ Request::is($reqK) ? 'active' : '' }}">
+                    <li class="submenu-item {{ Request::is('absensi_siswa') ? 'active' : '' }}">
+                        <a href="{{ route('absensi_siswa') }}">Absensi</a>
+                    </li>
+
+                </ul>
+            </li>
+            @php
+                $reqL = ['lap_masuk/1', 'lap_masuk/2', 'lap_keluar'];
             @endphp
             <li class="sidebar-item  has-sub {{ Request::is($reqL) ? 'active' : '' }}">
                 <a href="lap_masuk" class='sidebar-link'>

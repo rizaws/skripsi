@@ -16,8 +16,8 @@ class AbsenTable extends Migration
         Schema::create('absen', function (Blueprint $table) {
             $table->integerIncrements('id_absen');
             $table->integer('id_siswa');
-            $table->enum('ket', ['M', 'I', 'S', 'A']);
-            $table->time('jam_masuk');
+            $table->enum('ket', ['M', 'I', 'S', 'A','T']);
+            $table->date('tgl');
             $table->timestamps();
         });
     }

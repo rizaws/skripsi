@@ -3,6 +3,7 @@
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\AbsenController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +45,16 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::controller(KelasController::class)->group(function () {
         Route::get('/data_kelas', 'index')->name('data_kelas');
+        Route::post('/tambah_kelas', 'tambah_kelas')->name('tambah_kelas');
+        Route::post('/edit_kelas', 'edit_kelas')->name('edit_kelas');
+        Route::get('/delete_kelas', 'delete_kelas')->name('delete_kelas');
+        Route::get('/get_edit_kelas', 'get_edit_kelas')->name('get_edit_kelas');
+    });
+    Route::controller(AbsenController::class)->group(function () {
+        Route::get('/absensi_siswa', 'index')->name('absensi_siswa');
+        Route::get('/get_absen', 'get_absen')->name('get_absen');
+        Route::get('/save_absen', 'save_absen')->name('save_absen');
+        Route::get('/btl_absen', 'btl_absen')->name('btl_absen');
     });
 });
 
