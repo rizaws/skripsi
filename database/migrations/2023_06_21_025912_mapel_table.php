@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class KelasTable extends Migration
+class MapelTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class KelasTable extends Migration
      */
     public function up()
     {
-        Schema::create('kelas', function (Blueprint $table) {
-            $table->integerIncrements('id_kelas');
-            $table->string('nm_kelas');
+        Schema::create('mapel', function (Blueprint $table) {
+            $table->integerIncrements('id_mapel');
+            $table->string('nm_mapel');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class KelasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kelas');
+        //
     }
 }
