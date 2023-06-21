@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/delete_siswa', 'delete_siswa')->name('delete_siswa');
         Route::get('/edit_siswa', 'edit_siswa')->name('edit_siswa');
         Route::get('/save_edit_siswa', 'save_edit_siswa')->name('save_edit_siswa');
+    });
+    Route::controller(KelasController::class)->group(function () {
+        Route::get('/data_kelas', 'index')->name('data_kelas');
     });
 });
 
