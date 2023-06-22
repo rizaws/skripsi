@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\MapelController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\AbsenController;
+use App\Http\Controllers\JadwalmapelController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,6 +57,18 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get_absen', 'get_absen')->name('get_absen');
         Route::get('/save_absen', 'save_absen')->name('save_absen');
         Route::get('/btl_absen', 'btl_absen')->name('btl_absen');
+    });
+
+    Route::controller(MapelController::class)->group(function () {
+        Route::get('/data_mapel', 'index')->name('data_mapel');
+        Route::post('/tambah_mapel', 'tambah_mapel')->name('tambah_mapel');
+        Route::post('/edit_mapel', 'edit_mapel')->name('edit_mapel');
+        Route::get('/delete_mapel', 'delete_mapel')->name('delete_mapel');
+        Route::get('/get_edit_mapel', 'get_edit_mapel')->name('get_edit_mapel');
+    });
+    Route::controller(JadwalmapelController::class)->group(function () {
+        Route::get('/jadwal_mapel', 'index')->name('jadwal_mapel');
+        Route::post('/save_jadwal', 'save_jadwal')->name('save_jadwal');
     });
 });
 
