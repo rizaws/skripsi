@@ -51,7 +51,7 @@
                     </a>
                 </li>
                 @php
-                    $req = ['data_siswa', 'data_kelas', 'data_mapel'];
+                    $req = ['data_siswa', 'data_kelas', 'data_mapel', 'data_guru'];
                 @endphp
                 <li class="sidebar-item  has-sub {{ Request::is($req) ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
@@ -63,6 +63,9 @@
 
                         <li class="submenu-item {{ Request::is('data_siswa') ? 'active' : '' }}">
                             <a href="{{ route('data_siswa') }}">Data Siswa</a>
+                        </li>
+                        <li class="submenu-item {{ Request::is('data_guru') ? 'active' : '' }}">
+                            <a href="{{ route('data_guru') }}">Data Guru</a>
                         </li>
                         <li class="submenu-item {{ Request::is('data_kelas') ? 'active' : '' }}">
                             <a href="{{ route('data_kelas') }}">Data Kelas</a>
@@ -77,7 +80,7 @@
             </li>
 
             @php
-                $reqK = ['absensi_siswa', 'jadwal_mapel'];
+                $reqK = ['absensi_siswa', 'jadwal_mapel','nilai_rapor'];
             @endphp
             <li class="sidebar-item  has-sub {{ Request::is($reqK) ? 'active' : '' }}">
                 <a href="lap_masuk" class='sidebar-link'>
@@ -91,6 +94,9 @@
                     </li>
                     <li class="submenu-item {{ Request::is('jadwal_mapel') ? 'active' : '' }}">
                         <a href="{{ route('jadwal_mapel') }}">Jadwal Pelajaran</a>
+                    </li>
+                    <li class="submenu-item {{ Request::is('nilai_rapor') ? 'active' : '' }}">
+                        <a href="{{ route('nilai_rapor') }}">Nilai Rapor</a>
                     </li>
 
                 </ul>

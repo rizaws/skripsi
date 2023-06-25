@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\JadwalmapelController;
+use App\Http\Controllers\GuruController;
+use App\Http\Controllers\NilaiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,6 +71,17 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(JadwalmapelController::class)->group(function () {
         Route::get('/jadwal_mapel', 'index')->name('jadwal_mapel');
         Route::post('/save_jadwal', 'save_jadwal')->name('save_jadwal');
+    });
+    Route::controller(GuruController::class)->group(function () {
+        Route::get('/data_guru', 'index')->name('data_guru');
+        Route::get('/tambah_data_guru', 'tambah_data_guru')->name('tambah_data_guru');
+        Route::post('/save_guru', 'save_guru')->name('save_guru');
+        Route::get('/delete_guru', 'delete_guru')->name('delete_guru');
+    });
+    Route::controller(NilaiController::class)->group(function () {
+        Route::get('/nilai_rapor', 'index')->name('nilai_rapor');
+        Route::get('/get_rapor_siswa', 'get_rapor_siswa')->name('get_rapor_siswa');
+        Route::get('/save_nilai', 'save_nilai')->name('save_nilai');
     });
 });
 
