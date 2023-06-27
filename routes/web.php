@@ -8,6 +8,8 @@ use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\JadwalmapelController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\EkskulController;
+use App\Http\Controllers\Anggota_ekskulController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -82,6 +84,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/nilai_rapor', 'index')->name('nilai_rapor');
         Route::get('/get_rapor_siswa', 'get_rapor_siswa')->name('get_rapor_siswa');
         Route::get('/save_nilai', 'save_nilai')->name('save_nilai');
+    });
+    Route::controller(EkskulController::class)->group(function () {
+        Route::get('/ekskul', 'index')->name('ekskul');
+        Route::post('/tambah_ekskul', 'tambah_ekskul')->name('tambah_ekskul');
+        Route::get('/delete_ekskul', 'delete_ekskul')->name('delete_ekskul');
+    });
+    Route::controller(Anggota_ekskulController::class)->group(function () {
+        Route::get('/anggota_ekskul', 'index')->name('anggota_ekskul');
+        Route::get('/get_siswa', 'get_siswa')->name('get_siswa');
     });
 });
 
