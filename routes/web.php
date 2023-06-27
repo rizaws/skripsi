@@ -93,6 +93,7 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(Anggota_ekskulController::class)->group(function () {
         Route::get('/anggota_ekskul', 'index')->name('anggota_ekskul');
         Route::get('/get_siswa', 'get_siswa')->name('get_siswa');
+        Route::post('/tambah_anggota_ekskul', 'tambah_anggota_ekskul')->name('tambah_anggota_ekskul');
     });
 });
 

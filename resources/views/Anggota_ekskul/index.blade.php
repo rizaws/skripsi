@@ -60,7 +60,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    @foreach ($anggota as $no => $a)
+                                        <tr>
+                                            <td>{{ $no + 1 }}</td>
+                                            <td>{{ $a->nama }}</td>
+                                            <td>{{ $a->nm_kelas }}</td>
+                                            <td>{{ $a->tempat_lahir }}, {{ tanggal($a->tgl_lahir) }}</td>
+                                            <td>{{ $a->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                                            <td>
+                                                <a href="" class="btn btn-warning btn-sm"><i
+                                                        class="fas fa-edit"></i></a>
+                                                <a href="" class="btn btn-danger btn-sm"><i
+                                                        class="fas fa-trash-alt"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -70,7 +84,7 @@
         </div>
 
 
-        <form action="{{ route('tambah_kelas') }}" method="post">
+        <form action="{{ route('tambah_anggota_ekskul') }}" method="post">
             @csrf
             <div class="modal fade text-left" id="tambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
                 aria-hidden="true">
@@ -95,9 +109,19 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <label for="">Pilih Siswa</label>
-                                    <select name="" id="" class="form-control load_siswa">
+                                    <select name="id_siswa" id="" class="form-control load_siswa">
 
                                     </select>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label for="">Ekstrakurikuler</label>
+                                    <select name="id_ekskul" id="" class="choices form-select">
+                                        <option value="">-Pilih Ekskul-</option>
+                                        @foreach ($ekskul as $e)
+                                            <option value="{{ $e->id_ekskul }}">{{ $e->nm_ekskul }}</option>
+                                        @endforeach
+                                    </select>
+
                                 </div>
                             </div>
                         </div>
