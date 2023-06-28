@@ -10,15 +10,17 @@ use Illuminate\Queue\SerializesModels;
 class absenMail extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $id_siswa;
+    public $ket;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($id_siswa,$ket)
     {
-        //
+        $this->id_siswa = $id_siswa;
+        $this->ket = $ket;
     }
 
     /**
@@ -28,6 +30,6 @@ class absenMail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view('Mail.absenMail');
     }
 }

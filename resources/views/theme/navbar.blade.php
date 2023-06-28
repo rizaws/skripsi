@@ -83,14 +83,13 @@
             </li>
 
             @php
-                $reqK = ['absensi_siswa', 'jadwal_mapel', 'nilai_rapor', 'anggota_ekskul'];
+                $reqK = ['absensi_siswa', 'jadwal_mapel', 'nilai_rapor', 'anggota_ekskul', 'prestasi_siswa'];
             @endphp
             <li class="sidebar-item  has-sub {{ Request::is($reqK) ? 'active' : '' }}">
                 <a href="lap_masuk" class='sidebar-link'>
                     <i class="fas fa-book"></i>
                     <span>Data Kegiatan Siswa</span>
                 </a>
-
                 <ul class="submenu {{ Request::is($reqK) ? 'active' : '' }}">
                     <li class="submenu-item {{ Request::is('absensi_siswa') ? 'active' : '' }}">
                         <a href="{{ route('absensi_siswa') }}">Absensi</a>
@@ -104,21 +103,27 @@
                     <li class="submenu-item {{ Request::is('anggota_ekskul') ? 'active' : '' }}">
                         <a href="{{ route('anggota_ekskul') }}">Anggota Ekskul</a>
                     </li>
+                    <li class="submenu-item {{ Request::is('prestasi_siswa') ? 'active' : '' }}">
+                        <a href="{{ route('prestasi_siswa') }}">Prestasi Siswa</a>
+                    </li>
 
                 </ul>
             </li>
             @php
-                $reqL = ['lap_masuk/1', 'lap_masuk/2', 'lap_keluar'];
+                $reqL = ['LaporanSiswa', 'LaporanGuru'];
             @endphp
             <li class="sidebar-item  has-sub {{ Request::is($reqL) ? 'active' : '' }}">
                 <a href="lap_masuk" class='sidebar-link'>
-                    <i class="bi bi-calendar-date"></i>
+                    <i class="fas fa-print"></i>
                     <span>Laporan</span>
                 </a>
 
                 <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
-                    <li class="submenu-item">
-                        <a href="{{ route('dashboard') }}">Laporan Surat Masuk</a>
+                    <li class="submenu-item {{ Request::is('LaporanSiswa') ? 'active' : '' }}">
+                        <a href="{{ route('LaporanSiswa') }}">Siswa</a>
+                    </li>
+                    <li class="submenu-item {{ Request::is('LaporanGuru') ? 'active' : '' }}">
+                        <a href="{{ route('LaporanGuru') }}">Guru</a>
                     </li>
 
                 </ul>
