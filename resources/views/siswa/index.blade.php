@@ -52,6 +52,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>NISN</th>
                                         <th>Nama</th>
                                         <th>Tempat</th>
                                         <th>Tanggal Lahir</th>
@@ -63,6 +64,7 @@
                                     @foreach ($siswa as $no => $s)
                                         <tr>
                                             <td>{{ $no + 1 }}</td>
+                                            <td>{{ $s->nisn }}</td>
                                             <td>{{ $s->nama }}</td>
                                             <td>{{ $s->tempat_lahir }}</td>
                                             <td>{{ date('d-m-Y', strtotime($s->tgl_lahir)) }}</td>

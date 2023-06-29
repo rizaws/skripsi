@@ -69,10 +69,10 @@
                                                 <a href="{{ route('print_rapor', ['id_siswa' => $s->id_siswa]) }}"
                                                     target="_blank" class="btn btn-sm btn-primary"><i
                                                         class="fas fa-print"></i></a>
-                                                <a href="" class="btn btn-sm btn-success"><i
+                                                {{-- <a href="" class="btn btn-sm btn-success"><i
                                                         class="fab fa-whatsapp"></i></a>
                                                 <a href="" class="btn btn-sm btn-danger"><i
-                                                        class="fas fa-mail-bulk"></i></a>
+                                                        class="fas fa-mail-bulk"></i></a> --}}
                                             </td>
                                         </tr>
                                     @endforeach

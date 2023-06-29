@@ -344,8 +344,12 @@ class LaporanController extends Controller
     {
         $data = [
             'title' => 'Print Rapor Siswa',
+            'id_siswa' => $r->id_siswa,
             'siswa' => DB::table('siswa')->join('kelas','kelas.id_kelas','siswa.id_kelas')->where('id_siswa',$r->id_siswa)->first(),
-            'mapel' => DB::table('mapel')->get()
+            'mapel' => DB::table('mapel')->get(),
+            'ekskul' => DB::select("SELECT b.nm_ekskul FROM anggota_ekskul as a 
+            left join ekskul as b on b.id_ekskul = a.id_ekskul
+            where a.id_siswa = '$r->id_siswa'")
         ];
         return view('laporan.print.rapor',$data);
     }

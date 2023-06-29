@@ -18,21 +18,6 @@
 
 
     <div class="row justify-content-center">
-        <div class="col-lg-12 mt-4">
-            <h5 class="fw-bold text-center">MTS NEGERI 2 BANJARMASIN</h5>
-        </div>
-        <div class="col-lg-12">
-            <h5 class="fw-bold text-center">TAHUN PELAJARAN 2023/2024</h5>
-        </div>
-
-        <div class="col-lg-12">
-            <hr style="border:2px solid black;">
-        </div>
-        <div class="col-lg-12">
-            <h5 class="fw-bold text-center ">Laporan Rapor Siswa</h5>
-            <br>
-            <br>
-        </div>
         <div>
             <table width="100%">
                 <tr>
@@ -46,7 +31,7 @@
                 <tr>
                     <th width="30%">NISN</th>
                     <th width="2%">:</th>
-                    <td>29292929</td>
+                    <td>{{ $siswa->nisn }}</td>
                     <th>Fase</th>
                     <th>:</th>
                     <td>D</td>
@@ -69,22 +54,88 @@
                 </tr>
             </table>
             <br>
-            <table width="100%" class="table table-bordered">
-                <thead>
+            <table width="100%" class="table table-bordered table-sm">
+                <thead style="text-align: center">
                     <th>No</th>
                     <th>Mata Pelajaran</th>
-                    <th>Nilai Akhir</th>
+                    <th width="5%">Nilai Akhir</th>
                     <th>Capaian Kompetensi</th>
                 </thead>
                 <tbody>
                     @foreach ($mapel as $no => $m)
+                        @php
+                            $nilai = DB::selectOne("SELECT * FROM nilai as a where a.id_mapel = '$m->id_mapel' and a.id_siswa = '$id_siswa'");
+                        @endphp
                         <tr>
                             <td>{{ $no + 1 }}</td>
+                            <td>{{ $m->nm_mapel }}</td>
+                            <td>{{ empty($nilai->nilai) ? '-' : $nilai->nilai }}</td>
+                            <td>{{ empty($nilai->ket) ? '-' : $nilai->ket }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <br>
+            <table width="100%" class="table table-bordered table-sm">
+                <thead style="text-align: center">
+                    <th>No</th>
+                    <th>Ekstrakurikuler</th>
+                    <th>Keterangan</th>
+                </thead>
+                <tbody>
+                    @foreach ($ekskul as $no => $e)
+                        <tr>
+                            <td>{{ $no + 1 }}</td>
+                            <td>{{ $e->nm_ekskul }}</td>
                             <td></td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+
+        </div>
+        <div class="col-4">
+            <table width="100%" class="table table-bordered table-sm">
+                <thead style="text-align: center">
+                    <tr>
+                        <th colspan="2">Ketidakhadiran</th>
+                    </tr>
+                </thead>
+                @php
+                    $I = DB::selectOne("SELECT count(a.ket) as I FROM absen as a where id_siswa ='$id_siswa' and a.ket = 'I'");
+                    $S = DB::selectOne("SELECT count(a.ket) as S FROM absen as a where id_siswa ='$id_siswa' and a.ket = 'S'");
+                    $A = DB::selectOne("SELECT count(a.ket) as A FROM absen as a where id_siswa ='$id_siswa' and a.ket = 'A'");
+                @endphp
+                <tbody>
+                    <tr>
+                        <td>Sakit</td>
+                        <td> {{ $S->S }} hari</td>
+                    </tr>
+                    <tr>
+                        <td>Izin</td>
+                        <td> {{ $I->I }} hari</td>
+                    </tr>
+                    <tr>
+                        <td>Tanpa Keterangan</td>
+                        <td> {{ $A->A }} hari</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4"></div>
+        <div class="col-4">
+            <dt style="text-align: center">Banjarmasin,{{ tanggal(date('Y-m-d')) }}</dt>
+        </div>
+        <div class="col-4">
+            <dt style="text-align: center">TTD Orang Tua Peserta Didik</dt>
+        </div>
+        <div class="col-4">
+            <br>
+            <br>
+            <dt style="text-align: center">TTD Kepala Sekolah</dt>
+        </div>
+        <div class="col-4">
+            <dt style="text-align: center">TTD Wali Kelas</dt>
         </div>
 
 

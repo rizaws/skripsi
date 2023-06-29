@@ -29,6 +29,10 @@
                                         <hr style="border: 1px solid blue">
                                     </div>
                                     <div class="col-lg-4">
+                                        <label for="">NISN</label>
+                                        <input type="text" class="form-control" name="nisn" required>
+                                    </div>
+                                    <div class="col-lg-4">
                                         <label for="">Nama Lengkap</label>
                                         <input type="text" class="form-control" name="nama" required>
                                     </div>

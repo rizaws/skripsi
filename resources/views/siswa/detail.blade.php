@@ -10,25 +10,30 @@
                 <td>{{ $siswa->nm_ayah }}</td>
             </tr>
             <tr>
+
+                <td>NISN</td>
+                <td>:</td>
+                <td>{{ $siswa->nisn }}</td>
                 <td>Tempat Lahir</td>
                 <td>:</td>
                 <td>{{ $siswa->tempat_lahir }}</td>
-                <td>Nama Ibu</td>
-                <td>:</td>
-                <td>{{ $siswa->nm_ibu }}</td>
             </tr>
             <tr>
                 <td>Tanggal Lahir</td>
                 <td>:</td>
                 <td>{{ date('d-m-Y', strtotime($siswa->tgl_lahir)) }}</td>
-                <td>No Telp/Hp</td>
+                <td>Nama Ibu</td>
                 <td>:</td>
-                <td>{{ $siswa->no_telp }}</td>
+                <td>{{ $siswa->nm_ibu }}</td>
+
             </tr>
             <tr>
                 <td>Email</td>
                 <td>:</td>
                 <td>{{ $siswa->email }}</td>
+                <td>No Telp/Hp</td>
+                <td>:</td>
+                <td>{{ $siswa->no_telp }}</td>
             </tr>
             <tr>
                 <td>Alamat</td>

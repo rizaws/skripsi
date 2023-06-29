@@ -41,6 +41,7 @@ class SiswaController extends Controller
     {
         $data = [
             'id_kelas'  => $r->id_kelas,
+            'nisn'  => $r->nisn,
             'nama'  => $r->nama,
             'tempat_lahir'  => $r->tempat_lahir,
             'tgl_lahir'  => $r->tgl_lahir,
@@ -83,6 +84,7 @@ class SiswaController extends Controller
     {
         $data = [
             'id_kelas'  => $r->id_kelas,
+            'nisn'  => $r->nisn,
             'nama'  => $r->nama,
             'tempat_lahir'  => $r->tempat_lahir,
             'tgl_lahir'  => $r->tgl_lahir,
