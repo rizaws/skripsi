@@ -80,7 +80,7 @@
                     @foreach ($mapel as $no => $m)
                         <tr>
                             <td>{{ $no + 1 }}</td>
-                            <td>{{ $m->}}</td>
+                            <td></td>
                         </tr>
                     @endforeach
                 </tbody>
