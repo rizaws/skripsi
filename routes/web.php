@@ -49,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/detail_siswa', 'detail')->name('detail_siswa');
         Route::get('/delete_siswa', 'delete_siswa')->name('delete_siswa');
         Route::get('/edit_siswa', 'edit_siswa')->name('edit_siswa');
-        Route::get('/save_edit_siswa', 'save_edit_siswa')->name('save_edit_siswa');
+        Route::post('/save_edit_siswa', 'save_edit_siswa')->name('save_edit_siswa');
     });
     Route::controller(KelasController::class)->group(function () {
         Route::get('/data_kelas', 'index')->name('data_kelas');
@@ -106,6 +106,19 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/print_siswa', 'print_siswa')->name('print_siswa');
         Route::get('/LaporanGuru', 'LaporanGuru')->name('LaporanGuru');
         Route::get('/print_guru', 'print_guru')->name('print_guru');
+        Route::get('/LaporanAbsen', 'LaporanAbsen')->name('LaporanAbsen');
+        Route::get('/print_absen', 'print_absen')->name('print_absen');
+        Route::get('/LaporanJadwalPelajaran', 'LaporanJadwalPelajaran')->name('LaporanJadwalPelajaran');
+        Route::get('/print_jadwal', 'print_jadwal')->name('print_jadwal');
+        Route::get('/LaporanNilaiRapor', 'LaporanNilaiRapor')->name('LaporanNilaiRapor');
+        Route::get('/get_nilai_siswa', 'get_nilai_siswa')->name('get_nilai_siswa');
+        Route::get('/print_nilai', 'print_nilai')->name('print_nilai');
+        Route::get('/LaporanAnggotaEskul', 'LaporanAnggotaEskul')->name('LaporanAnggotaEskul');
+        Route::get('/print_ekskul', 'print_ekskul')->name('print_ekskul');
+        Route::get('/LaporanPrestasiSiswa', 'LaporanPrestasiSiswa')->name('LaporanPrestasiSiswa');
+        Route::get('/print_prestasi', 'print_prestasi')->name('print_prestasi');
+        Route::get('/LaporanRaporSiswa', 'LaporanRaporSiswa')->name('LaporanRaporSiswa');
+        Route::get('/print_rapor', 'print_rapor')->name('print_rapor');
     });
 });
 

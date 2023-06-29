@@ -24,7 +24,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-4">
-                                        <button type="submit" class="btn btn-primary ">Pilih Ekskul</button>
+                                        <button type="submit" class="btn btn-primary ">Filter</button>
                                     </div>
                                 </div>
                             </form>
