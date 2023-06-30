@@ -82,7 +82,7 @@
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#detail"
                                                     class="btn btn-sm btn-info detail" id_guru="{{ $g->id_guru }}"><i
                                                         class="fas fa-eye"></i></a>
-                                                <a href="{{ route('edit_siswa', ['id_guru' => $g->id_guru]) }}"
+                                                <a href="{{ route('edit_guru', ['id_guru' => $g->id_guru]) }}"
                                                     class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                                 <a href="#" class="btn btn-sm btn-danger hapus" data-bs-toggle="modal"
                                                     data-bs-target="#hapus" id_guru="{{ $g->id_guru }}"><i

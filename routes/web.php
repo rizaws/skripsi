@@ -79,6 +79,7 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(GuruController::class)->group(function () {
         Route::get('/data_guru', 'index')->name('data_guru');
         Route::get('/tambah_data_guru', 'tambah_data_guru')->name('tambah_data_guru');
+        Route::get('/data_guru', 'data_guru')->name('data_guru');
         Route::post('/save_guru', 'save_guru')->middleware('web')->name('save_guru');
         Route::get('/delete_guru', 'delete_guru')->name('delete_guru');
         Route::post('/store', 'store')->middleware('web')->name('store');
