@@ -59,6 +59,8 @@
                                         <th>Nama</th>
                                         <th>Tempat</th>
                                         <th>Tanggal Lahir</th>
+                                        <th>Posisi</th>
+                                        <th>TTD</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -70,6 +72,12 @@
                                             <td>{{ $g->nm_guru }}</td>
                                             <td>{{ $g->tempat_lahir }}</td>
                                             <td>{{ tanggal($g->tgl_lahir) }}</td>
+                                            <td>{{ $g->posisi }}</td>
+                                            <td>
+                                                <div class="visible-print text-center">
+                                                    {!! QrCode::size(80)->generate(url('/assets/ttd/' . $g->image)) !!}
+                                                </div>
+                                            </td>
                                             <td>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#detail"
                                                     class="btn btn-sm btn-info detail" id_guru="{{ $g->id_guru }}"><i

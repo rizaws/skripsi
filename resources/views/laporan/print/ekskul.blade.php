@@ -72,12 +72,9 @@
         <div class="col-6">
             <p class="text-center">Mengetahui,</p><br>
             <p class="text-center">Kepala MTS Negeri 2 Banjarmasin</p>
-            <br>
-            <br>
-            <br>
-            <br>
-            <p class="text-center"><u class="fw-bold text-center">Murjani,S.Pd.M.M</u></p><br>
-            <p class="text-center">NIP:19680307 199802 1 003</p>
+            <p class="text-center">{!! QrCode::size(100)->generate(url('/assets/ttd/' . $kepsek->image)) !!}</p>
+            <p class="text-center"><u class="fw-bold text-center">{{ $kepsek->nm_guru }}</u></p><br>
+            <p class="text-center">NIP:{{ $kepsek->nip }}</p>
         </div>
 
     </div>

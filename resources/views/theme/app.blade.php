@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     {{-- membuat navbar active tidak error --}}
     <meta name="turbolinks-cache-control" content="no-cache">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- <meta name="turbolinks-visit-control" content="reload"> --}}
     <title>{{ $title }}</title>
 

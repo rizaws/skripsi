@@ -1,21 +1,17 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+<!-- signature.blade.php -->
+@extends('layouts.app')
 
-    <div class="py-12">
+@section('content')
+    <div>
+        <h1>Pad Tanda Tangan</h1>
         <div>
-            <h1>Pad Tanda Tangan</h1>
-            <div>
-                <canvas id="signatureCanvas" width="500" height="200"></canvas>
-                <button id="clearButton">Hapus</button>
-                <button id="saveButton">Simpan</button>
-            </div>
+            <canvas id="signatureCanvas" width="500" height="200"></canvas>
+            <button id="clearButton">Hapus</button>
+            <button id="saveButton">Simpan</button>
         </div>
     </div>
-</x-app-layout>
+@endsection
+
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/signature_pad"></script>
     <script>
