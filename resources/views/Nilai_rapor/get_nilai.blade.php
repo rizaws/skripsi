@@ -47,7 +47,7 @@
                             <td>{{ $no + 1 }}</td>
                             <td>{{ $s->nama }}</td>
                             <td>
-                                <input type="number" name="nilai[]" max="10"
+                                <input type="number" name="nilai[]" max="100"
                                     value="{{ empty($nilai->nilai) ? '0' : $nilai->nilai }}" class="form-control">
                             </td>
                             <td>

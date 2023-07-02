@@ -53,6 +53,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nama</th>
+                                        <th>Ekskul</th>
                                         <th>Kelas</th>
                                         <th>Tempat,Tanggal Lahir</th>
                                         <th>Jenis Kelamin</th>
@@ -64,13 +65,14 @@
                                         <tr>
                                             <td>{{ $no + 1 }}</td>
                                             <td>{{ $a->nama }}</td>
+                                            <td>{{ $a->nm_ekskul }}</td>
                                             <td>{{ $a->nm_kelas }}</td>
                                             <td>{{ $a->tempat_lahir }}, {{ tanggal($a->tgl_lahir) }}</td>
                                             <td>{{ $a->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
                                             <td>
                                                 <a href="" class="btn btn-warning btn-sm"><i
                                                         class="fas fa-edit"></i></a>
-                                                <a href="" class="btn btn-danger btn-sm"><i
+                                                <a href="{{route('delete_anggota_ekskul',['id_anggota_ekskul' => $a->id_anggota_ekskul])}}" class="btn btn-danger btn-sm"><i
                                                         class="fas fa-trash-alt"></i></a>
                                             </td>
                                         </tr>

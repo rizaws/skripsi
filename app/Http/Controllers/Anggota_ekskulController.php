@@ -9,20 +9,29 @@ class Anggota_ekskulController extends Controller
 {
     public function index(Request $r)
     {
-        if (empty($r->id_ekskul)) {
-            $id_ekskul = '1';
+        if (empty($r->id_ekskul) || $r->id_ekskul == '0') {
+            $ekskul = DB::select("SELECT * FROM anggota_ekskul as a 
+            left join siswa as b on b.id_siswa = a.id_siswa 
+            left join kelas as c on c.id_kelas = b.id_kelas
+            left join ekskul as d on d.id_ekskul = a.id_ekskul
+            order by a.id_anggota_ekskul");
+            $id_ekskul = '0';
         } else {
             $id_ekskul = $r->id_ekskul;
+            $ekskul = DB::select("SELECT * FROM anggota_ekskul as a 
+            left join siswa as b on b.id_siswa = a.id_siswa 
+            left join kelas as c on c.id_kelas = b.id_kelas
+            left join ekskul as d on d.id_ekskul = a.id_ekskul
+            where a.id_ekskul = $r->id_ekskul
+            order by a.id_anggota_ekskul");
         }
         $nm_eskul = DB::table('ekskul')->where('id_ekskul',$id_ekskul)->first();
         
         $data = [
             'title' => 'Data anggota ekskul',
             'ekskul' => DB::table('ekskul')->orderBy('id_ekskul','DESC')->get(),
-            'anggota' => DB::select("SELECT * FROM anggota_ekskul as a left join siswa as b on b.id_siswa = a.id_siswa 
-            left join kelas as c on c.id_kelas = b.id_kelas
-            where a.id_ekskul = '$id_ekskul' order by a.id_anggota_ekskul"),
-            'nm_ekskul' => $nm_eskul->nm_ekskul,
+            'anggota' => $ekskul,
+            'nm_ekskul' => empty($nm_eskul->nm_ekskul) ? 'Semua Ekskul' : $nm_eskul->nm_ekskul,
             'id_ekskul' => $id_ekskul,
             'kelas' => DB::table('kelas')->get()
         ];
@@ -54,5 +63,10 @@ class Anggota_ekskulController extends Controller
             return redirect()->route('anggota_ekskul',['id_ekskul'=>$r->id_ekskul])->with('error', 'Siswa sudah terdaftar');
         }
         
+    }
+
+    public function delete(Request $r) {
+    DB::table('anggota_ekskul')->where('id_anggota_ekskul',$r->id_anggota_ekskul)->delete();
+    return redirect()->route('anggota_ekskul')->with('success', 'Berhasil dihapus');
     }
 }

@@ -50,6 +50,12 @@
                         <span>Dashboard </span>
                     </a>
                 </li>
+                <li class="sidebar-item  {{ Request::is('belajar') ? 'active' : '' }}">
+                    <a href="{{ route('belajar') }}" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Belajar</span>
+                    </a>
+                </li>
                 @if (Auth::user()->level == 'siswa')
                 @else
                     @php

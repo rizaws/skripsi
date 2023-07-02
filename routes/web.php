@@ -12,6 +12,7 @@ use App\Http\Controllers\EkskulController;
 use App\Http\Controllers\Anggota_ekskulController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\TestingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -99,10 +100,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/anggota_ekskul', 'index')->name('anggota_ekskul');
         Route::get('/get_siswa', 'get_siswa')->name('get_siswa');
         Route::post('/tambah_anggota_ekskul', 'tambah_anggota_ekskul')->name('tambah_anggota_ekskul');
+        Route::get('/delete_anggota_ekskul', 'delete')->name('delete_anggota_ekskul');
     });
     Route::controller(PrestasiController::class)->group(function () {
         Route::get('/prestasi_siswa', 'index')->name('prestasi_siswa');
         Route::post('/tambah_siswa_prestasi', 'tambah_siswa_prestasi')->name('tambah_siswa_prestasi');
+    });
+    Route::controller(TestingController::class)->group(function () {
+        Route::get('/belajar', 'index')->name('belajar');
     });
     Route::controller(LaporanController::class)->group(function () {
         Route::get('/LaporanSiswa', 'LaporanSiswa')->name('LaporanSiswa');
