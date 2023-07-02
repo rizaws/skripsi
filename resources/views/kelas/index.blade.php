@@ -30,6 +30,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Kelas</th>
+                                        <th>Wali Kelas</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -38,10 +39,11 @@
                                         <tr>
                                             <td>{{ $no + 1 }}</td>
                                             <td>{{ $s->nm_kelas }}</td>
+                                            <td>{{ $s->nm_guru }}</td>
                                             <td>
-                                                <a href="#" class="btn btn-sm btn-warning edit"
-                                                    id_kelas="{{ $s->id_kelas }}"><i class="fas fa-edit"
-                                                        data-bs-toggle="modal" data-bs-target="#edit"></i></a>
+                                                <a href="#" class="btn btn-sm btn-warning edit" data-bs-toggle="modal"
+                                                    data-bs-target="#edit" id_kelas="{{ $s->id_kelas }}"><i
+                                                        class="fas fa-edit"></i></a>
                                                 <a href="#" class="btn btn-sm btn-danger hapus" data-bs-toggle="modal"
                                                     data-bs-target="#hapus" id_kelas="{{ $s->id_kelas }}"><i
                                                         class="fas fa-trash-alt"></i></a>
@@ -61,7 +63,7 @@
             @csrf
             <div class="modal fade text-left" id="tambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
                 aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-dialog " role="document">
                     <div class="modal-content ">
                         <div class="modal-header">
                             <h5 class="modal-title" id="myModalLabel1">Tambah Kelas</h5>
@@ -71,9 +73,18 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <label for="">Nama Kelas</label>
                                     <input type="text" class="form-control" name="nm_kelas">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="">Wali Kelas</label>
+                                    <select name="id_guru" id="" class="choices form-select">
+                                        <option value="">-Pilih Wali Kelas-</option>
+                                        @foreach ($guru as $g)
+                                            <option value="{{ $g->id_guru }}">{{ $g->nm_guru }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +104,7 @@
             @csrf
             <div class="modal fade text-left" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
                 aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-dialog " role="document">
                     <div class="modal-content ">
                         <div class="modal-header">
                             <h5 class="modal-title" id="myModalLabel1">Edit Kelas</h5>
@@ -118,7 +129,8 @@
 
 
         <form method="get" action="{{ route('delete_kelas') }}">
-            <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-body">

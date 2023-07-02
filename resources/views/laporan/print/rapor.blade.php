@@ -140,6 +140,10 @@
         </div>
         <div class="col-4">
             <dt style="text-align: center">TTD Wali Kelas</dt>
+            <br>
+            <p class="text-center">{!! QrCode::size(100)->generate(url('/assets/ttd/' . $wali_kelas->image)) !!}</p>
+            <p class="text-center"><u class="fw-bold text-center">{{ $wali_kelas->nm_guru }}</u></p>
+            <p class="text-center">NIP:{{ $wali_kelas->nip }}</p>
         </div>
 
 

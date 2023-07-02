@@ -349,14 +349,17 @@ class LaporanController extends Controller
 
     public function print_rapor(Request $r)
     {
+        $siswa = DB::table('siswa')->join('kelas','kelas.id_kelas','siswa.id_kelas')->where('id_siswa',$r->id_siswa)->first();
+        
         $data = [
             'title' => 'Print Rapor Siswa',
             'id_siswa' => $r->id_siswa,
-            'siswa' => DB::table('siswa')->join('kelas','kelas.id_kelas','siswa.id_kelas')->where('id_siswa',$r->id_siswa)->first(),
+            'siswa' => $siswa,
             'mapel' => DB::table('mapel')->get(),
             'ekskul' => DB::select("SELECT b.nm_ekskul FROM anggota_ekskul as a 
             left join ekskul as b on b.id_ekskul = a.id_ekskul
             where a.id_siswa = '$r->id_siswa'"),
+            'wali_kelas' => DB::selectOne("SELECT * FROM kelas as a left join guru as b on b.id_guru = a.id_guru where a.id_kelas = $siswa->id_kelas "),
             'kepsek' => DB::table('guru')->where('posisi','kepsek')->first(),
         ];
         return view('laporan.print.rapor',$data);
