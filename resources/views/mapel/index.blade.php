@@ -39,9 +39,9 @@
                                             <td>{{ $no + 1 }}</td>
                                             <td>{{ $s->nm_mapel }}</td>
                                             <td>
-                                                <a href="#" class="btn btn-sm btn-warning edit"
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#edit" class="btn btn-sm btn-warning edit"
                                                     id_mapel="{{ $s->id_mapel }}"><i class="fas fa-edit"
-                                                        data-bs-toggle="modal" data-bs-target="#edit"></i></a>
+                                                        ></i></a>
                                                 <a href="#" class="btn btn-sm btn-danger hapus" data-bs-toggle="modal"
                                                     data-bs-target="#hapus" id_mapel="{{ $s->id_mapel }}"><i
                                                         class="fas fa-trash-alt"></i></a>
