@@ -34,9 +34,7 @@ class KelasController extends Controller
             return redirect()->route('data_kelas')->with('sukses', 'Berhasil dihapus');
         } else {
             return redirect()->route('data_kelas')->with('error', 'Kelas gagal dihapus');
-        }
-        
-        
+        }  
     }
 
     public function get_edit_kelas(Request $r)

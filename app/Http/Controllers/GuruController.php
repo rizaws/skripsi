@@ -37,6 +37,16 @@ class GuruController extends Controller
            return view('Guru.tambah',$data);
     }
 
+    public function edit_guru(Request $r)
+    {
+        $data = [
+            'title' => 'Edit Data Guru',
+            'mapel' => DB::table('mapel')->get(),
+            'guru' => DB::table('guru')->where('id_guru',$r->id_guru)->first()
+        ];
+        return view('Guru.edit',$data);
+    }
+
     public function save_guru(Request $request)
     {
         $validatedData = $request->validate([
@@ -67,6 +77,53 @@ class GuruController extends Controller
         return redirect()->route('data_guru')->with('success', 'Data guru berhasil disimpan.');
 
     }
+    public function save_edit_guru(Request $request)
+    {
+
+        if (empty($request->signature)) {
+    
+           DB::table('guru')->where('id_guru', $request->id_guru)->update([
+                'nip' => $request->nip,
+                'nm_guru'=> $request->nm_guru,
+                'tempat_lahir'=> $request->tempat_lahir,
+                'tgl_lahir'=> $request->tgl_lahir,
+                'jenis_kelamin'=> $request->jenis_kelamin,
+                'id_mapel'=> $request->id_mapel,
+                'alamat'=> $request->alamat,
+                'posisi'=> $request->posisi,
+            ]);
+        } else {
+            $validatedData = $request->validate([
+                'signature' => 'required',
+            ]);
+    
+            $signatureData = $validatedData['signature'];
+            
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureData));
+    
+            $filename = time() . '.png';
+    
+            $path = public_path('assets/ttd/') . $filename;
+            file_put_contents($path, $imageData);
+    
+           DB::table('guru')->where('id_guru', $request->id_guru)->update([
+                'nip' => $request->nip,
+                'nm_guru'=> $request->nm_guru,
+                'tempat_lahir'=> $request->tempat_lahir,
+                'tgl_lahir'=> $request->tgl_lahir,
+                'jenis_kelamin'=> $request->jenis_kelamin,
+                'id_mapel'=> $request->id_mapel,
+                'alamat'=> $request->alamat,
+                'posisi'=> $request->posisi,
+                'image' => $filename,
+            ]);
+        }
+        
+        
+        
+        return redirect()->route('data_guru')->with('success', 'Data guru berhasil disimpan.');
+
+    }
 
     public function delete_guru(Request $r)
     {
@@ -74,57 +131,5 @@ class GuruController extends Controller
         return redirect()->route('data_guru')->with('sukses', 'Berhasil hapus data guru');
     }
 
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'signature' => 'required',
-        ]);
-
-        $signatureData = $validatedData['signature'];
-        
-        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureData));
-
-        $filename = time() . '.png';
-
-        $path = public_path('assets/ttd/') . $filename;
-        file_put_contents($path, $imageData);
-
-        DB::table('tes')->insert([
-            'user_id' => auth()->user()->id,
-            'image' => $filename,
-        ]);
-        
-
-        return response()->json(['success' => true]);
-    }
-
-    public function store2(Request $request)
-    {
-        $validatedData = $request->validate([
-            'signature' => 'required',
-        ]);
-
-        $signatureData = $validatedData['signature'];
-        
-        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureData));
-
-        $filename = time() . '.png';
-
-        $path = public_path('assets/ttd/') . $filename;
-        file_put_contents($path, $imageData);
-
-        DB::table('guru')->insert([
-            'nip' => $request->nip,
-            'nm_guru'=> $request->nm_guru,
-            'tempat_lahir'=> $request->tempat_lahir,
-            'tgl_lahir'=> $request->tgl_lahir,
-            'jenis_kelamin'=> $request->jenis_kelamin,
-            'id_mapel'=> $request->id_mapel,
-            'alamat'=> $request->alamat,
-            'image' => $filename,
-        ]);
-        
-
-        return response()->json(['success' => true]);
-    }
+    
 }

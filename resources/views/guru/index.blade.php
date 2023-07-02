@@ -74,14 +74,12 @@
                                             <td>{{ tanggal($g->tgl_lahir) }}</td>
                                             <td>{{ $g->posisi }}</td>
                                             <td>
-                                                <div class="visible-print text-center">
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#zoom{{ $g->id_guru }}">
                                                     {!! QrCode::size(80)->generate(url('/assets/ttd/' . $g->image)) !!}
-                                                </div>
+                                                </a>
                                             </td>
                                             <td>
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#detail"
-                                                    class="btn btn-sm btn-info detail" id_guru="{{ $g->id_guru }}"><i
-                                                        class="fas fa-eye"></i></a>
                                                 <a href="{{ route('edit_guru', ['id_guru' => $g->id_guru]) }}"
                                                     class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                                 <a href="#" class="btn btn-sm btn-danger hapus" data-bs-toggle="modal"
@@ -97,12 +95,39 @@
                 </div>
             </div>
         </div>
+
+        @foreach ($guru as $no => $g)
+            <div class="modal fade text-left" id="zoom{{ $g->id_guru }}" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel1" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel1">Qr Code TTD</h5>
+                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                <i data-feather="x"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                {!! QrCode::size(200)->generate(url('/assets/ttd/' . $g->image)) !!}
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Tutup</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
         <div class="modal fade text-left" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
             aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content ">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel1">Detail Siswa</h5>
+                        <h5 class="modal-title" id="myModalLabel1">Detail Guru</h5>
                         <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
                             <i data-feather="x"></i>
                         </button>

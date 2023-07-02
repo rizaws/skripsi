@@ -81,6 +81,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/tambah_data_guru', 'tambah_data_guru')->name('tambah_data_guru');
         Route::get('/edit_guru', 'edit_guru')->name('edit_guru');
         Route::post('/save_guru', 'save_guru')->middleware('web')->name('save_guru');
+        Route::post('/save_edit_guru', 'save_edit_guru')->middleware('web')->name('save_edit_guru');
         Route::get('/delete_guru', 'delete_guru')->name('delete_guru');
         Route::post('/store', 'store')->middleware('web')->name('store');
     });
