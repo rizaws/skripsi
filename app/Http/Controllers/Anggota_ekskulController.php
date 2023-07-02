@@ -48,6 +48,20 @@ class Anggota_ekskulController extends Controller
         }
     }
 
+    public function get_edit_anggota_ekskul(Request $r)
+    {
+        $anggota = DB::table('anggota_ekskul')->where('id_anggota_ekskul',$r->id_anggota_ekskul)->first();
+        $siswa = DB::table('siswa')->where('id_siswa',$anggota->id_siswa)->first();
+        $data = [
+            'anggota' => $anggota,
+            'kelas' => DB::table('kelas')->get(),
+            'id_kelas' => $siswa->id_kelas,
+            'ekskul' => DB::table('ekskul')->orderBy('id_ekskul','DESC')->get(),
+            'siswa' => DB::table('siswa')->where('id_kelas',$siswa->id_kelas)->get()
+        ];
+        return view('Anggota_ekskul.get_anggota_ekskul',$data);
+    }
+
     public function tambah_anggota_ekskul(Request $r)
     {
         $cek = DB::table('anggota_ekskul')->where([['id_siswa',$r->id_siswa],['id_ekskul',$r->id_ekskul]])->first();
@@ -64,9 +78,25 @@ class Anggota_ekskulController extends Controller
         }
         
     }
+    public function edit_anggota_ekskul(Request $r)
+    {
+        $cek = DB::table('anggota_ekskul')->where([['id_siswa',$r->id_siswa],['id_ekskul',$r->id_ekskul]])->first();
+
+        if (empty($cek)) {
+            $data = [
+                'id_siswa' => $r->id_siswa,
+                'id_ekskul' => $r->id_ekskul
+            ];
+            DB::table('anggota_ekskul')->where('id_anggota_ekskul',$r->id_anggota_ekskul)->update($data);
+            return redirect()->route('anggota_ekskul',['id_ekskul'=>$r->id_ekskul])->with('sukses', 'Berhasil tambah data anggota');
+        }else{
+            return redirect()->route('anggota_ekskul',['id_ekskul'=>$r->id_ekskul])->with('error', 'Siswa sudah terdaftar');
+        }
+        
+    }
 
     public function delete(Request $r) {
-    DB::table('anggota_ekskul')->where('id_anggota_ekskul',$r->id_anggota_ekskul)->delete();
-    return redirect()->route('anggota_ekskul')->with('success', 'Berhasil dihapus');
+        DB::table('anggota_ekskul')->where('id_anggota_ekskul',$r->id_anggota_ekskul)->delete();
+        return redirect()->route('anggota_ekskul')->with('success', 'Berhasil dihapus');
     }
 }

@@ -94,17 +94,24 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(EkskulController::class)->group(function () {
         Route::get('/ekskul', 'index')->name('ekskul');
         Route::post('/tambah_ekskul', 'tambah_ekskul')->name('tambah_ekskul');
+        Route::post('/edit_ekskul', 'edit_ekskul')->name('edit_ekskul');
+        Route::get('/get_edit_ekskul', 'get_edit_ekskul')->name('get_edit_ekskul');
         Route::get('/delete_ekskul', 'delete_ekskul')->name('delete_ekskul');
     });
     Route::controller(Anggota_ekskulController::class)->group(function () {
         Route::get('/anggota_ekskul', 'index')->name('anggota_ekskul');
         Route::get('/get_siswa', 'get_siswa')->name('get_siswa');
+        Route::get('/get_edit_anggota_ekskul', 'get_edit_anggota_ekskul')->name('get_edit_anggota_ekskul');
         Route::post('/tambah_anggota_ekskul', 'tambah_anggota_ekskul')->name('tambah_anggota_ekskul');
+        Route::post('/edit_anggota_ekskul', 'edit_anggota_ekskul')->name('edit_anggota_ekskul');
         Route::get('/delete_anggota_ekskul', 'delete')->name('delete_anggota_ekskul');
     });
     Route::controller(PrestasiController::class)->group(function () {
         Route::get('/prestasi_siswa', 'index')->name('prestasi_siswa');
+        Route::get('/get_edit_prestasi', 'get_edit_prestasi')->name('get_edit_prestasi');
+        Route::get('/delete_prestasi', 'delete')->name('delete_prestasi');
         Route::post('/tambah_siswa_prestasi', 'tambah_siswa_prestasi')->name('tambah_siswa_prestasi');
+        Route::post('/edit_prestasi', 'edit_prestasi')->name('edit_prestasi');
     });
     Route::controller(TestingController::class)->group(function () {
         Route::get('/belajar', 'index')->name('belajar');

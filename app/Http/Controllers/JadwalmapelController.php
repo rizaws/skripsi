@@ -32,6 +32,8 @@ class JadwalmapelController extends Controller
 
     public function save_jadwal(Request $r)
     {
+
+        DB::table('jadwalmapel')->where('id_jadwalmapel',$r->id_jadwal)->delete();
         $data=[
             'id_kelas'=> $r->id_kelas,
             'id_mapel'=> $r->id_mapel,

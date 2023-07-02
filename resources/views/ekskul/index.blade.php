@@ -41,9 +41,9 @@
                                             <td>{{ $e->nm_ekskul }}</td>
                                             <td>{{ $e->nm_pembina }}</td>
                                             <td>
-                                                <a href="#" class="btn btn-sm btn-warning edit"
-                                                    id_ekskul="{{ $e->id_ekskul }}"><i class="fas fa-edit"
-                                                        data-bs-toggle="modal" data-bs-target="#edit"></i>
+                                                <a href="#" class="btn btn-sm btn-warning edit" data-bs-toggle="modal"
+                                                    data-bs-target="#edit" id_ekskul="{{ $e->id_ekskul }}"><i
+                                                        class="fas fa-edit"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-sm btn-danger hapus" data-bs-toggle="modal"
                                                     data-bs-target="#hapus" id_ekskul="{{ $e->id_ekskul }}"><i
@@ -96,20 +96,20 @@
             </div>
         </form>
 
-        <form action="{{ route('edit_mapel') }}" method="post">
+        <form action="{{ route('edit_ekskul') }}" method="post">
             @csrf
             <div class="modal fade text-left" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content ">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel1">Edit Mata Pelajaran</h5>
+                            <h5 class="modal-title" id="myModalLabel1">Edit Ekstrakurikuler</h5>
                             <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
                                 <i data-feather="x"></i>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div id="mapel"></div>
+                            <div id="ekskul"></div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn" data-bs-dismiss="modal">
@@ -163,13 +163,13 @@
     <script>
         $(document).ready(function() {
             $(document).on('click', '.edit', function() {
-                var id_mapel = $(this).attr('id_mapel');
+                var id_ekskul = $(this).attr('id_ekskul');
 
                 $.ajax({
                     type: "get",
-                    url: "/get_edit_mapel?id_mapel=" + id_mapel,
+                    url: "/get_edit_ekskul?id_ekskul=" + id_ekskul,
                     success: function(data) {
-                        $('#mapel').html(data);
+                        $('#ekskul').html(data);
                     }
                 });
             });

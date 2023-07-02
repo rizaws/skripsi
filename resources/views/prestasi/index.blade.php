@@ -71,10 +71,11 @@
                                             <td>{{ $a->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
                                             <td>{{ $a->prestasi }}</td>
                                             <td>
-                                                <a href="" class="btn btn-warning btn-sm"><i
-                                                        class="fas fa-edit"></i></a>
-                                                <a href="" class="btn btn-danger btn-sm"><i
-                                                        class="fas fa-trash-alt"></i></a>
+                                                <a href="#" class="btn btn-sm btn-warning edit" data-bs-toggle="modal"
+                                                    data-bs-target="#edit" id_prestasi="{{ $a->id_prestasi }}"><i
+                                                        class="fas fa-edit"></i>
+                                                    <a href="{{ route('delete_prestasi', ['id_prestasi' => $a->id_prestasi]) }}"
+                                                        class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -133,32 +134,37 @@
                 </div>
             </div>
         </form>
-        <div class="modal fade text-left" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content ">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel1">Detail Siswa</h5>
-                        <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
-                            <i data-feather="x"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div id="get_detail"></div>
+
+        <form action="{{ route('edit_prestasi') }}" method="post">
+            @csrf
+            <div class="modal fade text-left" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel1">Edit Siswa berprestasi</h5>
+                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <i data-feather="x"></i>
+                            </button>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn" data-bs-dismiss="modal">
-                            <i class="bx bx-x d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Tutup</span>
-                        </button>
+                        <div class="modal-body">
+                            <div id="prestasi"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Tutup</span>
+                            </button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
 
-        <form method="get" action="{{ route('delete_siswa') }}">
+
+        {{-- <form method="get" action="{{ route('delete_siswa') }}">
             <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -178,7 +184,7 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </form> --}}
 
 
         {{-- <footer>
@@ -197,22 +203,7 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $(document).on('click', '.detail', function() {
-                var id_siswa = $(this).attr('id_siswa');
 
-                $.ajax({
-                    type: "get",
-                    url: "/detail_siswa?id_siswa=" + id_siswa,
-                    success: function(data) {
-                        $('#get_detail').html(data);
-                    }
-                });
-            });
-            $(document).on('click', '.hapus', function() {
-                var id_siswa = $(this).attr('id_siswa');
-
-                $('.id_siswa').val(id_siswa);
-            });
             $(document).on('change', '.get_siswa', function() {
                 var id_kelas = $(this).val();
                 $.ajax({
@@ -220,6 +211,18 @@
                     url: "/get_siswa?id_kelas=" + id_kelas,
                     success: function(data) {
                         $('.load_siswa').html(data)
+                    }
+                });
+            });
+
+            $(document).on('click', '.edit', function() {
+                var id_prestasi = $(this).attr('id_prestasi');
+
+                $.ajax({
+                    type: "get",
+                    url: "/get_edit_prestasi?id_prestasi=" + id_prestasi,
+                    success: function(data) {
+                        $('#prestasi').html(data);
                     }
                 });
             });

@@ -72,7 +72,7 @@
 
                                                 @foreach ($hari as $h)
                                                     @php
-                                                        $jadwal = DB::selectOne("SELECT b.nm_mapel FROM jadwalmapel as a 
+                                                        $jadwal = DB::selectOne("SELECT a.id_jadwalmapel, b.nm_mapel FROM jadwalmapel as a 
                                                         left join mapel as b on b.id_mapel = a.id_mapel
                                                         where a.id_jam = '$j->id_jam_belajar' and a.id_hari = '$h->id_hari' and a.id_kelas = '$id_kelas'
                                                         ");
@@ -91,7 +91,14 @@
                                                                 </a>
                                                             @endif
                                                         @else
-                                                            {{ $jadwal->nm_mapel }}
+                                                            <a href="#" class="tambah_jadwal_pelajaran"
+                                                                data-bs-toggle="modal" data-bs-target="#tambah_jadwal"
+                                                                id_kelas="{{ $id_kelas }}"
+                                                                id_jam="{{ $j->id_jam_belajar }}"
+                                                                id_hari="{{ $h->id_hari }}"
+                                                                id_jadwal={{ $jadwal->id_jadwalmapel }}>
+                                                                {{ $jadwal->nm_mapel }}
+                                                            </a>
                                                         @endif
 
                                                     </td>
@@ -125,6 +132,7 @@
                                 <input type="hidden" name="id_kelas" class="id_kelas">
                                 <input type="hidden" name="id_jam" class="id_jam">
                                 <input type="hidden" name="id_hari" class="id_hari">
+                                <input type="hidden" name="id_jadwal" class="id_jadwal">
                                 <div class="col-lg-12">
                                     <label for="">Mata Pelajaran</label>
                                     <select name="id_mapel" id="" class="choices form-select">
@@ -157,10 +165,12 @@
                 var id_kelas = $(this).attr('id_kelas');
                 var id_jam = $(this).attr('id_jam');
                 var id_hari = $(this).attr('id_hari');
+                var id_jadwal = $(this).attr('id_jadwal');
 
                 $('.id_kelas').val(id_kelas);
                 $('.id_jam').val(id_jam);
                 $('.id_hari').val(id_hari);
+                $('.id_jadwal').val(id_jadwal);
             });
         });
     </script>

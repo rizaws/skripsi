@@ -42,9 +42,9 @@ class GuruController extends Controller
         $data = [
             'title' => 'Edit Data Guru',
             'mapel' => DB::table('mapel')->get(),
-            'guru' => DB::table('guru')->where('id_guru',$r->id_guru)->first()
+            'guru' => DB::table('guru')->where('id_guru', $r->id_guru)->first()
         ];
-        return view('Guru.edit',$data);
+        return view('Guru.edit', $data);
     }
 
     public function save_guru(Request $request)

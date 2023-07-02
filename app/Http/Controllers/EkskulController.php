@@ -26,6 +26,24 @@ class EkskulController extends Controller
         return redirect()->route('ekskul')->with('sukses', 'Berhasil disimpan');
     }
 
+    public function edit_ekskul(Request $r)
+    {
+        $data = [
+            'nm_ekskul' => $r->nm_ekskul,
+            'nm_pembina' => $r->nm_pembina
+        ];
+        DB::table('ekskul')->where('id_ekskul',$r->id_ekskul)->update($data);
+        return redirect()->route('ekskul')->with('sukses', 'Berhasil disimpan');
+    }
+
+    public function get_edit_ekskul(Request $r)
+    {
+        $data = [
+            'ekskul' => DB::table('ekskul')->where('id_ekskul',$r->id_ekskul)->first()
+        ];
+        return view('ekskul.get_ekskul',$data);
+    }
+
     public function delete_ekskul(Request $r)
     {
         DB::table('ekskul')->where('id_ekskul',$r->id_ekskul)->delete();
