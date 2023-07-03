@@ -101,6 +101,7 @@
                 <div class="form-group">
                     <label for="">Nama</label>
                     <input type="text" value="{{ $d->name }}" class="form-control" name="nama">
+                    <input type="text" value="{{ $d->id }}" class="form-control" name="id">
                 </div>
             </div>
             <div class="col-lg-4">

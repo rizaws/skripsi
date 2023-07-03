@@ -13,7 +13,7 @@ class UserController extends Controller
             'title' => 'Data User',
             'user' => User::all()
         ];
-        return view('user.user',$data);
+        return view('user.user', $data);
     }
 
     public function create(Request $r)
