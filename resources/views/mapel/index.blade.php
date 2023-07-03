@@ -156,7 +156,6 @@
     $(document).ready(function() {
             $(document).on('click', '.edit', function() {
                 var id_mapel = $(this).attr('id_mapel');
-
                 $.ajax({
                     type: "get",
                     url: "/get_edit_mapel?id_mapel=" + id_mapel,
@@ -167,7 +166,6 @@
             });
             $(document).on('click', '.hapus', function() {
                 var id_mapel = $(this).attr('id_mapel');
-
                 $('.id_mapel').val(id_mapel);
             });
         });
