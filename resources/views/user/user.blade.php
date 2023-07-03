@@ -6,10 +6,10 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title" style="float: left">{{ $title }}</h3>
-                    <button type="button" class="btn btn-primary" style="float: right" data-bs-toggle="modal"
+                    {{-- <button type="button" class="btn btn-primary" style="float: right" data-bs-toggle="modal"
                         data-bs-target="#modal-tambah">
                         <i class="bi bi-plus"></i> Tambah Data
-                    </button>
+                    </button> --}}
                 </div>
                 <div class="card-body">
                     <table class="table" id="table1">
