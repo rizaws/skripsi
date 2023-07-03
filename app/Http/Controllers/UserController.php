@@ -35,7 +35,7 @@ class UserController extends Controller
             'email' => $r->email,
             'level' => $r->level,
         ];
-        User::find($r->id_user)->update($data);
+        User::where('id', $r->id)->update($data);
         return redirect()->route('user')->with('sukses', 'Berhasil edit data user');
     }
     public function destroy($id)
