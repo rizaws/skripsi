@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Hash;
 class SiswaController extends Controller
 {
     public function index(Request $r)
     {
         if (empty($r->id_kelas)) {
-            $id_kelas = '1';
+            $id_kelas = '';
         } else {
             $id_kelas = $r->id_kelas;
         }
@@ -19,10 +19,11 @@ class SiswaController extends Controller
        $kelas = DB::table('kelas')->where('id_kelas',$id_kelas)->first();
        $data =  [
         'title' => 'Data siswa',
-        'nm_kelas' => $kelas->nm_kelas,
+        'nm_kelas' => empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
         'kelas' => DB::table('kelas')->get(),
-        'siswa' => DB::table('siswa')->where('id_kelas',$id_kelas)->get(),
+        'siswa' => DB::table('siswa')->where('id_kelas',$id_kelas)->where('lulus','T')->get(),
         'id_kelas' => $id_kelas,
+        'kelas_9' => $kelas
        ];
        return view('Siswa.index',$data);
     }
@@ -50,8 +51,17 @@ class SiswaController extends Controller
             'no_telp'  => $r->no_telp,
             'email'  => $r->email,
             'alamat'  => $r->alamat,
+            'jenis_kelamin' => $r->jenis_kelamin
         ];
         DB::table('siswa')->insert($data);
+
+        DB::table('users')->insert([
+            'name' => $r->nama,
+            'username' => $r->nisn,
+            'level' => 'siswa',
+            'email' => $r->email,
+            'password' => Hash::make($r->nisn),
+        ]);
         return redirect()->route('data_siswa',['id_kelas'=> $r->id_kelas])->with('sukses', 'Berhasil tambah data siswa');
     }
 
@@ -95,6 +105,33 @@ class SiswaController extends Controller
             'alamat'  => $r->alamat,
         ];
         DB::table('siswa')->where('id_siswa',$r->id_siswa)->update($data);
+        return redirect()->route('data_siswa',['id_kelas'=> $r->id_kelas])->with('sukses', 'Berhasil tambah data siswa');
+    }
+
+    public function siswa_lulus(Request $r)
+    {
+        // $siswa = DB::table('siswa')->where('id_siswa',$r->id_siswa)->first();
+        
+        $siswa = DB::selectOne("SELECT a.*, b.melanjutkan, b.tgl_lulus  FROM siswa as a left join alumni as b on b.id_siswa = a.id_siswa 
+        where a.id_siswa = $r->id_siswa");
+       
+        $data = [
+            'siswa' => $siswa
+        ];
+        return view('siswa.lulus',$data);
+    }
+
+    public function lulus(Request $r)
+    {
+        DB::table('siswa')->where('id_siswa',$r->id_siswa)->update(['lulus' => 'Y']);
+        DB::table('users')->where('username',$r->nisn)->update(['level'=>'alumni']);
+
+        $data = [
+            'id_siswa' => $r->id_siswa,
+            'melanjutkan' => $r->melanjutkan,
+            'tgl_lulus' => $r->tgl_lulus
+        ];
+        DB::table('alumni')->insert($data);
         return redirect()->route('data_siswa',['id_kelas'=> $r->id_kelas])->with('sukses', 'Berhasil tambah data siswa');
     }
 }

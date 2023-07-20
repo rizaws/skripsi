@@ -1,11 +1,6 @@
 @extends('theme.app')
 @section('content')
     <div id="main">
-        <header class="mb-3">
-            <a href="#" class="burger-btn d-block d-xl-none">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
-        </header>
         <div class="page-content">
             <div class="row">
                 <div class="col-lg-12">
@@ -15,10 +10,11 @@
                                 <div class="row">
                                     <div class="col-lg-8">
                                         <select name="id_kelas" id="" class="choices form-select floar-end">
+                                            <option value="">Pilih Kelas</option>
                                             @foreach ($kelas as $k)
                                                 <option
                                                     value="{{ $k->id_kelas }}"{{ $id_kelas == $k->id_kelas ? 'selected' : '' }}>
-                                                    {{ $k->nm_kelas }}
+                                                    {{ $k->kelas }}{{ $k->huruf }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -39,7 +35,7 @@
                                     <h6>{{ $title }}: {{ $nm_kelas }}</h6>
                                 </div>
                                 <div class="col-lg-6">
-                                    <a href="{{ route('print_siswa', ['id_kelas' => $id_kelas]) }}"
+                                    <a href="{{ route('qr_siswa_perkelas', ['id_kelas' => $id_kelas]) }}"
                                         class="btn btn-primary float-end"><i class="fas fa-print"></i>
                                         Print</a>
                                 </div>
@@ -48,28 +44,31 @@
 
                         </div>
                         <div class="card-body">
-                            <table class="table table-striped" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nama</th>
-                                        <th>Tempat</th>
-                                        <th>Tanggal Lahir</th>
-                                        <th>No Telp</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($siswa as $no => $s)
+                            @if (empty($id_kelas))
+                            @else
+                                <table class="table table-striped" id="table1">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $no + 1 }}</td>
-                                            <td>{{ $s->nama }}</td>
-                                            <td>{{ $s->tempat_lahir }}</td>
-                                            <td>{{ date('d-m-Y', strtotime($s->tgl_lahir)) }}</td>
-                                            <td>{{ $s->no_telp }}</td>
+                                            <th>#</th>
+                                            <th>Nama</th>
+                                            <th>Tempat</th>
+                                            <th>Tanggal Lahir</th>
+                                            <th>No Telp</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($siswa as $no => $s)
+                                            <tr>
+                                                <td>{{ $no + 1 }}</td>
+                                                <td>{{ $s->nama }}</td>
+                                                <td>{{ $s->tempat_lahir }}</td>
+                                                <td>{{ date('d-m-Y', strtotime($s->tgl_lahir)) }}</td>
+                                                <td>{{ $s->no_telp }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @endif
                         </div>
                     </div>
                 </div>

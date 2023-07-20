@@ -1,11 +1,7 @@
 @extends('theme.app')
 @section('content')
     <div id="main">
-        <header class="mb-3">
-            <a href="#" class="burger-btn d-block d-xl-none">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
-        </header>
+
         <div class="page-content">
             <div class="row">
                 <div class="col-lg-12">
@@ -67,7 +63,7 @@
                                             <td>{{ $no + 1 }}</td>
                                             <td>{{ $a->nama }}</td>
                                             <td>{{ $a->nm_ekskul }}</td>
-                                            <td>{{ $a->nm_kelas }}</td>
+                                            <td>{{ $a->kelas }}{{ $a->huruf }}</td>
                                             <td>{{ $a->tempat_lahir }}, {{ tanggal($a->tgl_lahir) }}</td>
                                             <td>{{ $a->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
                                             <td>
@@ -109,7 +105,8 @@
                                     <select name="" id="" class="choices form-select get_siswa">
                                         <option value="">-Pilih Kelas-</option>
                                         @foreach ($kelas as $k)
-                                            <option value="{{ $k->id_kelas }}">{{ $k->nm_kelas }}</option>
+                                            <option value="{{ $k->id_kelas }}">{{ $k->kelas }}{{ $k->huruf }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>

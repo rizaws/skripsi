@@ -1,11 +1,6 @@
 @extends('theme.app')
 @section('content')
     <div id="main">
-        <header class="mb-3">
-            <a href="#" class="burger-btn d-block d-xl-none">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
-        </header>
         <div class="page-content">
             <div class="row">
                 <div class="col-lg-12">
@@ -41,7 +36,7 @@
                                     </h6>
                                 </div>
                                 <div class="col-lg-6">
-                                    <a href="{{ route('print_guru', ['id_mapel' => $id_mapel]) }}"
+                                    <a href="{{ route('qr_guru', ['id_mapel' => $id_mapel]) }}"
                                         class="btn btn-primary float-end"><i class="fas fa-print"></i> Print
                                     </a>
                                 </div>

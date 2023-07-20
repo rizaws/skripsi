@@ -1,11 +1,6 @@
 @extends('theme.app')
 @section('content')
     <div id="main">
-        <header class="mb-3">
-            <a href="#" class="burger-btn d-block d-xl-none">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
-        </header>
         <div class="page-content">
             <div class="row">
                 <div class="col-lg-12">
@@ -60,7 +55,7 @@
                                         <th>Tempat</th>
                                         <th>Tanggal Lahir</th>
                                         <th>Posisi</th>
-                                        <th>TTD</th>
+
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -73,12 +68,12 @@
                                             <td>{{ $g->tempat_lahir }}</td>
                                             <td>{{ tanggal($g->tgl_lahir) }}</td>
                                             <td>{{ $g->posisi }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 <a href="#" data-bs-toggle="modal"
                                                     data-bs-target="#zoom{{ $g->id_guru }}">
                                                     {!! QrCode::size(80)->generate(url('/assets/ttd/' . $g->image)) !!}
                                                 </a>
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 <a href="{{ route('edit_guru', ['id_guru' => $g->id_guru]) }}"
                                                     class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
@@ -96,7 +91,7 @@
             </div>
         </div>
 
-        @foreach ($guru as $no => $g)
+        {{-- @foreach ($guru as $no => $g)
             <div class="modal fade text-left" id="zoom{{ $g->id_guru }}" tabindex="-1" role="dialog"
                 aria-labelledby="myModalLabel1" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
@@ -121,7 +116,7 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @endforeach --}}
         <div class="modal fade text-left" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
             aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">

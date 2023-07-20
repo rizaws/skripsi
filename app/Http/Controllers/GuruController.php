@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Hash;
 
 
 
@@ -49,19 +50,22 @@ class GuruController extends Controller
 
     public function save_guru(Request $request)
     {
-        $validatedData = $request->validate([
-            'signature' => 'required',
-        ]);
+        // $validatedData = $request->validate([
+        //     'signature' => 'required',
+        // ]);
 
-        $signatureData = $validatedData['signature'];
+        // $signatureData = $validatedData['signature'];
         
-        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureData));
+        // $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureData));
 
-        $filename = time() . '.png';
+        // $filename = time() . '.png';
 
-        $path = public_path('assets/ttd/') . $filename;
-        file_put_contents($path, $imageData);
+        // $path = public_path('assets/ttd/') . $filename;
+        // file_put_contents($path, $imageData);
 
+        // $request->validate([
+        //     'username' => ['required', 'string', 'unique:users'],
+        // ]);
        DB::table('guru')->insert([
             'nip' => $request->nip,
             'nm_guru'=> $request->nm_guru,
@@ -71,7 +75,17 @@ class GuruController extends Controller
             'id_mapel'=> $request->id_mapel,
             'alamat'=> $request->alamat,
             'posisi'=> $request->posisi,
-            'image' => $filename,
+            'email'=> $request->email,
+            // 'image' => $filename,
+        ]);
+        
+        
+        DB::table('users')->insert([
+            'name' => $request->nm_guru,
+            'username' => $request->nip,
+            'level' => $request->posisi,
+            'email' => $request->email,
+            'password' => Hash::make($request->nip),
         ]);
         
         return redirect()->route('data_guru')->with('success', 'Data guru berhasil disimpan.');

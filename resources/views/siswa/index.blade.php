@@ -1,11 +1,7 @@
 @extends('theme.app')
 @section('content')
     <div id="main">
-        <header class="mb-3">
-            <a href="#" class="burger-btn d-block d-xl-none">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
-        </header>
+
         <div class="page-content">
             <div class="row">
                 <div class="col-lg-12">
@@ -15,10 +11,11 @@
                                 <div class="row">
                                     <div class="col-lg-8">
                                         <select name="id_kelas" id="" class="choices form-select floar-end">
+                                            <option value="">Pilih Kelas</option>
                                             @foreach ($kelas as $k)
                                                 <option
                                                     value="{{ $k->id_kelas }}"{{ $id_kelas == $k->id_kelas ? 'selected' : '' }}>
-                                                    {{ $k->nm_kelas }}
+                                                    {{ $k->kelas }}{{ $k->huruf }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -48,41 +45,51 @@
 
                         </div>
                         <div class="card-body">
-                            <table class="table table-striped" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>NISN</th>
-                                        <th>Nama</th>
-                                        <th>Tempat</th>
-                                        <th>Tanggal Lahir</th>
-                                        <th>No Telp</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($siswa as $no => $s)
+                            @if (empty($id_kelas))
+                            @else
+                                <table class="table table-striped" id="table1">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $no + 1 }}</td>
-                                            <td>{{ $s->nisn }}</td>
-                                            <td>{{ $s->nama }}</td>
-                                            <td>{{ $s->tempat_lahir }}</td>
-                                            <td>{{ date('d-m-Y', strtotime($s->tgl_lahir)) }}</td>
-                                            <td>{{ $s->no_telp }}</td>
-                                            <td>
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#detail"
-                                                    class="btn btn-sm btn-info detail" id_siswa="{{ $s->id_siswa }}"><i
-                                                        class="fas fa-eye"></i></a>
-                                                <a href="{{ route('edit_siswa', ['id_siswa' => $s->id_siswa]) }}"
-                                                    class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                                <a href="#" class="btn btn-sm btn-danger hapus" data-bs-toggle="modal"
-                                                    data-bs-target="#hapus" id_siswa="{{ $s->id_siswa }}"><i
-                                                        class="fas fa-trash-alt"></i></a>
-                                            </td>
+                                            <th>#</th>
+                                            <th>NISN</th>
+                                            <th>Nama</th>
+                                            <th>Tempat</th>
+                                            <th>Tanggal Lahir</th>
+                                            <th>No Telp</th>
+                                            <th>Aksi</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($siswa as $no => $s)
+                                            <tr>
+                                                <td>{{ $no + 1 }}</td>
+                                                <td>{{ $s->nisn }}</td>
+                                                <td>{{ $s->nama }}</td>
+                                                <td>{{ $s->tempat_lahir }}</td>
+                                                <td>{{ date('d-m-Y', strtotime($s->tgl_lahir)) }}</td>
+                                                <td>{{ $s->no_telp }}</td>
+                                                <td>
+                                                    @if ($kelas_9->kelas == 9)
+                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#lulus"
+                                                            class="btn btn-sm btn-success lulus"
+                                                            id_siswa="{{ $s->id_siswa }}">lulus</a>
+                                                    @else
+                                                    @endif
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#detail"
+                                                        class="btn btn-sm btn-info detail"
+                                                        id_siswa="{{ $s->id_siswa }}"><i class="fas fa-eye"></i></a>
+                                                    <a href="{{ route('edit_siswa', ['id_siswa' => $s->id_siswa]) }}"
+                                                        class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                                    <a href="#" class="btn btn-sm btn-danger hapus"
+                                                        data-bs-toggle="modal" data-bs-target="#hapus"
+                                                        id_siswa="{{ $s->id_siswa }}"><i class="fas fa-trash-alt"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @endif
+
                         </div>
                     </div>
                 </div>
@@ -113,8 +120,38 @@
             </div>
         </div>
 
+        <form action="{{ route('lulus') }}" method="post">
+            @csrf
+            <div class="modal fade text-left" id="lulus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel1">Siswa Lulus</h5>
+                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                <i data-feather="x"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div id="siswa_lulus"></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Tutup</span>
+                            </button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
         <form method="get" action="{{ route('delete_siswa') }}">
-            <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-body">
@@ -159,6 +196,17 @@
                     url: "/detail_siswa?id_siswa=" + id_siswa,
                     success: function(data) {
                         $('#get_detail').html(data);
+                    }
+                });
+            });
+            $(document).on('click', '.lulus', function() {
+                var id_siswa = $(this).attr('id_siswa');
+
+                $.ajax({
+                    type: "get",
+                    url: "/siswa_lulus?id_siswa=" + id_siswa,
+                    success: function(data) {
+                        $('#siswa_lulus').html(data);
                     }
                 });
             });

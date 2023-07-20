@@ -28,7 +28,7 @@ class PrestasiController extends Controller
        $kelas = DB::table('kelas')->where('id_kelas',$id_kelas)->first();
        $data =  [
         'title' => 'Data prestasi siswa ',
-        'nm_kelas' => empty($kelas->nm_kelas) ? 'Semua siswa' : $kelas->nm_kelas ,
+        'nm_kelas' => empty($kelas->kelas) ? 'Semua siswa' : $kelas->kelas . $kelas->huruf ,
         'kelas' => DB::table('kelas')->get(),
         'prestasi' => $prestasi,
         'id_kelas' => $id_kelas,

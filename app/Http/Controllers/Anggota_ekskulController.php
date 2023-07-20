@@ -40,7 +40,7 @@ class Anggota_ekskulController extends Controller
 
     public function get_siswa(Request $r)
     {
-        $siswa = DB::select("SELECT * FROM siswa as a where a.id_kelas = '$r->id_kelas' ");
+        $siswa = DB::select("SELECT * FROM siswa as a where a.id_kelas = '$r->id_kelas' and a.lulus = 'T' ");
 
         echo "<option>-Pilih Siswa-</option>";
         foreach ($siswa as $s) {

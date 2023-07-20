@@ -1,11 +1,6 @@
 @extends('theme.app')
 @section('content')
     <div id="main">
-        <header class="mb-3">
-            <a href="#" class="burger-btn d-block d-xl-none">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
-        </header>
         <div class="page-content">
             <div class="row">
                 <div class="col-lg-12">
@@ -19,7 +14,7 @@
                                             @foreach ($kelas as $e)
                                                 <option
                                                     value="{{ $e->id_kelas }}"{{ $id_kelas == $e->id_kelas ? 'selected' : '' }}>
-                                                    {{ $e->nm_kelas }}
+                                                    {{ $e->kelas }}{{ $e->huruf }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -66,7 +61,7 @@
                                         <tr>
                                             <td>{{ $no + 1 }}</td>
                                             <td>{{ $a->nama }}</td>
-                                            <td>{{ $a->nm_kelas }}</td>
+                                            <td>{{ $a->kelas }}{{ $a->huruf }}</td>
                                             <td>{{ $a->tempat_lahir }}, {{ tanggal($a->tgl_lahir) }}</td>
                                             <td>{{ $a->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
                                             <td>{{ $a->prestasi }}</td>
@@ -107,7 +102,8 @@
                                     <select name="" id="" class="form-control get_siswa">
                                         <option value="">-Pilih Kelas-</option>
                                         @foreach ($kelas as $k)
-                                            <option value="{{ $k->id_kelas }}">{{ $k->nm_kelas }}</option>
+                                            <option value="{{ $k->id_kelas }}">{{ $k->kelas }}{{ $k->huruf }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -143,8 +139,7 @@
                     <div class="modal-content ">
                         <div class="modal-header">
                             <h5 class="modal-title" id="myModalLabel1">Edit Siswa berprestasi</h5>
-                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
                                 <i data-feather="x"></i>
                             </button>
                         </div>

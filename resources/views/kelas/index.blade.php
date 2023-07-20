@@ -1,11 +1,6 @@
 @extends('theme.app')
 @section('content')
     <div id="main">
-        <header class="mb-3">
-            <a href="#" class="burger-btn d-block d-xl-none">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
-        </header>
         <div class="page-content">
             <div class="row">
                 <div class="col-lg-12">
@@ -38,7 +33,7 @@
                                     @foreach ($kelas as $no => $s)
                                         <tr>
                                             <td>{{ $no + 1 }}</td>
-                                            <td>{{ $s->nm_kelas }}</td>
+                                            <td>{{ $s->kelas }}{{ $s->huruf }}</td>
                                             <td>{{ $s->nm_guru }}</td>
                                             <td>
                                                 <a href="#" class="btn btn-sm btn-warning edit" data-bs-toggle="modal"
@@ -63,7 +58,7 @@
             @csrf
             <div class="modal fade text-left" id="tambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
                 aria-hidden="true">
-                <div class="modal-dialog " role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content ">
                         <div class="modal-header">
                             <h5 class="modal-title" id="myModalLabel1">Tambah Kelas</h5>
@@ -73,11 +68,15 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <label for="">Nama Kelas</label>
-                                    <input type="text" class="form-control" name="nm_kelas">
+                                <div class="col-lg-4">
+                                    <label for="">Kelas</label>
+                                    <input type="number" min="7" max="9" class="form-control" name="kelas">
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label for="">Huruf</label>
+                                    <input type="text" class="form-control" name="huruf">
+                                </div>
+                                <div class="col-lg-4">
                                     <label for="">Wali Kelas</label>
                                     <select name="id_guru" id="" class="choices form-select">
                                         <option value="">-Pilih Wali Kelas-</option>

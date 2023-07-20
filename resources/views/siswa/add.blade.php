@@ -1,11 +1,6 @@
 @extends('theme.app')
 @section('content')
     <div id="main">
-        <header class="mb-3">
-            <a href="#" class="burger-btn d-block d-xl-none">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
-        </header>
         <div class="page-content">
             <form action="{{ route('save_siswa') }}" method="post">
                 <div class="row">
@@ -20,8 +15,10 @@
                                     <div class="col-lg-3">
                                         <label for="">Pilih Kelas</label>
                                         <select name="id_kelas" id="" class="choices form-select" required>
+                                            <option value="">-Pilih Kelas-</option>
                                             @foreach ($kelas as $k)
-                                                <option value="{{ $k->id_kelas }}">{{ $k->nm_kelas }}</option>
+                                                <option value="{{ $k->id_kelas }}">{{ $k->kelas }}{{ $k->huruf }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -43,6 +40,13 @@
                                     <div class="col-lg-4">
                                         <label for="">Tanggal Lahir</label>
                                         <input type="date" class="form-control" name="tgl_lahir" required>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="">Jenis Kelamin</label>
+                                        <select name="jenis_kelamin" id="" class="form-control">
+                                            <option value="L">Laki-laki</option>
+                                            <option value="P">Perempuan</option>
+                                        </select>
                                     </div>
                                     <div class="col-lg-4 mt-2">
                                         <label for="">Nama Orang Tua Laki-laki</label>

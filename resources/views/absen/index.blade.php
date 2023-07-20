@@ -1,11 +1,6 @@
 @extends('theme.app')
 @section('content')
     <div id="main">
-        <header class="mb-3">
-            <a href="#" class="burger-btn d-block d-xl-none">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
-        </header>
         <div class="page-content">
             <div class="row">
                 <div class="col-lg-12">
@@ -15,12 +10,13 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <label for="">Kelas</label>
-                                        <select name="id_kelas" id=""
-                                            class="choices form-select floar-end id_kelas">
+                                        <select name="id_kelas"
+                                            id=""class="choices form-select floar-end id_kelas">
+                                            <option value="">Pilih Kelas</option>
                                             @foreach ($kelas as $k)
                                                 <option
                                                     value="{{ $k->id_kelas }}"{{ $id_kelas == $k->id_kelas ? 'selected' : '' }}>
-                                                    {{ $k->nm_kelas }}
+                                                    {{ $k->kelas }}{{ $k->huruf }}
                                                 </option>
                                             @endforeach
                                         </select>

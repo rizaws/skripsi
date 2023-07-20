@@ -1,11 +1,6 @@
 @extends('theme.app')
 @section('content')
     <div id="main">
-        <header class="mb-3">
-            <a href="#" class="burger-btn d-block d-xl-none">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
-        </header>
         <div class="page-content">
             <div class="row">
                 <div class="col-lg-12">
@@ -39,9 +34,9 @@
                                             <td>{{ $no + 1 }}</td>
                                             <td>{{ $s->nm_mapel }}</td>
                                             <td>
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#edit" class="btn btn-sm btn-warning edit"
-                                                    id_mapel="{{ $s->id_mapel }}"><i class="fas fa-edit"
-                                                        ></i></a>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#edit"
+                                                    class="btn btn-sm btn-warning edit" id_mapel="{{ $s->id_mapel }}"><i
+                                                        class="fas fa-edit"></i></a>
                                                 <a href="#" class="btn btn-sm btn-danger hapus" data-bs-toggle="modal"
                                                     data-bs-target="#hapus" id_mapel="{{ $s->id_mapel }}"><i
                                                         class="fas fa-trash-alt"></i></a>

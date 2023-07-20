@@ -13,7 +13,7 @@
                         <tr>
                             <td>Kelas</td>
                             <td>:</td>
-                            <td>{{ $kelas->nm_kelas }}</td>
+                            <td>{{ $kelas->kelas }}{{ $kelas->huruf }}</td>
                         </tr>
                     </table>
                 </div>

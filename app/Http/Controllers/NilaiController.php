@@ -24,7 +24,7 @@ class NilaiController extends Controller
     {
         $data = [
             'title' => 'Data Nilai Rapor',
-            'siswa' => DB::table('siswa')->where('id_kelas',$r->id_kelas)->get(),
+            'siswa' => DB::table('siswa')->where('id_kelas',$r->id_kelas)->where('lulus','T')->get(),
             'mapel' => DB::table('mapel')->where('id_mapel',$r->id_mapel)->first(),
             'kelas' => DB::table('kelas')->where('id_kelas',$r->id_kelas)->first(),
             'id_kelas' => $r->id_kelas,

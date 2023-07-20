@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Dompdf\Dompdf;
 
 class LaporanController extends Controller
 {
     public function LaporanSiswa(Request $r)
     {
         if (empty($r->id_kelas)) {
-            $id_kelas = '1';
+            $id_kelas = '';
         } else {
             $id_kelas = $r->id_kelas;
         }
@@ -19,12 +20,27 @@ class LaporanController extends Controller
        $kelas = DB::table('kelas')->where('id_kelas',$id_kelas)->first();
        $data =  [
         'title' => 'Data siswa',
-        'nm_kelas' => $kelas->nm_kelas,
+        'nm_kelas' => empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
         'kelas' => DB::table('kelas')->get(),
-        'siswa' => DB::table('siswa')->where('id_kelas',$id_kelas)->get(),
+        'siswa' => DB::table('siswa')->where('id_kelas',$id_kelas)->where('lulus','T')->get(),
         'id_kelas' => $id_kelas,
        ];
        return view('Laporan.siswa',$data);
+    }
+
+    public function qr_siswa_perkelas(Request $r)
+    {
+        $dompdf = new Dompdf();
+        $kelas = DB::selectOne("SELECT * FROM kelas as a left join guru as b on b.id_guru = a.id_guru where a.id_kelas = $r->id_kelas");
+        $data =[
+            'title' => 'Laporan data siswa',
+            'nm_kelas' => empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
+            'kelas' => $kelas,
+            'kepsek' => DB::table('guru')->where('posisi','kepsek')->first(),
+            'siswa' => DB::selectOne("SELECT count(a.id_siswa) as jml_siswa FROM siswa as a where a.id_kelas = $r->id_kelas"),
+            'id_kelas' => $r->id_kelas
+        ];
+        return view('Laporan.qr.qr_siswa',$data);
     }
     public function print_siswa(Request $r)
     {
@@ -38,7 +54,7 @@ class LaporanController extends Controller
        $kelas = DB::table('kelas')->where('id_kelas',$id_kelas)->first();
        $data =  [
         'title' => 'Data siswa',
-        'nm_kelas' => $kelas->nm_kelas,
+        'nm_kelas' => $kelas->kelas . $kelas->huruf,
         'kelas' => DB::table('kelas')->get(),
         'siswa' => DB::table('siswa')->where('id_kelas',$id_kelas)->get(),
         'kepsek' => DB::table('guru')->where('posisi','kepsek')->first(),
@@ -63,6 +79,26 @@ class LaporanController extends Controller
        ];
        return view('laporan.guru',$data);
     }
+
+    public function qr_guru(Request $r)
+    {
+        if (empty($r->id_mapel)) {
+            $guru =  DB::selectOne("SELECT count(a.id_guru) as jlh_guru FROM guru as a");
+        } else {
+           $guru = DB::selectOne("SELECT count(a.id_guru) as jlh_guru FROM guru as a where a.id_mapel = $r->id_mapel");
+        }
+
+       $data =  [
+        'title' => 'Data Guru',
+        'nm_mapel' => DB::table('mapel')->where('id_mapel',$r->id_mapel)->first(),
+        'mapel' => DB::table('mapel')->get(),
+        'guru' => $guru,
+        'id_mapel' => $r->id_mapel,
+        'kepsek' => DB::table('guru')->where('posisi','kepsek')->first(),
+       ];
+       return view('laporan.qr.qr_guru',$data);
+        
+    }
     public function print_guru(Request $r)
     {
         if (empty($r->id_mapel)) {
@@ -81,10 +117,11 @@ class LaporanController extends Controller
        ];
        return view('laporan.print.guru',$data);
     }
+
     public function LaporanAbsen(Request $r)
     {
         if (empty($r->id_kelas)) {
-            $id_kelas = '1';
+            $id_kelas = '';
         } else {
             $id_kelas = $r->id_kelas;
         }
@@ -100,7 +137,7 @@ class LaporanController extends Controller
        $kelas = DB::table('kelas')->where('id_kelas',$id_kelas)->first();
        $data =  [
         'title' => 'Data Absen siswa',
-        'nm_kelas' => $kelas->nm_kelas,
+        'nm_kelas' => empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
         'kelas' => DB::table('kelas')->get(),
         'siswa' => DB::table('siswa')->where('id_kelas',$id_kelas)->get(),
         'id_kelas' => $id_kelas,
@@ -109,6 +146,23 @@ class LaporanController extends Controller
         
        ];
        return view('laporan.absen',$data);
+    }
+
+    public function qr_absensi_siswa(Request $r)
+    {
+        $dompdf = new Dompdf();
+        $kelas = DB::selectOne("SELECT * FROM kelas as a left join guru as b on b.id_guru = a.id_guru where a.id_kelas = $r->id_kelas");
+        $data =[
+            'title' => 'Laporan data siswa',
+            'nm_kelas' => empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
+            'kelas' => $kelas,
+            'kepsek' => DB::table('guru')->where('posisi','kepsek')->first(),
+            'siswa' => DB::selectOne("SELECT count(a.id_siswa) as jml_siswa FROM siswa as a where a.id_kelas = $r->id_kelas"),
+            'id_kelas' => $r->id_kelas,
+            'tgl1' => $r->tgl1,
+            'tgl2' => $r->tgl2
+        ];
+        return view('Laporan.qr.qr_absen',$data);
     }
 
     public function print_absen(Request $r)
@@ -359,7 +413,7 @@ class LaporanController extends Controller
             'ekskul' => DB::select("SELECT b.nm_ekskul FROM anggota_ekskul as a 
             left join ekskul as b on b.id_ekskul = a.id_ekskul
             where a.id_siswa = '$r->id_siswa'"),
-            'wali_kelas' => DB::selectOne("SELECT * FROM kelas as a left join guru as b on b.id_guru = a.id_guru where a.id_kelas = $siswa->id_kelas "),
+            'wali_kelas' => DB::selectOne("SELECT * FROM kelas as a left join guru as b on b.id_guru = a.id_guru where a.id_kelas = $siswa->id_kelas"),
             'kepsek' => DB::table('guru')->where('posisi','kepsek')->first(),
         ];
         return view('laporan.print.rapor',$data);

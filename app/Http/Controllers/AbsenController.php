@@ -12,7 +12,7 @@ class AbsenController extends Controller
 {
     public function index(Request $r){
         if (empty($r->id_kelas)) {
-            $id_kelas = '1';
+            $id_kelas = '';
         } else {
             $id_kelas = $r->id_kelas;
         }
@@ -26,7 +26,7 @@ class AbsenController extends Controller
        $kelas = DB::table('kelas')->where('id_kelas',$id_kelas)->first();
        $data =  [
         'title' => 'Data Absen siswa',
-        'nm_kelas' => $kelas->nm_kelas,
+        'nm_kelas' =>   empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
         'kelas' => DB::table('kelas')->get(),
         'siswa' => DB::table('siswa')->where('id_kelas',$id_kelas)->get(),
         'id_kelas' => $id_kelas,
@@ -42,7 +42,7 @@ class AbsenController extends Controller
        $kelas = DB::table('kelas')->where('id_kelas',$id_kelas)->first();
        $data =  [
         'title' => 'Data Absen siswa',
-        'nm_kelas' => $kelas->nm_kelas,
+        'nm_kelas' => empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
         'kelas' => DB::table('kelas')->get(),
         'siswa' => DB::table('siswa')->where('id_kelas',$id_kelas)->get(),
         'id_kelas' => $id_kelas,

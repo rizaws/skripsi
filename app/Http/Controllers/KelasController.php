@@ -12,7 +12,7 @@ class KelasController extends Controller
         $data = [
             'title' => 'Daftar Kelas',
             'kelas' => DB::select("SELECT * FROM kelas as a left join guru as b on b.id_guru = a.id_guru"),
-            'guru' => DB::table('guru')->get()
+            'guru' => DB::select("SELECT * FROM guru as a where a.id_guru not in (SELECT b.id_guru FROM kelas as b ) and a.posisi = 'wali'")
         ];
         return view('kelas.index', $data);
     }
@@ -20,7 +20,8 @@ class KelasController extends Controller
     public function tambah_kelas(Request $r)
     {
         $data = [
-            'nm_kelas'=> $r->nm_kelas,
+            'kelas'=> $r->kelas,
+            'huruf'=> $r->huruf,
             'id_guru' => $r->id_guru
         ];
         DB::table('kelas')->insert($data);
