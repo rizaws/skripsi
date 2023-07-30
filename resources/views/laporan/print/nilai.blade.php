@@ -63,11 +63,11 @@
                             <td>
                                 @if (empty($nilai->nilai))
                                     F
-                                @elseif ($nilai->nilai > '8')
+                                @elseif ($nilai->nilai > '80')
                                     A
-                                @elseif ($nilai->nilai > '6')
+                                @elseif ($nilai->nilai > '60')
                                     B
-                                @elseif ($nilai->nilai >= '5')
+                                @elseif ($nilai->nilai >= '50')
                                     C
                                 @else
                                     D
@@ -76,11 +76,11 @@
                             <td>
                                 @if (empty($nilai->nilai))
                                     Sangat Kurang
-                                @elseif ($nilai->nilai > '8')
+                                @elseif ($nilai->nilai > '80')
                                     Sangat Bagus
-                                @elseif ($nilai->nilai > '6')
+                                @elseif ($nilai->nilai > '60')
                                     Bagus
-                                @elseif ($nilai->nilai >= '5')
+                                @elseif ($nilai->nilai >= '50')
                                     Cukup
                                 @else
                                     Kurang

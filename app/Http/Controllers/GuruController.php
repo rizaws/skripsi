@@ -44,7 +44,8 @@ class GuruController extends Controller
         $data = [
             'title' => 'Edit Data Guru',
             'mapel' => DB::table('mapel')->get(),
-            'guru' => DB::table('guru')->where('id_guru', $r->id_guru)->first()
+            'guru' => DB::table('guru')->where('id_guru', $r->id_guru)->first(),
+            'kepsek' => DB::selectOne("SELECT a.nip FROM guru as a where a.posisi = 'kepsek'")
         ];
         return view('Guru.edit', $data);
     }
@@ -94,50 +95,25 @@ class GuruController extends Controller
     }
     public function save_edit_guru(Request $request)
     {
+           DB::table('guru')->where('id_guru', $request->id_guru)->update([
+                'nip' => $request->nip,
+                'nm_guru'=> $request->nm_guru,
+                'tempat_lahir'=> $request->tempat_lahir,
+                'tgl_lahir'=> $request->tgl_lahir,
+                'jenis_kelamin'=> $request->jenis_kelamin,
+                'id_mapel'=> $request->id_mapel,
+                'alamat'=> $request->alamat,
+                'posisi'=> $request->posisi,
+            ]);
 
-        if (empty($request->signature)) {
-    
-           DB::table('guru')->where('id_guru', $request->id_guru)->update([
-                'nip' => $request->nip,
-                'nm_guru'=> $request->nm_guru,
-                'tempat_lahir'=> $request->tempat_lahir,
-                'tgl_lahir'=> $request->tgl_lahir,
-                'jenis_kelamin'=> $request->jenis_kelamin,
-                'id_mapel'=> $request->id_mapel,
-                'alamat'=> $request->alamat,
-                'posisi'=> $request->posisi,
+            DB::table('users')->where('username',$request->nip)->update([
+                'name' => $request->nm_guru,
+                'username' => $request->nip,
+                'level' => $request->posisi,
+                'email' => $request->email,
+                'password' => Hash::make($request->nip),
             ]);
-        } else {
-            $validatedData = $request->validate([
-                'signature' => 'required',
-            ]);
-    
-            $signatureData = $validatedData['signature'];
-            
-            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureData));
-    
-            $filename = time() . '.png';
-    
-            $path = public_path('assets/ttd/') . $filename;
-            file_put_contents($path, $imageData);
-    
-           DB::table('guru')->where('id_guru', $request->id_guru)->update([
-                'nip' => $request->nip,
-                'nm_guru'=> $request->nm_guru,
-                'tempat_lahir'=> $request->tempat_lahir,
-                'tgl_lahir'=> $request->tgl_lahir,
-                'jenis_kelamin'=> $request->jenis_kelamin,
-                'id_mapel'=> $request->id_mapel,
-                'alamat'=> $request->alamat,
-                'posisi'=> $request->posisi,
-                'image' => $filename,
-            ]);
-        }
-        
-        
-        
         return redirect()->route('data_guru')->with('success', 'Data guru berhasil disimpan.');
-
     }
 
     public function delete_guru(Request $r)

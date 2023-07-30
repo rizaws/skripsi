@@ -53,7 +53,13 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                    @php
+                        $masuk = 0;
+                        $izin = 0;
+                        $sakit = 0;
+                        $alpa = 0;
+                        $terlambat = 0;
+                    @endphp
                     @foreach ($siswa as $no => $s)
                         @php
                             $M = DB::selectOne("SELECT count(a.ket) as M FROM absen as a where id_siswa ='$s->id_siswa' and a.ket = 'M' and a.tgl between '$tgl1' and '$tgl2' ");
@@ -72,6 +78,13 @@
                             <td>{{ $A->A }}</td>
                             <td>{{ $T->T }}</td>
                         </tr>
+                        @php
+                            $masuk += $M->M;
+                            $izin += $I->I;
+                            $sakit += $S->S;
+                            $alpa += $A->A;
+                            $terlambat += $T->T;
+                        @endphp
                     @endforeach
                 </tbody>
             </table>
@@ -79,23 +92,34 @@
         <div class="col-lg-6 col-6">
             <table>
                 <tr>
-                    <th>Laki-laki</th>
+                    <th>Masuk</th>
                     <th>:</th>
-                    <th>{{ $laki->laki }}</th>
+                    <th>{{ $masuk }}</th>
                 </tr>
                 <tr>
-                    <th>Perempuan</th>
+                    <th>Izin</th>
                     <th>:</th>
-                    <th>{{ $perempuan->perempuan }}</th>
+                    <th>{{ $izin }}</th>
+                </tr>
+                <tr>
+                    <th>Sakit</th>
+                    <th>:</th>
+                    <th>{{ $sakit }}</th>
+                </tr>
+                <tr>
+                    <th>Alpa</th>
+                    <th>:</th>
+                    <th>{{ $alpa }}</th>
+                </tr>
+                <tr>
+                    <th>Terlambat</th>
+                    <th>:</th>
+                    <th>{{ $terlambat }}</th>
                 </tr>
             </table>
         </div>
         <div class="col-lg-6 col-6">
             <p class="text-center">Banjarmasin, <?= date('d F Y') ?></p>
-        </div>
-        <div class="col-lg-6 col-6">
-        </div>
-        <div class="col-6">
             <p class="text-center">Mengetahui,</p><br>
             <p class="text-center">Kepala MTS Negeri 2 Banjarmasin</p>
             <br>
@@ -103,6 +127,7 @@
             <p class="text-center"><u class="fw-bold text-center">{{ $kepsek->nm_guru }}</u></p>
             <p class="text-center">NIP:{{ $kepsek->nip }}</p>
         </div>
+
 
     </div>
 

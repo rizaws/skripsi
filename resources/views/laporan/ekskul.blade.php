@@ -34,7 +34,7 @@
                                     <h6>{{ $title }}: {{ $nm_ekskul }}</h6>
                                 </div>
                                 <div class="col-lg-6">
-                                    <a href="{{ route('print_ekskul', ['id_ekskul' => $id_ekskul]) }}"
+                                    <a href="{{ route('qr_ekskul', ['id_ekskul' => $id_ekskul]) }}"
                                         class="btn btn-primary float-end"><i class="fas fa-print"></i> Print
                                     </a>
                                 </div>
@@ -58,7 +58,7 @@
                                         <tr>
                                             <td>{{ $no + 1 }}</td>
                                             <td>{{ $a->nama }}</td>
-                                            <td>{{ $a->nm_kelas }}</td>
+                                            <td>{{ $a->kelas }}{{ $a->huruf }}</td>
                                             <td>{{ $a->tempat_lahir }}, {{ tanggal($a->tgl_lahir) }}</td>
                                             <td>{{ $a->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
                                         </tr>

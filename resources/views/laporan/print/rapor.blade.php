@@ -26,7 +26,7 @@
                     <td width="30%">{{ $siswa->nama }}</td>
                     <th>Kelas</th>
                     <th>:</th>
-                    <td>{{ $siswa->nm_kelas }}</td>
+                    <td>{{ $siswa->kelas }}{{ $siswa->huruf }}</td>
                 </tr>
                 <tr>
                     <th width="30%">NISN</th>
@@ -69,8 +69,32 @@
                         <tr>
                             <td>{{ $no + 1 }}</td>
                             <td>{{ $m->nm_mapel }}</td>
-                            <td>{{ empty($nilai->nilai) ? '-' : $nilai->nilai }}</td>
-                            <td>{{ empty($nilai->ket) ? '-' : $nilai->ket }}</td>
+                            <td>
+                                @if (empty($nilai->nilai))
+                                    F
+                                @elseif ($nilai->nilai > '80')
+                                    A
+                                @elseif ($nilai->nilai > '60')
+                                    B
+                                @elseif ($nilai->nilai >= '50')
+                                    C
+                                @else
+                                    D
+                                @endif
+                            </td>
+                            <td>
+                                @if (empty($nilai->nilai))
+                                    Sangat Kurang
+                                @elseif ($nilai->nilai > '80')
+                                    Sangat Bagus
+                                @elseif ($nilai->nilai > '60')
+                                    Bagus
+                                @elseif ($nilai->nilai >= '50')
+                                    Cukup
+                                @else
+                                    Kurang
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -134,14 +158,14 @@
             <br>
             <dt style="text-align: center">TTD Kepala Sekolah</dt>
             <br>
-            <p class="text-center">{!! QrCode::size(100)->generate(url('/assets/ttd/' . $kepsek->image)) !!}</p>
+            <br>
             <p class="text-center"><u class="fw-bold text-center">{{ $kepsek->nm_guru }}</u></p>
             <p class="text-center">NIP:{{ $kepsek->nip }}</p>
         </div>
         <div class="col-4">
             <dt style="text-align: center">TTD Wali Kelas</dt>
             <br>
-            <p class="text-center">{!! QrCode::size(100)->generate(url('/assets/ttd/' . $wali_kelas->image)) !!}</p>
+            <br>
             <p class="text-center"><u class="fw-bold text-center">{{ $wali_kelas->nm_guru }}</u></p>
             <p class="text-center">NIP:{{ $wali_kelas->nip }}</p>
         </div>

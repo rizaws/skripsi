@@ -134,34 +134,52 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::controller(LaporanController::class)->group(function () {
         Route::get('/LaporanSiswa', 'LaporanSiswa')->name('LaporanSiswa');
-        Route::get('/print_siswa', 'print_siswa')->name('print_siswa');
+        
         Route::get('/qr_siswa_perkelas', 'qr_siswa_perkelas')->name('qr_siswa_perkelas');
 
         Route::get('/LaporanGuru', 'LaporanGuru')->name('LaporanGuru');
         Route::get('/qr_guru', 'qr_guru')->name('qr_guru');
-        Route::get('/print_guru', 'print_guru')->name('print_guru');
+        
 
         
         Route::get('/LaporanAbsen', 'LaporanAbsen')->name('LaporanAbsen');
         Route::get('/qr_absensi_siswa', 'qr_absensi_siswa')->name('qr_absensi_siswa');
-        Route::get('/print_absen', 'print_absen')->name('print_absen');
+
+        Route::get('/LaporanAbsenGuru', 'LaporanAbsenGuru')->name('LaporanAbsenGuru');
+        Route::get('/qr_absensi_siswa', 'qr_absensi_siswa')->name('qr_absensi_siswa');
+        
         
         Route::get('/LaporanJadwalPelajaran', 'LaporanJadwalPelajaran')->name('LaporanJadwalPelajaran');
-        Route::get('/print_jadwal', 'print_jadwal')->name('print_jadwal');
+       
         Route::get('/qr_jadwal', 'qr_jadwal')->name('qr_jadwal');
 
         Route::get('/LaporanNilaiRapor', 'LaporanNilaiRapor')->name('LaporanNilaiRapor');
         Route::get('/get_nilai_siswa', 'get_nilai_siswa')->name('get_nilai_siswa');
         Route::get('/qr_nilai_siswa', 'qr_nilai_siswa')->name('qr_nilai_siswa');
 
-        Route::get('/print_nilai', 'print_nilai')->name('print_nilai');
+        
         Route::get('/LaporanAnggotaEskul', 'LaporanAnggotaEskul')->name('LaporanAnggotaEskul');
-        Route::get('/print_ekskul', 'print_ekskul')->name('print_ekskul');
+        Route::get('/qr_ekskul', 'qr_ekskul')->name('qr_ekskul');
+        
+
         Route::get('/LaporanPrestasiSiswa', 'LaporanPrestasiSiswa')->name('LaporanPrestasiSiswa');
-        Route::get('/print_prestasi', 'print_prestasi')->name('print_prestasi');
+        Route::get('/qr_prestasi', 'qr_prestasi')->name('qr_prestasi');
+        
+
         Route::get('/LaporanRaporSiswa', 'LaporanRaporSiswa')->name('LaporanRaporSiswa');
-        Route::get('/print_rapor', 'print_rapor')->name('print_rapor');
+        Route::get('/qr_rapor', 'qr_rapor')->name('qr_rapor');
+        
     });
+});
+Route::controller(LaporanController::class)->group(function () {
+    Route::get('/print_siswa', 'print_siswa')->name('print_siswa');
+    Route::get('/print_guru', 'print_guru')->name('print_guru');
+    Route::get('/print_absen', 'print_absen')->name('print_absen');
+    Route::get('/print_jadwal', 'print_jadwal')->name('print_jadwal');
+    Route::get('/print_nilai', 'print_nilai')->name('print_nilai');
+    Route::get('/print_rapor', 'print_rapor')->name('print_rapor');
+    Route::get('/print_prestasi', 'print_prestasi')->name('print_prestasi');
+    Route::get('/print_ekskul', 'print_ekskul')->name('print_ekskul');
 });
 
 

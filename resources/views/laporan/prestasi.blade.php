@@ -14,7 +14,7 @@
                                             @foreach ($kelas as $e)
                                                 <option
                                                     value="{{ $e->id_kelas }}"{{ $id_kelas == $e->id_kelas ? 'selected' : '' }}>
-                                                    {{ $e->nm_kelas }}
+                                                    {{ $e->kelas }}{{ $e->huruf }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -35,7 +35,7 @@
                                     <h6>{{ $title }}: {{ $nm_kelas }}</h6>
                                 </div>
                                 <div class="col-lg-6">
-                                    <a href="{{ route('print_prestasi', ['id_kelas' => $id_kelas]) }}"
+                                    <a href="{{ route('qr_prestasi', ['id_kelas' => $id_kelas]) }}"
                                         class="btn btn-primary float-end"><i class="fas fa-print"></i> Print
                                     </a>
                                 </div>
@@ -60,7 +60,7 @@
                                         <tr>
                                             <td>{{ $no + 1 }}</td>
                                             <td>{{ $a->nama }}</td>
-                                            <td>{{ $a->nm_kelas }}</td>
+                                            <td>{{ $a->kelas }}{{ $a->huruf }}</td>
                                             <td>{{ $a->tempat_lahir }}, {{ tanggal($a->tgl_lahir) }}</td>
                                             <td>{{ $a->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
                                             <td>{{ $a->prestasi }}</td>

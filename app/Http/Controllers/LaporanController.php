@@ -344,6 +344,39 @@ class LaporanController extends Controller
         return view('laporan.ekskul', $data);
     }
 
+    public function qr_ekskul(Request $r)
+    {
+
+        if (empty($r->id_ekskul) || $r->id_ekskul == '0') {
+            $ekskul = DB::select("SELECT * FROM anggota_ekskul as a 
+            left join siswa as b on b.id_siswa = a.id_siswa 
+            left join kelas as c on c.id_kelas = b.id_kelas
+            left join ekskul as d on d.id_ekskul = a.id_ekskul
+            order by a.id_anggota_ekskul");
+            $id_ekskul = '0';
+        } else {
+            $id_ekskul = $r->id_ekskul;
+            $ekskul = DB::select("SELECT * FROM anggota_ekskul as a 
+            left join siswa as b on b.id_siswa = a.id_siswa 
+            left join kelas as c on c.id_kelas = b.id_kelas
+            left join ekskul as d on d.id_ekskul = a.id_ekskul
+            where a.id_ekskul = $r->id_ekskul
+            order by a.id_anggota_ekskul");
+        }
+        $nm_eskul = DB::table('ekskul')->where('id_ekskul', $id_ekskul)->first();
+
+        $data = [
+            'title' => 'Data anggota ekskul',
+            'ekskul' => DB::table('ekskul')->orderBy('id_ekskul', 'DESC')->get(),
+            'anggota' => $ekskul,
+            'nm_ekskul' => empty($nm_eskul->nm_ekskul) ? 'Semua Ekskul' : $nm_eskul->nm_ekskul,
+            'id_ekskul' => $id_ekskul,
+            'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
+            'kelas' => DB::table('kelas')->get()
+        ];
+        return view('laporan.qr.ekskul', $data);
+    }
+
     public function print_ekskul(Request $r)
     {
 
@@ -397,12 +430,42 @@ class LaporanController extends Controller
         $kelas = DB::table('kelas')->where('id_kelas', $id_kelas)->first();
         $data =  [
             'title' => 'Data prestasi siswa ',
-            'nm_kelas' => empty($kelas->nm_kelas) ? 'Semua siswa' : $kelas->nm_kelas,
+            'nm_kelas' => empty($kelas->kelas) ? 'Semua siswa' : $kelas->kelas . $kelas->huruf,
             'kelas' => DB::table('kelas')->get(),
             'prestasi' => $prestasi,
             'id_kelas' => $id_kelas,
         ];
         return view('laporan.prestasi', $data);
+    }
+
+    public function qr_prestasi(Request $r)
+    {
+        if (empty($r->id_kelas)) {
+            $id_kelas = '0';
+            $prestasi = DB::select("SELECT * FROM prestasi as a 
+            left join siswa as b on b.id_siswa = a.id_siswa 
+            left join kelas as c on c.id_kelas = b.id_kelas 
+            ");
+        } else {
+            $id_kelas = $r->id_kelas;
+            $prestasi = DB::select("SELECT * FROM prestasi as a 
+            left join siswa as b on b.id_siswa = a.id_siswa 
+            left join kelas as c on c.id_kelas = b.id_kelas 
+            where b.id_kelas = '$r->id_kelas'
+            ");
+        }
+
+
+        $kelas = DB::table('kelas')->where('id_kelas', $id_kelas)->first();
+        $data =  [
+            'title' => 'Data prestasi siswa ',
+            'nm_kelas' => empty($kelas->kelas) ? 'Semua siswa' : $kelas->kelas . $kelas->huruf,
+            'kelas' => DB::table('kelas')->get(),
+            'prestasi' => $prestasi,
+            'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
+            'id_kelas' => $id_kelas,
+        ];
+        return view('laporan.qr.prestasi', $data);
     }
 
     public function print_prestasi(Request $r)
@@ -426,7 +489,7 @@ class LaporanController extends Controller
         $kelas = DB::table('kelas')->where('id_kelas', $id_kelas)->first();
         $data =  [
             'title' => 'Data prestasi siswa ',
-            'nm_kelas' => empty($kelas->nm_kelas) ? 'Semua siswa' : $kelas->nm_kelas,
+            'nm_kelas' => empty($kelas->kelas) ? 'Semua siswa' : $kelas->kelas . $kelas->huruf,
             'kelas' => DB::table('kelas')->get(),
             'prestasi' => $prestasi,
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
@@ -444,12 +507,30 @@ class LaporanController extends Controller
         $kelas = DB::table('kelas')->where('id_kelas', $id_kelas)->first();
         $data =  [
             'title' => 'Data siswa',
-            'nm_kelas' => $kelas->nm_kelas,
+            'nm_kelas' => empty($kelas->kelas) ? '' : $kelas->kelas . $kelas->huruf,
             'kelas' => DB::table('kelas')->get(),
             'siswa' => DB::table('siswa')->where('id_kelas', $id_kelas)->get(),
             'id_kelas' => $id_kelas,
         ];
         return view('laporan.rapor', $data);
+    }
+
+    public function qr_rapor(Request $r)
+    {
+        $siswa = DB::table('siswa')->join('kelas', 'kelas.id_kelas', 'siswa.id_kelas')->where('nisn', $r->nisn)->first();
+
+        $data = [
+            'title' => 'Print Rapor Siswa',
+            'id_siswa' => $siswa->id_siswa,
+            'siswa' => $siswa,
+            'mapel' => DB::table('mapel')->get(),
+            'ekskul' => DB::select("SELECT b.nm_ekskul FROM anggota_ekskul as a 
+            left join ekskul as b on b.id_ekskul = a.id_ekskul
+            where a.id_siswa = '$siswa->id_siswa'"),
+            'wali_kelas' => DB::selectOne("SELECT * FROM kelas as a left join guru as b on b.id_guru = a.id_guru where a.id_kelas = $siswa->id_kelas"),
+            'kepsek' => DB::table('guru')->where('posisi','kepsek')->first(),
+        ];
+        return view('laporan.qr.rapor', $data);
     }
 
     public function print_rapor(Request $r)
@@ -468,5 +549,10 @@ class LaporanController extends Controller
             'kepsek' => DB::table('guru')->where('posisi','kepsek')->first(),
         ];
         return view('laporan.print.rapor', $data);
+    }
+
+    public function LaporanAbsenGuru(Type $var = null)
+    {
+        # code...
     }
 }

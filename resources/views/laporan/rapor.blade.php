@@ -10,10 +10,11 @@
                                 <div class="row">
                                     <div class="col-lg-8">
                                         <select name="id_kelas" id="" class="choices form-select floar-end">
+                                            <option value="">-Pilih Kelas-</option>
                                             @foreach ($kelas as $k)
                                                 <option
                                                     value="{{ $k->id_kelas }}"{{ $id_kelas == $k->id_kelas ? 'selected' : '' }}>
-                                                    {{ $k->nm_kelas }}
+                                                    {{ $k->kelas }}{{ $k->huruf }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -61,12 +62,20 @@
                                             <td>{{ date('d-m-Y', strtotime($s->tgl_lahir)) }}</td>
                                             <td>{{ $s->no_telp }}</td>
                                             <td>
-                                                <a href="{{ route('print_rapor', ['id_siswa' => $s->id_siswa]) }}"
-                                                    target="_blank" class="btn btn-sm btn-primary"><i
-                                                        class="fas fa-print"></i></a>
-                                                {{-- <a href="" class="btn btn-sm btn-success"><i
+                                                <a href="{{ route('qr_rapor', ['nisn' => $s->nisn]) }}" target="_blank"
+                                                    class="btn btn-sm btn-primary"><i class="fas fa-print"></i></a>
+                                                @php
+                                                    $teksURL = 'Untuk data rapor bisa didownload disini:';
+                                                    $linknya = route('qr_rapor', ['nisn' => $s->nisn]); // Menghapus tanda kurung kurawal
+                                                    $encodedTeksURL = urlencode($teksURL . ' ' . $linknya); // Menambahkan spasi sebelum linknya
+                                                    $nomorTelepon = $s->no_telp;
+                                                    $whatsappURL = "https://wa.me/$nomorTelepon?text=$encodedTeksURL";
+                                                @endphp
+
+                                                <a href="{{ $whatsappURL }}" class="btn btn-sm btn-success"><i
                                                         class="fab fa-whatsapp"></i></a>
-                                                <a href="" class="btn btn-sm btn-danger"><i
+
+                                                {{-- <a href="" class="btn btn-sm btn-danger"><i
                                                         class="fas fa-mail-bulk"></i></a> --}}
                                             </td>
                                         </tr>

@@ -193,7 +193,10 @@
 
                 $.ajax({
                     type: "get",
-                    url: "/detail_siswa?id_siswa=" + id_siswa,
+                    url: "{{ route('detail_siswa') }}",
+                    data: {
+                        'id_siswa': id_siswa
+                    },
                     success: function(data) {
                         $('#get_detail').html(data);
                     }
@@ -204,7 +207,10 @@
 
                 $.ajax({
                     type: "get",
-                    url: "/siswa_lulus?id_siswa=" + id_siswa,
+                    url: "{{ route('siswa_lulus') }}",
+                    data: {
+                        'id_siswa': id_siswa
+                    },
                     success: function(data) {
                         $('#siswa_lulus').html(data);
                     }
