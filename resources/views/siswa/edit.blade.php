@@ -18,7 +18,7 @@
                                             @foreach ($kelas as $k)
                                                 <option value="{{ $k->id_kelas }}"
                                                     {{ $k->id_kelas == $siswa->id_kelas ? 'selected' : '' }}>
-                                                    {{ $k->nm_kelas }}</option>
+                                                    {{ $k->kelas }}{{ $k->huruf }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -27,7 +27,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="">NISN</label>
-                                        <input type="text" class="form-control" name="nisn" required
+                                        <input type="text" class="form-control" name="nisn" readonly required
                                             value="{{ $siswa->nisn }}">
                                     </div>
                                     <div class="col-lg-4">
@@ -45,6 +45,15 @@
                                         <label for="">Tanggal Lahir</label>
                                         <input type="date" class="form-control" name="tgl_lahir" required
                                             value="{{ $siswa->tgl_lahir }}">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="">Jenis Kelamin</label>
+                                        <select name="jenis_kelamin" id="" class="form-control">
+                                            <option value="L" {{ $siswa->jenis_kelamin == 'L' ? 'Selected' : '' }}>
+                                                Laki-laki</option>
+                                            <option value="P" {{ $siswa->jenis_kelamin == 'P' ? 'Selected' : '' }}>
+                                                Perempuan</option>
+                                        </select>
                                     </div>
                                     <div class="col-lg-4 mt-2">
                                         <label for="">Nama Orang Tua Laki-laki</label>

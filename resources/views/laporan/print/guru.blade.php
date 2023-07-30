@@ -72,8 +72,10 @@
         <div class="col-6">
             <p class="text-center">Mengetahui,</p><br>
             <p class="text-center">Kepala MTS Negeri 2 Banjarmasin</p>
-            <p class="text-center"></p>
-            <p class="text-center"><u class="fw-bold text-center">{{ $kepsek->nm_guru }}</u></p><br>
+            <br>
+            <br>
+            <br>
+            <p class="text-center"><u class="fw-bold text-center">{{ $kepsek->nm_guru }}</u></p>
             <p class="text-center">NIP:{{ $kepsek->nip }}</p>
         </div>
 

@@ -30,6 +30,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        input:read-only {
+
+            /* Ubah warna teks menjadi merah */
+            background-color: #f0f0f0;
+            /* Ubah warna latar belakang */
+        }
+    </style>
 
 
     @yield('styles')

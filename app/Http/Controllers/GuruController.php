@@ -14,7 +14,7 @@ class GuruController extends Controller
     public function index(Request $r)
     {
         if (empty($r->id_mapel)) {
-            $guru =  DB::table('guru')->get();
+            $guru =  DB::table('guru')->orderBy('id_guru','DESC')->get();
         } else {
            $guru = DB::table('guru')->where('id_mapel',$r->id_mapel)->orderBy('id_guru','DESC')->get();
         }
@@ -34,6 +34,7 @@ class GuruController extends Controller
         $data =  [
             'title' => 'Tambah Data Guru',
             'mapel' => DB::table('mapel')->get(),
+            'guru' => DB::selectOne("SELECT a.nip FROM guru as a where a.posisi = 'kepsek'")
            ];
            return view('Guru.tambah',$data);
     }

@@ -20,7 +20,8 @@
                                         <select name="id_kelas" id="id_kelas" class="choices form-select floar-end">
                                             <option value="">--Pilih Kelas--</option>
                                             @foreach ($kelas as $k)
-                                                <option value="{{ $k->id_kelas }}">{{ $k->nm_kelas }}</option>
+                                                <option value="{{ $k->id_kelas }}">{{ $k->kelas }}{{ $k->huruf }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -64,7 +65,11 @@
                 var id_kelas = $('#id_kelas').val();
                 $.ajax({
                     type: "get",
-                    url: "/get_nilai_siswa?id_mapel=" + id_mapel + '&id_kelas=' + id_kelas,
+                    url: "{{ route('get_nilai_siswa') }}", // Menggunakan route() untuk mendapatkan URL rute Laravel
+                    data: {
+                        'id_mapel': id_mapel,
+                        'id_kelas': id_kelas
+                    },
                     success: function(data) {
                         $("#get_siswa").html(data)
                     }

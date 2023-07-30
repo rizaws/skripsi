@@ -26,8 +26,9 @@
                                         <hr style="border: 1px solid blue">
                                     </div>
                                     <div class="col-lg-4">
-                                        <label for="">NISN</label>
-                                        <input type="text" class="form-control" name="nisn" required>
+                                        <label for="">NIS</label>
+                                        <input type="text" class="form-control" name="nisn"
+                                            value="{{ $nis }}" required readonly>
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="">Nama Lengkap</label>

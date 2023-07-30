@@ -150,7 +150,6 @@ class LaporanController extends Controller
 
     public function qr_absensi_siswa(Request $r)
     {
-        $dompdf = new Dompdf();
         $kelas = DB::selectOne("SELECT * FROM kelas as a left join guru as b on b.id_guru = a.id_guru where a.id_kelas = $r->id_kelas");
         $data =[
             'title' => 'Laporan data siswa',
@@ -184,9 +183,11 @@ class LaporanController extends Controller
         $kelas = DB::table('kelas')->where('id_kelas', $id_kelas)->first();
         $data =  [
             'title' => 'Data Absen siswa',
-            'nm_kelas' => $kelas->nm_kelas,
+            'nm_kelas' => empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
             'kelas' => DB::table('kelas')->get(),
             'siswa' => DB::table('siswa')->where('id_kelas', $id_kelas)->get(),
+            'laki' => DB::selectOne("SELECT count(a.jenis_kelamin) as laki FROM siswa as a where a.id_kelas = $id_kelas and a.jenis_kelamin = 'L'"),
+            'perempuan' => DB::selectOne("SELECT count(a.jenis_kelamin) as perempuan FROM siswa as a where a.id_kelas = $id_kelas and a.jenis_kelamin = 'P'"),
             'id_kelas' => $id_kelas,
             'tgl1' => $tgl1,
             'tgl2' => $tgl2,
@@ -198,7 +199,7 @@ class LaporanController extends Controller
     public function LaporanJadwalPelajaran(Request $r)
     {
         if (empty($r->id_kelas)) {
-            $id_kelas = '1';
+            $id_kelas = '0';
         } else {
             $id_kelas = $r->id_kelas;
         }
@@ -207,7 +208,7 @@ class LaporanController extends Controller
         $kelas = DB::table('kelas')->where('id_kelas', $id_kelas)->first();
         $data =  [
             'title' => 'Data Jadwal Pelajaran',
-            'nm_kelas' => $kelas->nm_kelas,
+            'nm_kelas' => empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
             'kelas' => DB::table('kelas')->get(),
             'jadwal' => DB::table('jadwalmapel')->where('id_kelas', $id_kelas)->get(),
             'id_kelas' => $id_kelas,
@@ -231,7 +232,7 @@ class LaporanController extends Controller
         $kelas = DB::table('kelas')->where('id_kelas', $id_kelas)->first();
         $data =  [
             'title' => 'Data Jadwal Pelajaran',
-            'nm_kelas' => $kelas->nm_kelas,
+            'nm_kelas' => $kelas->kelas.$kelas->huruf,
             'kelas' => DB::table('kelas')->get(),
             'jadwal' => DB::table('jadwalmapel')->where('id_kelas', $id_kelas)->get(),
             'id_kelas' => $id_kelas,
@@ -241,6 +242,22 @@ class LaporanController extends Controller
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
         ];
         return view('laporan.print.jadwal_pelajaran', $data);
+    }
+
+    public function qr_jadwal(Request $r)
+    {
+        $kelas = DB::selectOne("SELECT * FROM kelas as a left join guru as b on b.id_guru = a.id_guru where a.id_kelas = $r->id_kelas");
+        $data =[
+            'title' => 'Laporan data siswa',
+            'nm_kelas' => empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
+            'kelas' => $kelas,
+            'kepsek' => DB::table('guru')->where('posisi','kepsek')->first(),
+            'siswa' => DB::selectOne("SELECT count(a.id_siswa) as jml_siswa FROM siswa as a where a.id_kelas = $r->id_kelas"),
+            'id_kelas' => $r->id_kelas,
+            'tgl1' => $r->tgl1,
+            'tgl2' => $r->tgl2
+        ];
+        return view('Laporan.qr.qr_jadwal',$data);
     }
     public function LaporanNilaiRapor(Request $r)
     {
@@ -252,6 +269,21 @@ class LaporanController extends Controller
             'kelas' => DB::table('kelas')->get(),
         ];
         return view('laporan.nilai', $data);
+    }
+    public function qr_nilai_siswa(Request $r)
+    {
+        $kelas = DB::selectOne("SELECT * FROM kelas as a left join guru as b on b.id_guru = a.id_guru where a.id_kelas = $r->id_kelas");
+        $data = [
+            'title' => 'Data Nilai Rapor',
+            'siswa' => DB::selectOne("SELECT count(a.id_siswa) as jml_siswa FROM siswa as a where a.id_kelas = $r->id_kelas"),
+            'mapel' => DB::table('mapel')->where('id_mapel', $r->id_mapel)->first(),
+            'kelas' => $kelas,
+            'id_kelas' => $r->id_kelas,
+            'id_mapel' => $r->id_mapel,
+            'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
+
+        ];
+        return view('laporan.qr.nilai', $data);
     }
     public function get_nilai_siswa(Request $r)
     {

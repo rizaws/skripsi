@@ -49,7 +49,11 @@
                                         <label for="">Posisi</label>
                                         <select name="posisi" id="" class="choices form-select floar-end">
                                             <option value="">Pilih Posisi</option>
-                                            <option value="kepsek">Kepala Sekolah</option>
+                                            @if (empty($guru->nip))
+                                                <option value="kepsek">Kepala Sekolah</option>
+                                            @else
+                                            @endif
+
                                             <option value="guru">Guru</option>
                                             <option value="wali">Wali Kelas</option>
                                         </select>

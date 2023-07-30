@@ -51,7 +51,7 @@
                 <hr style="border:2px solid black;">
             </div>
             <div class="col-lg-12">
-                <h5 class="fw-bold text-center ">Laporan Data Absensi Siswa</h5>
+                <h5 class="fw-bold text-center ">Laporan Data Nilai Siswa</h5>
                 <br>
             </div>
             <div class="col-lg-12">
@@ -60,14 +60,18 @@
                         <tr>
                             <th width="45%">Kelas</th>
                             <th width="5%">:</th>
-                            <td width="50%">{{ $nm_kelas }}</td>
+                            <td width="50%">{{ $kelas->kelas }}{{ $kelas->huruf }}</td>
                         </tr>
                         <tr>
                             <th width="45%">Wali Kelas</th>
                             <th width="5%">:</th>
                             <td width="50%">{{ $kelas->nm_guru }}</td>
                         </tr>
-
+                        <tr>
+                            <th width="45%">Mata Pelajaran</th>
+                            <th width="5%">:</th>
+                            <td width="50%">{{ $mapel->nm_mapel }}</td>
+                        </tr>
                         <tr>
                             <th width="45%">Jumlah Siswa</th>
                             <th width="5%">:</th>
@@ -88,7 +92,7 @@
                     <p class="text-center">Banjarmasin, <?= date('d F Y') ?></p>
                     <p class="text-center ">Mengetahui,</p>
                     <p class="text-center fw-bold">Kepala Sekolah MTS Negeri 2 Banjarmasin,</p>
-                    <p class="text-center">{!! QrCode::size(100)->generate(url("/print_absen?id_kelas=$id_kelas&tgl1=$tgl1&tgl2=$tgl2")) !!}</p>
+                    <p class="text-center">{!! QrCode::size(100)->generate(url("/print_nilai?id_mapel=$id_mapel&id_kelas=$id_kelas")) !!}</p>
                     <p class="text-center"><u class="fw-bold text-center">{{ $kepsek->nm_guru }}</u></p>
                     <p class="text-center">NIP:{{ $kepsek->nip }}</p>
                 </center>

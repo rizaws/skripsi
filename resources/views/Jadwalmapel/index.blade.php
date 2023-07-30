@@ -1,6 +1,7 @@
 @extends('theme.app')
 @section('content')
     <div id="main">
+
         <div class="page-content">
             <div class="row">
                 <div class="col-lg-12">
@@ -10,10 +11,11 @@
                                 <div class="row">
                                     <div class="col-lg-8">
                                         <select name="id_kelas" id="" class="choices form-select floar-end">
+                                            <option value="">-Pilih Kelas-</option>
                                             @foreach ($kelas as $k)
                                                 <option
                                                     value="{{ $k->id_kelas }}"{{ $id_kelas == $k->id_kelas ? 'selected' : '' }}>
-                                                    {{ $k->nm_kelas }}
+                                                    {{ $k->kelas }}{{ $k->huruf }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -27,85 +29,89 @@
 
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <h6>{{ $title }}: {{ $nm_kelas }}</h6>
+                    @if ($id_kelas == '0')
+                    @else
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <h6>{{ $title }}: {{ $nm_kelas }}</h6>
+                                    </div>
                                 </div>
+
+
                             </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
 
-
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-
-                                <table class="table table-bordered" style="text-align: center">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2" style="vertical-align: middle">Waktu</th>
-                                            <th rowspan="2" style="vertical-align: middle">Jam Ke</th>
-                                            @foreach ($hari as $h)
-                                                <th>{{ $h->nm_hari }}</th>
-                                            @endforeach
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($jam_belajar as $j)
+                                    <table class="table table-bordered" style="text-align: center">
+                                        <thead>
                                             <tr>
-                                                @if ($j->ket == '3' || $j->ket == '6' || $j->ket == '9')
-                                                    <td>
-                                                        <dt>{{ $j->dari }} - {{ $j->sampai }}</dt>
-                                                    </td>
-                                                    <td>
-                                                        <dt>{{ $j->ket }}</dt>
-                                                    </td>
-                                                @else
-                                                    <td>{{ $j->dari }} - {{ $j->sampai }}</td>
-                                                    <td>{{ $j->ket }}</td>
-                                                @endif
-
+                                                <th rowspan="2" style="vertical-align: middle">Waktu</th>
+                                                <th rowspan="2" style="vertical-align: middle">Jam Ke</th>
                                                 @foreach ($hari as $h)
-                                                    @php
-                                                        $jadwal = DB::selectOne("SELECT a.id_jadwalmapel, b.nm_mapel FROM jadwalmapel as a 
+                                                    <th>{{ $h->nm_hari }}</th>
+                                                @endforeach
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($jam_belajar as $j)
+                                                <tr>
+                                                    @if ($j->ket == '3' || $j->ket == '6' || $j->ket == '9')
+                                                        <td>
+                                                            <dt>{{ $j->dari }} - {{ $j->sampai }}</dt>
+                                                        </td>
+                                                        <td>
+                                                            <dt>{{ $j->ket }}</dt>
+                                                        </td>
+                                                    @else
+                                                        <td>{{ $j->dari }} - {{ $j->sampai }}</td>
+                                                        <td>{{ $j->ket }}</td>
+                                                    @endif
+
+                                                    @foreach ($hari as $h)
+                                                        @php
+                                                            $jadwal = DB::selectOne("SELECT a.id_jadwalmapel, b.nm_mapel FROM jadwalmapel as a 
                                                         left join mapel as b on b.id_mapel = a.id_mapel
                                                         where a.id_jam = '$j->id_jam_belajar' and a.id_hari = '$h->id_hari' and a.id_kelas = '$id_kelas'
                                                         ");
-                                                    @endphp
-                                                    <td>
-                                                        @if (empty($jadwal))
-                                                            @if ($j->ket == '3' || $j->ket == '6' || $j->ket == '9')
-                                                                <dt>Istirahat</dt>
+                                                        @endphp
+                                                        <td>
+                                                            @if (empty($jadwal))
+                                                                @if ($j->ket == '3' || $j->ket == '6' || $j->ket == '9')
+                                                                    <dt>Istirahat</dt>
+                                                                @else
+                                                                    <a href="#" class="tambah_jadwal_pelajaran"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#tambah_jadwal"
+                                                                        id_kelas="{{ $id_kelas }}"
+                                                                        id_jam="{{ $j->id_jam_belajar }}"
+                                                                        id_hari="{{ $h->id_hari }}">
+                                                                        <i class="fas fa-plus"></i>
+                                                                    </a>
+                                                                @endif
                                                             @else
                                                                 <a href="#" class="tambah_jadwal_pelajaran"
                                                                     data-bs-toggle="modal" data-bs-target="#tambah_jadwal"
                                                                     id_kelas="{{ $id_kelas }}"
                                                                     id_jam="{{ $j->id_jam_belajar }}"
-                                                                    id_hari="{{ $h->id_hari }}">
-                                                                    <i class="fas fa-plus"></i>
+                                                                    id_hari="{{ $h->id_hari }}"
+                                                                    id_jadwal={{ $jadwal->id_jadwalmapel }}>
+                                                                    {{ $jadwal->nm_mapel }}
                                                                 </a>
                                                             @endif
-                                                        @else
-                                                            <a href="#" class="tambah_jadwal_pelajaran"
-                                                                data-bs-toggle="modal" data-bs-target="#tambah_jadwal"
-                                                                id_kelas="{{ $id_kelas }}"
-                                                                id_jam="{{ $j->id_jam_belajar }}"
-                                                                id_hari="{{ $h->id_hari }}"
-                                                                id_jadwal={{ $jadwal->id_jadwalmapel }}>
-                                                                {{ $jadwal->nm_mapel }}
-                                                            </a>
-                                                        @endif
 
-                                                    </td>
-                                                @endforeach
-                                            </tr>
-                                        @endforeach
+                                                        </td>
+                                                    @endforeach
+                                                </tr>
+                                            @endforeach
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

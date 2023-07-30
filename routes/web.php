@@ -5,6 +5,8 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\AbsenController;
+use App\Http\Controllers\AbsenMapelController;
+use App\Http\Controllers\AbsenGuruController;
 use App\Http\Controllers\JadwalmapelController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\NilaiController;
@@ -66,6 +68,18 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get_absen', 'get_absen')->name('get_absen');
         Route::get('/save_absen', 'save_absen')->name('save_absen');
         Route::get('/btl_absen', 'btl_absen')->name('btl_absen');
+    });
+    Route::controller(AbsenMapelController::class)->group(function () {
+        Route::get('/absensi_siswaMapel', 'index')->name('absensi_siswaMapel');
+        Route::get('/get_absenMapel', 'get_absen')->name('get_absenMapel');
+        Route::get('/save_absenMapel', 'save_absenMapel')->name('save_absenMapel');
+        Route::get('/btl_absenMapel', 'btl_absenMapel')->name('btl_absenMapel');
+    });
+    Route::controller(AbsenGuruController::class)->group(function () {
+        Route::get('/absensi_guru', 'index')->name('absensi_guru');
+        Route::get('/get_absenGuru', 'get_absenGuru')->name('get_absenGuru');
+        Route::get('/save_absenGuru', 'save_absenGuru')->name('save_absenGuru');
+        Route::get('/btl_absenGuru', 'btl_absenGuru')->name('btl_absenGuru');
     });
 
     Route::controller(MapelController::class)->group(function () {
@@ -134,8 +148,12 @@ Route::middleware(['auth'])->group(function () {
         
         Route::get('/LaporanJadwalPelajaran', 'LaporanJadwalPelajaran')->name('LaporanJadwalPelajaran');
         Route::get('/print_jadwal', 'print_jadwal')->name('print_jadwal');
+        Route::get('/qr_jadwal', 'qr_jadwal')->name('qr_jadwal');
+
         Route::get('/LaporanNilaiRapor', 'LaporanNilaiRapor')->name('LaporanNilaiRapor');
         Route::get('/get_nilai_siswa', 'get_nilai_siswa')->name('get_nilai_siswa');
+        Route::get('/qr_nilai_siswa', 'qr_nilai_siswa')->name('qr_nilai_siswa');
+
         Route::get('/print_nilai', 'print_nilai')->name('print_nilai');
         Route::get('/LaporanAnggotaEskul', 'LaporanAnggotaEskul')->name('LaporanAnggotaEskul');
         Route::get('/print_ekskul', 'print_ekskul')->name('print_ekskul');

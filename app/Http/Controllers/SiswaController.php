@@ -21,7 +21,7 @@ class SiswaController extends Controller
         'title' => 'Data siswa',
         'nm_kelas' => empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
         'kelas' => DB::table('kelas')->get(),
-        'siswa' => DB::table('siswa')->where('id_kelas',$id_kelas)->where('lulus','T')->get(),
+        'siswa' => DB::table('siswa')->where('id_kelas',$id_kelas)->where('lulus','T')->orderBy('id_siswa','DESC')->get(),
         'id_kelas' => $id_kelas,
         'kelas_9' => $kelas
        ];
@@ -30,9 +30,18 @@ class SiswaController extends Controller
 
     public function tbh_siswa(Request $r)
     {
+        $tahun = date('y');
+        $tahun1 = date('Y');
+        $siswa = DB::selectOne("SELECT max(a.urutan)  as urutan FROM siswa as a where a.tahun_ajaran = '$tahun1' group by a.tahun_ajaran ");
+        if (empty($siswa->urutan)) {
+            $nis = $tahun.'0001';
+        }else{
+        $nis = $siswa->urutan + 1;
+        }
         $data =  [
             'title' => 'Data siswa',
             'kelas' => DB::table('kelas')->get(),
+            'nis' => $nis
             
            ];
         return view('Siswa.add',$data);
@@ -40,6 +49,14 @@ class SiswaController extends Controller
 
     public function save_siswa(Request $r)
     {
+        $tahun1 = date('Y');
+        $tahun = date('y');
+        $siswa = DB::selectOne("SELECT max(a.urutan)  as urutan FROM siswa as a where a.tahun_ajaran = '$tahun1' group by a.tahun_ajaran ");
+        if (empty($siswa->urutan)) {
+            $nis = $tahun.'0001';
+         }else{
+            $nis = $tahun.$siswa->urutan + 1;
+        }
         $data = [
             'id_kelas'  => $r->id_kelas,
             'nisn'  => $r->nisn,
@@ -51,7 +68,9 @@ class SiswaController extends Controller
             'no_telp'  => $r->no_telp,
             'email'  => $r->email,
             'alamat'  => $r->alamat,
-            'jenis_kelamin' => $r->jenis_kelamin
+            'jenis_kelamin' => $r->jenis_kelamin,
+            'tahun_ajaran' => date('Y'),
+            'urutan' => $nis,
         ];
         DB::table('siswa')->insert($data);
 
@@ -103,6 +122,7 @@ class SiswaController extends Controller
             'no_telp'  => $r->no_telp,
             'email'  => $r->email,
             'alamat'  => $r->alamat,
+            'jenis_kelamin'  => $r->jenis_kelamin,
         ];
         DB::table('siswa')->where('id_siswa',$r->id_siswa)->update($data);
         return redirect()->route('data_siswa',['id_kelas'=> $r->id_kelas])->with('sukses', 'Berhasil tambah data siswa');

@@ -44,6 +44,7 @@
                     <tr>
                         <th>#</th>
                         <th>Nama</th>
+                        <th>Jenis Kelamin</th>
                         <th>Masuk</th>
                         <th>Izin</th>
                         <th>Sakit</th>
@@ -52,6 +53,7 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     @foreach ($siswa as $no => $s)
                         @php
                             $M = DB::selectOne("SELECT count(a.ket) as M FROM absen as a where id_siswa ='$s->id_siswa' and a.ket = 'M' and a.tgl between '$tgl1' and '$tgl2' ");
@@ -63,6 +65,7 @@
                         <tr>
                             <td>{{ $no + 1 }}</td>
                             <td>{{ $s->nama }} </td>
+                            <td>{{ $s->jenis_kelamin }} </td>
                             <td>{{ $M->M }}</td>
                             <td>{{ $I->I }}</td>
                             <td>{{ $S->S }}</td>
@@ -72,9 +75,20 @@
                     @endforeach
                 </tbody>
             </table>
-
         </div>
         <div class="col-lg-6 col-6">
+            <table>
+                <tr>
+                    <th>Laki-laki</th>
+                    <th>:</th>
+                    <th>{{ $laki->laki }}</th>
+                </tr>
+                <tr>
+                    <th>Perempuan</th>
+                    <th>:</th>
+                    <th>{{ $perempuan->perempuan }}</th>
+                </tr>
+            </table>
         </div>
         <div class="col-lg-6 col-6">
             <p class="text-center">Banjarmasin, <?= date('d F Y') ?></p>
@@ -84,8 +98,9 @@
         <div class="col-6">
             <p class="text-center">Mengetahui,</p><br>
             <p class="text-center">Kepala MTS Negeri 2 Banjarmasin</p>
-            <p class="text-center">{!! QrCode::size(100)->generate(url('/assets/ttd/' . $kepsek->image)) !!}</p>
-            <p class="text-center"><u class="fw-bold text-center">{{ $kepsek->nm_guru }}</u></p><br>
+            <br>
+            <br>
+            <p class="text-center"><u class="fw-bold text-center">{{ $kepsek->nm_guru }}</u></p>
             <p class="text-center">NIP:{{ $kepsek->nip }}</p>
         </div>
 

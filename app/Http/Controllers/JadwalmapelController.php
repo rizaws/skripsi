@@ -10,16 +10,19 @@ class JadwalmapelController extends Controller
     public function index(Request $r)
     {
         if (empty($r->id_kelas)) {
-            $id_kelas = '1';
+            $id_kelas = '0';
         } else {
             $id_kelas = $r->id_kelas;
         }
         
        
        $kelas = DB::table('kelas')->where('id_kelas',$id_kelas)->first();
+
+       
+       
        $data =  [
         'title' => 'Data Jadwal Pelajaran',
-        'nm_kelas' => $kelas->nm_kelas,
+        'nm_kelas' => empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
         'kelas' => DB::table('kelas')->get(),
         'jadwal' => DB::table('jadwalmapel')->where('id_kelas',$id_kelas)->get(),
         'id_kelas' => $id_kelas,

@@ -38,7 +38,7 @@
         </div>
         <div class="col-lg-12">
             <p>Mapel : {{ $mapel->nm_mapel }}</p> <br>
-            <p>Kelas : {{ $kelas->nm_kelas }}</p>
+            <p>Kelas : {{ $kelas->kelas }}{{ $kelas->huruf }}</p>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
@@ -61,10 +61,30 @@
                             <td>{{ $no + 1 }}</td>
                             <td>{{ $s->nama }}</td>
                             <td>
-                                {{ empty($nilai->nilai) ? 'nilai belum dimasukkan' : $nilai->nilai }}
+                                @if (empty($nilai->nilai))
+                                    F
+                                @elseif ($nilai->nilai > '8')
+                                    A
+                                @elseif ($nilai->nilai > '6')
+                                    B
+                                @elseif ($nilai->nilai >= '5')
+                                    C
+                                @else
+                                    D
+                                @endif
                             </td>
                             <td>
-                                {{ empty($nilai->ket) ? '' : $nilai->ket }}
+                                @if (empty($nilai->nilai))
+                                    Sangat Kurang
+                                @elseif ($nilai->nilai > '8')
+                                    Sangat Bagus
+                                @elseif ($nilai->nilai > '6')
+                                    Bagus
+                                @elseif ($nilai->nilai >= '5')
+                                    Cukup
+                                @else
+                                    Kurang
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -82,8 +102,10 @@
         <div class="col-6">
             <p class="text-center">Mengetahui,</p><br>
             <p class="text-center">Kepala MTS Negeri 2 Banjarmasin</p>
-            <p class="text-center">{!! QrCode::size(100)->generate(url('/assets/ttd/' . $kepsek->image)) !!}</p>
-            <p class="text-center"><u class="fw-bold text-center">{{ $kepsek->nm_guru }}</u></p><br>
+            <br>
+            <br>
+            <br>
+            <p class="text-center"><u class="fw-bold text-center">{{ $kepsek->nm_guru }}</u></p>
             <p class="text-center">NIP:{{ $kepsek->nip }}</p>
         </div>
 

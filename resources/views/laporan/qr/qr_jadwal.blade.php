@@ -51,7 +51,7 @@
                 <hr style="border:2px solid black;">
             </div>
             <div class="col-lg-12">
-                <h5 class="fw-bold text-center ">Laporan Data Absensi Siswa</h5>
+                <h5 class="fw-bold text-center ">Laporan Data Jadwal Pelajaran Siswa</h5>
                 <br>
             </div>
             <div class="col-lg-12">
@@ -88,7 +88,7 @@
                     <p class="text-center">Banjarmasin, <?= date('d F Y') ?></p>
                     <p class="text-center ">Mengetahui,</p>
                     <p class="text-center fw-bold">Kepala Sekolah MTS Negeri 2 Banjarmasin,</p>
-                    <p class="text-center">{!! QrCode::size(100)->generate(url("/print_absen?id_kelas=$id_kelas&tgl1=$tgl1&tgl2=$tgl2")) !!}</p>
+                    <p class="text-center">{!! QrCode::size(100)->generate(url("/print_jadwal?id_kelas=$id_kelas")) !!}</p>
                     <p class="text-center"><u class="fw-bold text-center">{{ $kepsek->nm_guru }}</u></p>
                     <p class="text-center">NIP:{{ $kepsek->nip }}</p>
                 </center>

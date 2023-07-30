@@ -13,12 +13,12 @@
                         <tr>
                             <td>Kelas</td>
                             <td>:</td>
-                            <td>{{ $kelas->nm_kelas }}</td>
+                            <td>{{ $kelas->kelas }}{{ $kelas->huruf }}</td>
                         </tr>
                     </table>
                 </div>
                 <div class="col-lg-6">
-                    <a href="{{ route('print_nilai', ['id_mapel' => $id_mapel, 'id_kelas' => $id_kelas]) }}"
+                    <a href="{{ route('qr_nilai_siswa', ['id_mapel' => $id_mapel, 'id_kelas' => $id_kelas]) }}"
                         class="btn btn-primary float-end"><i class="fas fa-print"></i> Print
                     </a>
                 </div>
@@ -49,10 +49,30 @@
                             <td>{{ $no + 1 }}</td>
                             <td>{{ $s->nama }}</td>
                             <td>
-                                {{ empty($nilai->nilai) ? 'nilai belum dimasukkan' : $nilai->nilai }}
+                                @if (empty($nilai->nilai))
+                                    F
+                                @elseif ($nilai->nilai > '8')
+                                    A
+                                @elseif ($nilai->nilai > '6')
+                                    B
+                                @elseif ($nilai->nilai >= '5')
+                                    C
+                                @else
+                                    D
+                                @endif
                             </td>
                             <td>
-                                {{ empty($nilai->ket) ? '' : $nilai->ket }}
+                                @if (empty($nilai->nilai))
+                                    Sangat Kurang
+                                @elseif ($nilai->nilai > '8')
+                                    Sangat Bagus
+                                @elseif ($nilai->nilai > '6')
+                                    Bagus
+                                @elseif ($nilai->nilai >= '5')
+                                    Cukup
+                                @else
+                                    Kurang
+                                @endif
                             </td>
                         </tr>
                     @endforeach
