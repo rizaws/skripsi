@@ -214,7 +214,10 @@
                 var id_kelas = $(this).val();
                 $.ajax({
                     type: "get",
-                    url: "/get_siswa?id_kelas=" + id_kelas,
+                    url: "route('get_siswa')",
+                    data: {
+                        'id_kelas': id_kelas
+                    },
                     success: function(data) {
                         $('.load_siswa').html(data)
                     }
@@ -226,7 +229,10 @@
 
                 $.ajax({
                     type: "get",
-                    url: "/get_edit_anggota_ekskul?id_anggota_ekskul=" + id_anggota_ekskul,
+                    url: "{{ route('get_edit_anggota_ekskul') }}",
+                    data: {
+                        'id_anggota_ekskul': id_anggota_ekskul
+                    },
                     success: function(data) {
                         $('#anggota_ekskul').html(data);
                     }

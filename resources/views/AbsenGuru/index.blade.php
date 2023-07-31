@@ -63,7 +63,10 @@
             function load_absen() {
                 $.ajax({
                     type: "get",
-                    url: "/get_absenGuru?tgl=" + tgl,
+                    url: "{{ route('get_absenGuru') }}",
+                    data: {
+                        'tgl': tgl
+                    },
                     success: function(data) {
                         $('#load_absen').html(data);
                         $('#table_tes').DataTable();
@@ -77,7 +80,12 @@
                 var tgl = $(this).attr('tgl');
                 $.ajax({
                     type: "get",
-                    url: "/save_absenGuru?id_guru=" + id_guru + "&tgl=" + tgl + '&ket=' + ket,
+                    url: "{{ route('save_absenGuru') }}",
+                    data: {
+                        'id_guru': id_guru,
+                        'tgl': tgl,
+                        'ket': ket
+                    },
                     success: function(data) {
                         load_absen();
                         toastr.success('absen berhasil disimpan');
@@ -90,7 +98,12 @@
                 var tgl = $(this).attr('tgl');
                 $.ajax({
                     type: "get",
-                    url: "/btl_absenGuru?id_guru=" + id_guru + "&tgl=" + tgl + '&ket=' + ket,
+                    url: "{{ route('btl_absenGuru') }}",
+                    data: {
+                        'id_guru': id_guru,
+                        'tgl': tgl,
+                        'ket': ket
+                    },
                     success: function(data) {
                         load_absen();
                         toastr.success('absen berhasil dibatalkan');

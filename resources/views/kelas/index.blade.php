@@ -170,7 +170,10 @@
 
                 $.ajax({
                     type: "get",
-                    url: "/get_edit_kelas?id_kelas=" + id_kelas,
+                    url: "{{ route('get_edit_kelas') }}",
+                    data: {
+                        'id_kelas': id_kelas
+                    },
                     success: function(data) {
                         $('#kelas').html(data);
                     }

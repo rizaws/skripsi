@@ -101,6 +101,9 @@
                                 <li class="submenu-item {{ Request::is('anggota_ekskul') ? 'active' : '' }}">
                                     <a href="{{ route('anggota_ekskul') }}">Anggota Ekskul</a>
                                 </li>
+                                <li class="submenu-item {{ Request::is('jadwal_mapel') ? 'active' : '' }}">
+                                    <a href="{{ route('jadwal_mapel') }}">Jadwal Pelajaran</a>
+                                </li>
                                 <li class="submenu-item {{ Request::is('prestasi_siswa') ? 'active' : '' }}">
                                     <a href="{{ route('prestasi_siswa') }}">Prestasi Siswa</a>
                                 </li>
@@ -148,7 +151,7 @@
                 @endif
 
                 @php
-                    $reqL = ['LaporanSiswa', 'LaporanGuru', 'LaporanAbsen', 'LaporanJadwalPelajaran', 'LaporanNilaiRapor', 'LaporanAnggotaEskul', 'LaporanPrestasiSiswa', 'LaporanRaporSiswa'];
+                    $reqL = ['LaporanSiswa', 'LaporanGuru', 'LaporanAbsen', 'LaporanJadwalPelajaran', 'LaporanNilaiRapor', 'LaporanAnggotaEskul', 'LaporanPrestasiSiswa', 'LaporanRaporSiswa', 'LaporanAbsenGuru', 'LaporanAbsen_mapel'];
                 @endphp
                 <li class="sidebar-item  has-sub {{ Request::is($reqL) ? 'active' : '' }}">
                     <a href="lap_masuk" class='sidebar-link'>
@@ -165,6 +168,12 @@
                             </li>
                             <li class="submenu-item {{ Request::is('LaporanAbsen') ? 'active' : '' }}">
                                 <a href="{{ route('LaporanAbsen') }}">Absensi</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanAbsen_mapel') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanAbsen_mapel') }}">Laporan Absensi Mapel</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanAbsenGuru') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanAbsenGuru') }}">Absensi Guru</a>
                             </li>
                             <li class="submenu-item {{ Request::is('LaporanJadwalPelajaran') ? 'active' : '' }}">
                                 <a href="{{ route('LaporanJadwalPelajaran') }}">Jadwal Pelajaran</a>

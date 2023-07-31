@@ -203,7 +203,10 @@
                 var id_kelas = $(this).val();
                 $.ajax({
                     type: "get",
-                    url: "/get_siswa?id_kelas=" + id_kelas,
+                    url: "route('get_siswa')",
+                    data: {
+                        'id_kelas': id_kelas
+                    },
                     success: function(data) {
                         $('.load_siswa').html(data)
                     }
@@ -215,7 +218,10 @@
 
                 $.ajax({
                     type: "get",
-                    url: "/get_edit_prestasi?id_prestasi=" + id_prestasi,
+                    url: "{{ route('get_edit_prestasi') }}",
+                    data: {
+                        'id_prestasi': id_prestasi
+                    },
                     success: function(data) {
                         $('#prestasi').html(data);
                     }

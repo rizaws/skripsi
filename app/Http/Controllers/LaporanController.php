@@ -553,6 +553,143 @@ class LaporanController extends Controller
 
     public function LaporanAbsenGuru(Type $var = null)
     {
-        # code...
+        if (empty($r->tgl1)) {
+            $tgl1 = date('Y-m-01');
+            $tgl2 = date('Y-m-t');
+        } else {
+            $tgl1 = $r->tgl1;
+            $tgl2 = $r->tgl2;
+        }
+       $data =  [
+        'title' => 'Data Absen Guru',
+        'tgl1' => $tgl1,
+        'tgl2' => $tgl2,
+        'guru' => DB::table('guru')->get()
+        
+       ];
+       return view('laporan.absen_guru', $data);
+    }
+    public function QrAbsenGuru(Type $var = null)
+    {
+        if (empty($r->tgl1)) {
+            $tgl1 = date('Y-m-01');
+            $tgl2 = date('Y-m-t');
+        } else {
+            $tgl1 = $r->tgl1;
+            $tgl2 = $r->tgl2;
+        }
+       $data =  [
+        'title' => 'Data Absen Guru',
+        'tgl1' => $tgl1,
+        'tgl2' => $tgl2,
+        'guru' => DB::selectOne("SELECT count(a.id_guru) as jml_guru FROM guru as a "),
+        'kepsek' => DB::table('guru')->where('posisi','kepsek')->first(),
+        
+       ];
+       return view('laporan.qr.absen_guru', $data);
+    }
+
+    public function print_absen_guru(Request $r)
+    {
+        $tgl1 = $r->tgl1;
+        $tgl2 = $r->tgl2;
+        $data =  [
+            'title' => 'Data Absen Guru',
+            'tgl1' => $tgl1,
+            'tgl2' => $tgl2,
+            'guru' => DB::table('guru')->get(),
+            'kepsek' => DB::table('guru')->where('posisi','kepsek')->first(),
+            
+           ];
+           return view('laporan.print.absen_guru', $data);
+    }
+
+    public function LaporanAbsen_mapel(Request $r)
+    {
+        if (empty($r->id_kelas)) {
+            $id_kelas = '';
+        } else {
+            $id_kelas = $r->id_kelas;
+        }
+        if (empty($r->id_mapel)) {
+            $id_mapel = '';
+        } else {
+            $id_mapel = $r->id_mapel;
+        }
+        if (empty($r->tgl1)) {
+            $tgl1 = date('Y-m-01');
+            $tgl2 = date('Y-m-t');
+        } else {
+            $tgl1 = $r->tgl1;
+            $tgl2 = $r->tgl2;
+        }
+        $kelas = DB::table('kelas')->where('id_kelas',$id_kelas)->first();
+        $data =  [
+            'title' => 'Data Absen Per Mapel',
+            'tgl1' => $tgl1,
+            'tgl2' => $tgl2,
+            'kelas' => DB::table('kelas')->get(),
+            'mapel' => DB::table('mapel')->get(),
+            'siswa' => DB::table('siswa')->where('id_kelas',$id_kelas)->get(),
+            'nm_kelas' =>   empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
+            'id_kelas' => $id_kelas,
+            'id_mapel' => $id_mapel,
+            
+           ];
+           return view('laporan.absen_mapel', $data);
+    }
+
+    public function qr_absensi_mapel(Request $r)
+    {
+        $kelas = DB::selectOne("SELECT * FROM kelas as a left join guru as b on b.id_guru = a.id_guru where a.id_kelas = $r->id_kelas");
+        $data =[
+            'title' => 'Laporan data siswa',
+            'nm_kelas' => empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
+            'kelas' => $kelas,
+            'kepsek' => DB::table('guru')->where('posisi','kepsek')->first(),
+            'siswa' => DB::selectOne("SELECT count(a.id_siswa) as jml_siswa FROM siswa as a where a.id_kelas = $r->id_kelas"),
+            'tgl1' => $r->tgl1,
+            'tgl2' => $r->tgl2,
+            'mapel' => DB::table('mapel')->where('id_mapel',$r->id_mapel)->first(),
+            'id_kelas' => $r->id_kelas,
+            'id_mapel' => $r->id_mapel,
+        ];
+        return view('Laporan.qr.qr_absen_mapel',$data);
+    }
+
+    public function print_absen_mapel(Request $r)
+    {
+        if (empty($r->id_kelas)) {
+            $id_kelas = '';
+        } else {
+            $id_kelas = $r->id_kelas;
+        }
+        if (empty($r->id_mapel)) {
+            $id_mapel = '';
+        } else {
+            $id_mapel = $r->id_mapel;
+        }
+        if (empty($r->tgl1)) {
+            $tgl1 = date('Y-m-01');
+            $tgl2 = date('Y-m-t');
+        } else {
+            $tgl1 = $r->tgl1;
+            $tgl2 = $r->tgl2;
+        }
+        $kelas = DB::table('kelas')->where('id_kelas',$id_kelas)->first();
+        $data =  [
+            'title' => 'Data Absen Per Mapel',
+            'tgl1' => $tgl1,
+            'tgl2' => $tgl2,
+            'kelas' => DB::table('kelas')->get(),
+            'mapel' => DB::table('mapel')->get(),
+            'siswa' => DB::table('siswa')->where('id_kelas',$id_kelas)->get(),
+            'nm_kelas' =>   empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
+            'id_kelas' => $id_kelas,
+            'id_mapel' => $id_mapel,
+            'kepsek' => DB::table('guru')->where('posisi','kepsek')->first(),
+            
+           ];
+           return view('laporan.print.absen_mapel', $data);
     }
 }

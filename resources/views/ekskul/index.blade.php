@@ -163,7 +163,10 @@
 
                 $.ajax({
                     type: "get",
-                    url: "/get_edit_ekskul?id_ekskul=" + id_ekskul,
+                    url: "{{ route('get_edit_ekskul') }}",
+                    data: {
+                        'id_ekskul': id_ekskul
+                    },
                     success: function(data) {
                         $('#ekskul').html(data);
                     }

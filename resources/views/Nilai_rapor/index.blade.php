@@ -65,7 +65,11 @@
                 var id_kelas = $('#id_kelas').val();
                 $.ajax({
                     type: "get",
-                    url: "/get_rapor_siswa?id_mapel=" + id_mapel + '&id_kelas=' + id_kelas,
+                    url: "{{ route('get_rapor_siswa') }}",
+                    data: {
+                        'id_mapel': id_mapel,
+                        'id_kelas': id_kelas
+                    }
                     success: function(data) {
                         $("#get_siswa").html(data)
                     }

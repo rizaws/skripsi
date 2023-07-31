@@ -4,7 +4,8 @@
         <select name="" id="" class="choices form-select get_siswa">
             <option value="">-Pilih Kelas-</option>
             @foreach ($kelas as $k)
-                <option value="{{ $k->id_kelas }}" {{ $k->id_kelas == $id_kelas ? 'Selected' : '' }}>{{ $k->nm_kelas }}
+                <option value="{{ $k->id_kelas }}" {{ $k->id_kelas == $id_kelas ? 'Selected' : '' }}>
+                    {{ $k->kelas }}{{ $k->huruf }}
                 </option>
             @endforeach
         </select>

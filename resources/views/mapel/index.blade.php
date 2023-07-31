@@ -16,46 +16,41 @@
                                         Mapel</a>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <a href="#" class="btn btn-primary float-end" data-bs-toggle="modal"
-                                    data-bs-target="#tambah"><i class="fas fa-plus"></i> Tambah
-                                    Mapel</a>
-                            </div>
                         </div>
 
 
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped" id="table1">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Mata Pelajaran</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($mapel as $no => $s)
+
+                        <div class="card-body">
+                            <table class="table table-striped" id="table1">
+                                <thead>
                                     <tr>
-                                        <td>{{ $no + 1 }}</td>
-                                        <td>{{ $s->nm_mapel }}</td>
-                                        <td>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#edit"
-                                                class="btn btn-sm btn-warning edit" id_mapel="{{ $s->id_mapel }}"><i
-                                                    class="fas fa-edit"></i></a>
-                                            <a href="#" class="btn btn-sm btn-danger hapus" data-bs-toggle="modal"
-                                                data-bs-target="#hapus" id_mapel="{{ $s->id_mapel }}"><i
-                                                    class="fas fa-trash-alt"></i></a>
-                                        </td>
+                                        <th>#</th>
+                                        <th>Mata Pelajaran</th>
+                                        <th>Aksi</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($mapel as $no => $s)
+                                        <tr>
+                                            <td>{{ $no + 1 }}</td>
+                                            <td>{{ $s->nm_mapel }}</td>
+                                            <td>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#edit"
+                                                    class="btn btn-sm btn-warning edit" id_mapel="{{ $s->id_mapel }}"><i
+                                                        class="fas fa-edit"></i></a>
+                                                <a href="#" class="btn btn-sm btn-danger hapus" data-bs-toggle="modal"
+                                                    data-bs-target="#hapus" id_mapel="{{ $s->id_mapel }}"><i
+                                                        class="fas fa-trash-alt"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
 
@@ -160,7 +155,10 @@
                 var id_mapel = $(this).attr('id_mapel');
                 $.ajax({
                     type: "get",
-                    url: "/get_edit_mapel?id_mapel=" + id_mapel,
+                    url: "{{ route('get_edit_mapel') }}",
+                    data: {
+                        'id_mapel': id_mapel
+                    },
                     success: function(data) {
                         $('#mapel').html(data);
                     }

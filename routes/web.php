@@ -169,6 +169,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/LaporanRaporSiswa', 'LaporanRaporSiswa')->name('LaporanRaporSiswa');
         Route::get('/qr_rapor', 'qr_rapor')->name('qr_rapor');
         
+        Route::get('/LaporanAbsenGuru', 'LaporanAbsenGuru')->name('LaporanAbsenGuru');
+        Route::get('/QrAbsenGuru', 'QrAbsenGuru')->name('QrAbsenGuru');
+
+        Route::get('/LaporanAbsen_mapel', 'LaporanAbsen_mapel')->name('LaporanAbsen_mapel');
+        Route::get('/qr_absensi_mapel', 'qr_absensi_mapel')->name('qr_absensi_mapel');
+
     });
 });
 Route::controller(LaporanController::class)->group(function () {
@@ -180,6 +186,8 @@ Route::controller(LaporanController::class)->group(function () {
     Route::get('/print_rapor', 'print_rapor')->name('print_rapor');
     Route::get('/print_prestasi', 'print_prestasi')->name('print_prestasi');
     Route::get('/print_ekskul', 'print_ekskul')->name('print_ekskul');
+    Route::get('/print_absen_guru', 'print_absen_guru')->name('print_absen_guru');
+    Route::get('/print_absen_mapel', 'print_absen_mapel')->name('print_absen_mapel');
 });
 
 

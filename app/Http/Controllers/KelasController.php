@@ -44,7 +44,7 @@ class KelasController extends Controller
     {
         $data = [
             'kelas'=> DB::table('kelas')->where('id_kelas',$r->id_kelas)->first(),
-            'guru' => DB::select("SELECT * FROM guru as a where a.id_guru not in (SELECT b.id_guru FROM kelas as b ) and a.posisi = 'wali'")
+            'guru' => DB::select("SELECT * FROM guru as a where  a.posisi = 'wali'")
         ];
         return view('kelas.get_kelas',$data);
     }

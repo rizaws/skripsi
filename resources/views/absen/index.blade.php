@@ -77,7 +77,11 @@
             function load_absen() {
                 $.ajax({
                     type: "get",
-                    url: "/get_absen?id_kelas=" + id_kelas + "&tgl=" + tgl,
+                    url: "{{ route('get_absen') }}",
+                    data: {
+                        'id_kelas': id_kelas,
+                        'tgl': tgl
+                    },
                     success: function(data) {
                         $('#load_absen').html(data);
                         $('#table_tes').DataTable();
@@ -91,7 +95,12 @@
                 var tgl = $(this).attr('tgl');
                 $.ajax({
                     type: "get",
-                    url: "/save_absen?id_siswa=" + id_siswa + "&tgl=" + tgl + '&ket=' + ket,
+                    url: "{{ route('save_absen') }}",
+                    data: {
+                        'id_siswa': id_siswa,
+                        'tgl': tgl,
+                        'ket': ket
+                    },
                     success: function(data) {
                         load_absen();
                         toastr.success('absen berhasil disimpan');
@@ -104,7 +113,12 @@
                 var tgl = $(this).attr('tgl');
                 $.ajax({
                     type: "get",
-                    url: "/btl_absen?id_siswa=" + id_siswa + "&tgl=" + tgl + '&ket=' + ket,
+                    url: "{{ route('btl_absen') }}",
+                    data: {
+                        'id_siswa': id_siswa,
+                        'tgl': tgl,
+                        'ket': ket
+                    },
                     success: function(data) {
                         load_absen();
                         toastr.success('absen berhasil dibatalkan');
