@@ -49,13 +49,13 @@ class SiswaController extends Controller
 
     public function save_siswa(Request $r)
     {
-        $tahun1 = date('Y');
         $tahun = date('y');
+        $tahun1 = date('Y');
         $siswa = DB::selectOne("SELECT max(a.urutan)  as urutan FROM siswa as a where a.tahun_ajaran = '$tahun1' group by a.tahun_ajaran ");
         if (empty($siswa->urutan)) {
             $nis = $tahun.'0001';
          }else{
-            $nis = $tahun.$siswa->urutan + 1;
+            $nis = $siswa->urutan + 1;
         }
         $data = [
             'id_kelas'  => $r->id_kelas,
