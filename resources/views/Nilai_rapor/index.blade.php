@@ -87,6 +87,7 @@
                     type: "GET",
                     url: "{{ route('save_nilai') }}?" + formVal,
                     success: function(r) {
+                        alert('berhasil')
                         toastr.success('Nilai siswa berhasil disimpan');
                         $.ajax({
                             type: "get",
