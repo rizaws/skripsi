@@ -6,7 +6,7 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-8 mb-4">
-                        <form class="filter_nilai">
+                        <form id="filter_nilai">
                             <div class="row">
                                 <div class="col-lg-4">
                                     <select name="id_mapel" id="id_mapel" class="choices form-select floar-end">
@@ -59,7 +59,7 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
-            $(document).on('submit', '.filter_nilai', function(e) {
+            $(document).on('submit', '#filter_nilai', function(e) {
                 e.preventDefault();
                 alert('dsa');
                 var id_mapel = $('#id_mapel').val();
@@ -70,7 +70,7 @@
                     data: {
                         'id_mapel': id_mapel,
                         'id_kelas': id_kelas
-                    }
+                    },
                     success: function(data) {
                         $("#get_siswa").html(data)
                     }
