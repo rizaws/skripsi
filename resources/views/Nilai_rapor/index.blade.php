@@ -61,6 +61,7 @@
     $(document).ready(function() {
             $(document).on('submit', '.filter_nilai', function(e) {
                 e.preventDefault();
+                alert('dsa');
                 var id_mapel = $('#id_mapel').val();
                 var id_kelas = $('#id_kelas').val();
                 $.ajax({
