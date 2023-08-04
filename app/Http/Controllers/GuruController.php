@@ -106,13 +106,26 @@ class GuruController extends Controller
                 'posisi'=> $request->posisi,
             ]);
 
-            DB::table('users')->where('username',$request->nip)->update([
-                'name' => $request->nm_guru,
-                'username' => $request->nip,
-                'level' => $request->posisi,
-                'email' => $request->email,
-                'password' => Hash::make($request->nip),
-            ]);
+            $user = DB::table('users')->where('username',$request->nip)->first();
+
+            if (empty($user->username)) {
+                DB::table('users')->insert([
+                    'name' => $request->nm_guru,
+                    'username' => $request->nip,
+                    'level' => $request->posisi,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->nip),
+                ]);
+            }else {
+                DB::table('users')->where('username',$request->nip)->update([
+                    'name' => $request->nm_guru,
+                    'username' => $request->nip,
+                    'level' => $request->posisi,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->nip),
+                ]);
+            }
+            
         return redirect()->route('data_guru')->with('success', 'Data guru berhasil disimpan.');
     }
 

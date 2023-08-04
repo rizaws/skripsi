@@ -15,7 +15,7 @@
         <label for="">Pilih Siswa</label>
         <select name="id_siswa" id="" class="form-control load_siswa">
             @foreach ($siswa as $s)
-                <option value="{{ $s->id_siswa }}" {{ $anggota->id_siswa == $s->id_siswa ? 'Selected' : '' }}>
+                <option value="{{ $s->id_siswa }}" {{ $prestasi->id_siswa == $s->id_siswa ? 'Selected' : '' }}>
                     {{ $s->nama }}
                 </option>
             @endforeach

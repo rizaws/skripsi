@@ -2,7 +2,7 @@
 @section('content')
     <div id="main">
         <div class="page-heading">
-            <h3 style="text-transform: capitalize">Sistem informasi akadmeik siswa</h3>
+            <h3 style="text-transform: capitalize">Aplikasi Monitoring Akademik dan Prestasi Siswa MTSN 2 Banjarmasin</h3>
         </div>
         <div class="page-content">
             <div class="row">
