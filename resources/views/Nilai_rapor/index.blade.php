@@ -87,18 +87,19 @@
                     type: "GET",
                     url: "{{ route('save_nilai') }}?" + formVal,
                     success: function(r) {
-                        alert('berhasil')
+                        console.log('dsa');
                         toastr.success('Nilai siswa berhasil disimpan');
+
                         $.ajax({
                             type: "get",
-                    url: "{{ route('get_rapor_siswa') }}",
-                    data: {
-                        'id_mapel': id_mapel,
-                        'id_kelas': id_kelas
-                    },
-                    success: function(data) {
-                        $("#get_siswa").html(data)
-                    }
+                            url: "{{ route('get_rapor_siswa') }}",
+                            data: {
+                                'id_mapel': id_mapel,
+                                'id_kelas': id_kelas
+                        },
+                        success: function(data) {
+                            $("#get_siswa").html(data)
+                        }
                         });
                     }
                 });
