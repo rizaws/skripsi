@@ -51,8 +51,9 @@
 </style>
 
 @php
-    
-    $siswa = DB::selectOne("SELECT * FROM siswa as a left join kelas as b on b.id_kelas = a.id_kelas where a.id_siswa = $id_siswa");
+
+$siswa = DB::selectOne("SELECT * FROM siswa as a left join kelas as b on b.id_kelas = a.id_kelas where a.id_siswa =
+$id_siswa");
 @endphp
 
 <body style="background-color: #f7f5fa; margin: 0 !important; padding: 0 !important;">
@@ -103,21 +104,20 @@
 
                                     <th align="center" colspan="2" valign="top"
                                         style="padding-left:15px;padding-right:30px;padding-bottom:10px;font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 25px;">
-                                        Kelas : {{ $siswa->nm_kelas }} </th>
+                                        Kelas : {{ $siswa->kelas }}{{$siswa->huruf}} </th>
                                 </tr>
                                 <tr>
-                                    <th colspan="2" valign="top"
-                                        style="padding-left:15px;padding-right:30px;padding-bottom:10px;font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;text-align:center
+                                    <th colspan="2" valign="top" style="padding-left:15px;padding-right:30px;padding-bottom:10px;font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;text-align:center
                                         ">
                                         pada tanggal : {{ date('d-m-Y') }} dinyatakan
                                         @if ($ket == 'I')
-                                            Izin
+                                        Izin
                                         @elseif ($ket == 'S')
-                                            Sakit
+                                        Sakit
                                         @elseif ($ket == 'A')
-                                            Alpa
+                                        Alpa
                                         @else
-                                            Terlambat
+                                        Terlambat
                                         @endif
 
 
@@ -137,7 +137,7 @@
                                         <table border="0" cellspacing="0" cellpadding="0">
                                             <tr>
                                                 @php
-                                                    $tgl = date('Y-m-d');
+                                                $tgl = date('Y-m-d');
                                                 @endphp
                                                 {{-- <td align="left" style="border-radius: 3px;" bgcolor="#D3D335">
                                                     <a href="{{ route('download_cronjob', ['tgl1' => $tgl]) }}"
