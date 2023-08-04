@@ -78,7 +78,7 @@
             });
             $(document).on('submit', '#save_nilai', function(e) {
                 e.preventDefault()
-                var formVal = $("#save_nilai").serialize()
+                var formVal = $("#save_nilai").serialize();
                 var id_mapel = $('#id_mapel').val();
                 var id_kelas = $('#id_kelas').val();
 
