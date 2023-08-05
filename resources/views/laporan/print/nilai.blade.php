@@ -10,7 +10,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title><?= $title ?></title>
+    <title>
+        <?= $title ?>
+    </title>
 </head>
 
 <body>
@@ -52,41 +54,41 @@
                     <input type="hidden" name="id_mapel" id="id_mapel" value="{{ $id_mapel }}">
                     <input type="hidden" name="id_kelas" value="{{ $id_kelas }}">
                     @foreach ($siswa as $no => $s)
-                        @php
-                            $nilai = DB::table('nilai')
-                                ->where(['id_siswa' => $s->id_siswa, 'id_mapel' => $id_mapel])
-                                ->first();
-                        @endphp
-                        <tr>
-                            <td>{{ $no + 1 }}</td>
-                            <td>{{ $s->nama }}</td>
-                            <td>
-                                @if (empty($nilai->nilai))
-                                    F
-                                @elseif ($nilai->nilai > '80')
-                                    A
-                                @elseif ($nilai->nilai > '60')
-                                    B
-                                @elseif ($nilai->nilai >= '50')
-                                    C
-                                @else
-                                    D
-                                @endif
-                            </td>
-                            <td>
-                                @if (empty($nilai->nilai))
-                                    Sangat Kurang
-                                @elseif ($nilai->nilai > '80')
-                                    Sangat Bagus
-                                @elseif ($nilai->nilai > '60')
-                                    Bagus
-                                @elseif ($nilai->nilai >= '50')
-                                    Cukup
-                                @else
-                                    Kurang
-                                @endif
-                            </td>
-                        </tr>
+                    @php
+                    $nilai = DB::table('nilai')
+                    ->where(['id_siswa' => $s->id_siswa, 'id_mapel' => $id_mapel])
+                    ->first();
+                    @endphp
+                    <tr>
+                        <td>{{ $no + 1 }}</td>
+                        <td>{{ $s->nama }}</td>
+                        <td>
+                            @if (empty($nilai->nilai))
+                            F
+                            @elseif ($nilai->nilai > '80')
+                            A
+                            @elseif ($nilai->nilai > '60')
+                            B
+                            @elseif ($nilai->nilai >= '50')
+                            C
+                            @else
+                            D
+                            @endif
+                        </td>
+                        <td>
+                            @if (empty($nilai->nilai))
+                            Sangat Kurang
+                            @elseif ($nilai->nilai > '80')
+                            Sangat Bagus
+                            @elseif ($nilai->nilai > '60')
+                            Bagus
+                            @elseif ($nilai->nilai >= '50')
+                            Cukup
+                            @else
+                            Kurang
+                            @endif
+                        </td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -95,7 +97,9 @@
         <div class="col-lg-6 col-6">
         </div>
         <div class="col-lg-6 col-6">
-            <p class="text-center">Banjarmasin, <?= date('d F Y') ?></p>
+            <p class="text-center">Banjarmasin,
+                <?= date('d F Y') ?>
+            </p>
         </div>
         <div class="col-lg-6 col-6">
         </div>

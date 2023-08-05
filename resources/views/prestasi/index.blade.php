@@ -203,7 +203,7 @@
                 var id_kelas = $(this).val();
                 $.ajax({
                     type: "get",
-                    url: "route('get_siswa')",
+                    url: "{{route('get_siswa')}}",
                     data: {
                         'id_kelas': id_kelas
                     },
