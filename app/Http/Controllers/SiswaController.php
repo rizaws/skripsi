@@ -57,6 +57,13 @@ class SiswaController extends Controller
          }else{
             $nis = $siswa->urutan + 1;
         }
+        DB::table('users')->insert([
+            'name' => $r->nama,
+            'username' => $r->nisn,
+            'level' => 'siswa',
+            'email' => $r->email,
+            'password' => Hash::make($r->nisn),
+        ]);
         $data = [
             'id_kelas'  => $r->id_kelas,
             'nisn'  => $r->nisn,
@@ -74,13 +81,7 @@ class SiswaController extends Controller
         ];
         DB::table('siswa')->insert($data);
 
-        DB::table('users')->insert([
-            'name' => $r->nama,
-            'username' => $r->nisn,
-            'level' => 'siswa',
-            'email' => $r->email,
-            'password' => Hash::make($r->nisn),
-        ]);
+        
         return redirect()->route('data_siswa',['id_kelas'=> $r->id_kelas])->with('sukses', 'Berhasil tambah data siswa');
     }
 

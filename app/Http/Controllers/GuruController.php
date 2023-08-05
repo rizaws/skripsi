@@ -68,6 +68,13 @@ class GuruController extends Controller
         // $request->validate([
         //     'username' => ['required', 'string', 'unique:users'],
         // ]);
+        DB::table('users')->insert([
+            'name' => $request->nm_guru,
+            'username' => $request->nip,
+            'level' => $request->posisi,
+            'email' => $request->email,
+            'password' => Hash::make($request->nip),
+        ]);
        DB::table('guru')->insert([
             'nip' => $request->nip,
             'nm_guru'=> $request->nm_guru,
@@ -82,19 +89,20 @@ class GuruController extends Controller
         ]);
         
         
-        DB::table('users')->insert([
-            'name' => $request->nm_guru,
-            'username' => $request->nip,
-            'level' => $request->posisi,
-            'email' => $request->email,
-            'password' => Hash::make($request->nip),
-        ]);
+        
         
         return redirect()->route('data_guru')->with('success', 'Data guru berhasil disimpan.');
 
     }
     public function save_edit_guru(Request $request)
     {
+        DB::table('users')->where('username',$request->nip)->update([
+            'name' => $request->nm_guru,
+            'username' => $request->nip,
+            'level' => $request->posisi,
+            'email' => $request->email,
+            'password' => Hash::make($request->nip),
+        ]);
            DB::table('guru')->where('id_guru', $request->id_guru)->update([
                 'nip' => $request->nip,
                 'nm_guru'=> $request->nm_guru,
@@ -106,18 +114,13 @@ class GuruController extends Controller
                 'posisi'=> $request->posisi,
             ]);
 
-            DB::table('users')->where('username',$request->nip)->update([
-                'name' => $request->nm_guru,
-                'username' => $request->nip,
-                'level' => $request->posisi,
-                'email' => $request->email,
-                'password' => Hash::make($request->nip),
-            ]);
+            
         return redirect()->route('data_guru')->with('success', 'Data guru berhasil disimpan.');
     }
 
     public function delete_guru(Request $r)
     {
+        
         DB::table('guru')->where('id_guru',$r->id_guru)->delete();
         return redirect()->route('data_guru')->with('sukses', 'Berhasil hapus data guru');
     }
