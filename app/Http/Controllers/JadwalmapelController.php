@@ -42,6 +42,7 @@ class JadwalmapelController extends Controller
             'id_mapel'=> $r->id_mapel,
             'id_hari'=> $r->id_hari,
             'id_jam'=> $r->id_jam,
+            'id_guru' => $r->id_guru,
         ];
         DB::table('jadwalmapel')->insert($data);
         return redirect()->route('jadwal_mapel',['id_kelas'=> $r->id_kelas])->with('sukses', 'Berhasil menambah jadwal pelajaran');

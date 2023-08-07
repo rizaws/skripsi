@@ -8,20 +8,24 @@
                         <div class="col-lg-4 mb-4">
                             <form action="">
                                 <div class="row">
-                                    <div class="col-lg-8">
-                                        <select name="id_kelas" id="" class="choices form-select floar-end">
-                                            <option value="">--Semua Siswa--</option>
-                                            @foreach ($kelas as $e)
-                                                <option
-                                                    value="{{ $e->id_kelas }}"{{ $id_kelas == $e->id_kelas ? 'selected' : '' }}>
-                                                    {{ $e->kelas }}{{ $e->huruf }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <button type="submit" class="btn btn-primary ">Pilih Kelas</button>
-                                    </div>
+                                    @if ($level == 'siswa')
+                                    @else
+                                        <div class="col-lg-8">
+                                            <select name="id_kelas" id="" class="choices form-select floar-end">
+                                                <option value="">--Semua Siswa--</option>
+                                                @foreach ($kelas as $e)
+                                                    <option
+                                                        value="{{ $e->id_kelas }}"{{ $id_kelas == $e->id_kelas ? 'selected' : '' }}>
+                                                        {{ $e->kelas }}{{ $e->huruf }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <button type="submit" class="btn btn-primary ">Pilih Kelas</button>
+                                        </div>
+                                    @endif
+
                                 </div>
                             </form>
 

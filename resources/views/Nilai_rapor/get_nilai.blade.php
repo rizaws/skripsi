@@ -37,25 +37,58 @@
                 <tbody>
                     <input type="hidden" name="id_mapel" id="id_mapel" value="{{ $id_mapel }}">
                     <input type="hidden" name="id_kelas" value="{{ $id_kelas }}">
+                    <input type="hidden" name="posisi" value="{{ $guru->posisi }}">
                     @foreach ($siswa as $no => $s)
-                    @php
-                    $nilai = DB::table('nilai')
-                    ->where(['id_siswa' => $s->id_siswa, 'id_mapel' => $id_mapel])
-                    ->first();
-                    @endphp
-                    <tr>
-                        <td>{{ $no + 1 }}</td>
-                        <td>{{ $s->nama }}</td>
-                        <td>
-                            <input type="number" name="nilai[]" max="100"
-                                value="{{ empty($nilai->nilai) ? '0' : $nilai->nilai }}" class="form-control">
-                        </td>
-                        <td>
-                            <input type="text" name="ket[]" class="form-control"
-                                value="{{ empty($nilai->ket) ? '' : $nilai->ket }}">
-                            <input type="hidden" name="id_siswa[]" class="form-control" value="{{ $s->id_siswa }}">
-                        </td>
-                    </tr>
+                        @php
+                            $nilai = DB::table('nilai')
+                                ->where(['id_siswa' => $s->id_siswa, 'id_mapel' => $id_mapel])
+                                ->first();
+                        @endphp
+                        <tr>
+                            <td>{{ $no + 1 }}</td>
+                            <td>{{ $s->nama }}</td>
+
+                            <td>
+                                @if ($guru->posisi == 'guru')
+                                    <input type="number" name="nilai[]" max="100"
+                                        value="{{ empty($nilai->nilai) ? '0' : $nilai->nilai }}"
+                                        class="form-control nilai nilai{{ $no + 1 }}"
+                                        count="{{ $no + 1 }}">
+                                    <input type="hidden" name="nilai_wali[]" max="100"
+                                        value="{{ $nilai->nilai_wali == 0 ? $nilai->nilai : $nilai->nilai_wali }}"
+                                        class="form-control">
+                                @else
+                                    <input type="hidden" name="nilai[]" max="100"
+                                        value="{{ empty($nilai->nilai) ? '0' : $nilai->nilai }}" class="form-control">
+                                    <input type="number" name="nilai_wali[]" max="100"
+                                        value="{{ $nilai->nilai_wali == 0 ? $nilai->nilai : $nilai->nilai_wali }}"
+                                        class="form-control nilai nilai{{ $no + 1 }}"
+                                        count="{{ $no + 1 }}">
+                                @endif
+
+                            </td>
+                            <td>
+                                @if ($guru->posisi == 'guru')
+                                    <input type="text" name="ket[]" class="form-control ket{{ $no + 1 }}"
+                                        value="{{ empty($nilai->ket) ? 'Sangat kurang' : $nilai->ket }}" readonly>
+                                    <input type="hidden" name="ket_wali[]" class="form-control"
+                                        value="{{ empty($nilai->ket_wali) ? $nilai->ket : $nilai->ket_wali }}"
+                                        readonly>
+                                @else
+                                    <input type="text" name="ket_wali[]" class="form-control ket{{ $no + 1 }}"
+                                        value="{{ empty($nilai->ket_wali) ? $nilai->ket : $nilai->ket_wali }}"
+                                        readonly>
+                                    <input type="hidden" name="ket[]" class="form-control"
+                                        value="{{ empty($nilai->ket) ? 'Sangat kurang' : $nilai->ket }}" readonly>
+                                @endif
+
+
+
+
+                                <input type="hidden" name="id_siswa[]" class="form-control"
+                                    value="{{ $s->id_siswa }}">
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
 

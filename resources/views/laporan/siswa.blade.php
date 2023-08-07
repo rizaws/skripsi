@@ -54,6 +54,7 @@
                                             <th>Tempat</th>
                                             <th>Tanggal Lahir</th>
                                             <th>No Telp</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -64,6 +65,9 @@
                                                 <td>{{ $s->tempat_lahir }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($s->tgl_lahir)) }}</td>
                                                 <td>{{ $s->no_telp }}</td>
+                                                <td><a class="btn btn-sm btn-primary"
+                                                        href="{{ route('profil_siswa', ['nisn' => $s->nisn]) }}"> <i
+                                                            class="fas fa-eye"></i></a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>

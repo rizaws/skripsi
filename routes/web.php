@@ -15,6 +15,7 @@ use App\Http\Controllers\Anggota_ekskulController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\AlumniController;
+use App\Http\Controllers\Profil;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit_siswa', 'edit_siswa')->name('edit_siswa');
         Route::post('/save_edit_siswa', 'save_edit_siswa')->name('save_edit_siswa');
         Route::get('/siswa_lulus', 'siswa_lulus')->name('siswa_lulus');
+        Route::get('/profil_siswa', 'profil_siswa')->name('profil_siswa');
         Route::post('/lulus', 'lulus')->name('lulus');
     });
     Route::controller(KelasController::class)->group(function () {
@@ -100,6 +102,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/save_guru', 'save_guru')->name('save_guru');
         Route::post('/save_edit_guru', 'save_edit_guru')->middleware('web')->name('save_edit_guru');
         Route::get('/delete_guru', 'delete_guru')->name('delete_guru');
+        Route::get('/profil_guru', 'profil_guru')->name('profil_guru');
+        Route::get('/get_guru', 'get_guru')->name('get_guru');
         Route::post('/store', 'store')->middleware('web')->name('store');
     });
     Route::controller(NilaiController::class)->group(function () {
@@ -131,6 +135,10 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::controller(AlumniController::class)->group(function () {
         Route::get('/alumni', 'index')->name('alumni');
+    });
+    Route::controller(Profil::class)->group(function () {
+        Route::get('/profil', 'index')->name('profil');
+        Route::post('/update_profil', 'update')->name('update_profil');
     });
     Route::controller(LaporanController::class)->group(function () {
         Route::get('/LaporanSiswa', 'LaporanSiswa')->name('LaporanSiswa');

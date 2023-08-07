@@ -63,6 +63,7 @@ class SiswaController extends Controller
             'level' => 'siswa',
             'email' => $r->email,
             'password' => Hash::make($r->nisn),
+            'image' => $r->jenis_kelamin == 'L' ? '2.jpg' : '3.jpg'
         ]);
         $data = [
             'id_kelas'  => $r->id_kelas,
@@ -78,6 +79,7 @@ class SiswaController extends Controller
             'jenis_kelamin' => $r->jenis_kelamin,
             'tahun_ajaran' => date('Y'),
             'urutan' => $nis,
+            'image' => $r->jenis_kelamin == 'L' ? '2.jpg' : '3.jpg'
         ];
         DB::table('siswa')->insert($data);
 
@@ -154,5 +156,15 @@ class SiswaController extends Controller
         ];
         DB::table('alumni')->insert($data);
         return redirect()->route('data_siswa',['id_kelas'=> $r->id_kelas])->with('sukses', 'Berhasil tambah data siswa');
+    }
+
+    public function profil_siswa(Request $r)
+    {
+        $data = [
+            'title' => 'Profil Siswa',
+            'siswa' => DB::selectOne("SELECT * FROM siswa as a left join kelas as b on b.id_kelas = a.id_kelas where a.nisn = $r->nisn")
+        ];
+
+        return view('siswa/profil',$data);
     }
 }

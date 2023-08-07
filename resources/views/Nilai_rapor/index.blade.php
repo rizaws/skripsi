@@ -1,49 +1,80 @@
 @extends('theme.app')
 @section('content')
-<div id="main">
-    <div class="page-content">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="row">
-                    <div class="col-lg-8 mb-4">
-                        <form id="filter_nilai">
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <select name="id_mapel" id="id_mapel" class="choices form-select floar-end">
-                                        <option value="">--Pilih Mata Pelajaran--</option>
-                                        @foreach ($mapel as $m)
-                                        <option value="{{ $m->id_mapel }}">{{ $m->nm_mapel }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-lg-4">
-                                    <select name="id_kelas" id="id_kelas" class="choices form-select floar-end">
-                                        <option value="">--Pilih Kelas--</option>
-                                        @foreach ($kelas as $k)
-                                        <option value="{{ $k->id_kelas }}">{{ $k->kelas }}{{ $k->huruf }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-lg-4">
-                                    <button type="submit" class="btn btn-primary ">Filter</button>
-                                </div>
-                            </div>
-                        </form>
+    <div id="main">
+        <div class="page-content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-8 mb-4">
+                            <form id="filter_nilai">
+                                <div class="row">
+                                    @if ($guru->posisi == 'guru')
+                                        <input type="hidden" name="id_mapel" id="id_mapel" value="{{ $guru->id_mapel }}">
+                                    @else
+                                        {{-- <div class="col-lg-4">
+                                            <select name="id_mapel" id="id_mapel" class="choices form-select floar-end">
+                                                <option value="">--Pilih Mata Pelajaran--</option>
+                                                @foreach ($mapel as $m)
+                                                    <option value="{{ $m->id_mapel }}">{{ $m->nm_mapel }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div> --}}
+                                    @endif
+                                    @if ($guru->posisi == 'wali')
+                                        @php
+                                            $kelas_wali = DB::table('kelas')
+                                                ->where('id_guru', $guru->id_guru)
+                                                ->first();
+                                            $mapel_wali = DB::select("SELECT a.id_mapel, a.nm_mapel, c.nm_guru
+                                            FROM mapel as a 
+                                            left join jadwalmapel as b on b.id_mapel = a.id_mapel
+                                            left join guru as c on c.id_guru = b.id_guru
+                                            where b.id_kelas = '$kelas_wali->id_kelas'");
+                                        @endphp
+                                        <input type="hidden" name="id_kelas" id="id_kelas"
+                                            value="{{ $kelas_wali->id_kelas }}">
+                                        <div class="col-lg-4">
+                                            <select name="id_mapel" id="id_mapel" class="choices form-select floar-end">
+                                                <option value="">--Pilih Mata Pelajaran--</option>
+                                                @foreach ($mapel_wali as $m)
+                                                    <option value="{{ $m->id_mapel }}">{{ $m->nm_mapel }}
+                                                        ({{ $m->nm_guru }})
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @else
+                                        <div class="col-lg-4">
+                                            <select name="id_kelas" id="id_kelas" class="choices form-select floar-end">
+                                                <option value="">--Pilih Kelas--</option>
+                                                @foreach ($kelas as $k)
+                                                    <option value="{{ $k->id_kelas }}">
+                                                        {{ $k->kelas }}{{ $k->huruf }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @endif
 
+                                    <div class="col-lg-4">
+                                        <button type="submit" class="btn btn-primary ">Filter</button>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                    <div id="get_siswa">
 
                     </div>
                 </div>
-                <div id="get_siswa">
-
-                </div>
             </div>
         </div>
-    </div>
 
 
 
-    {{-- <footer>
+        {{-- <footer>
         <div class="footer clearfix mb-0 text-muted">
             <div class="float-start">
                 <p>2023 &copy; Pengadilan Negeri Banjarmasin</p>
@@ -54,14 +85,14 @@
             </div>
         </div>
     </footer> --}}
-</div>
+    </div>
 @endsection
 @section('scripts')
-<script>
-    $(document).ready(function() {
+    <script>
+        $(document).ready(function() {
             $(document).on('submit', '#filter_nilai', function(e) {
                 e.preventDefault();
-            
+
                 var id_mapel = $('#id_mapel').val();
                 var id_kelas = $('#id_kelas').val();
                 $.ajax({
@@ -96,14 +127,29 @@
                             data: {
                                 'id_mapel': id_mapel,
                                 'id_kelas': id_kelas
-                        },
-                        success: function(data) {
-                            $("#get_siswa").html(data)
-                        }
+                            },
+                            success: function(data) {
+                                $("#get_siswa").html(data)
+                            }
                         });
                     }
                 });
-            })
+            });
+            $(document).on('keyup', '.nilai', function() {
+                var count = $(this).attr('count');
+                var nilai = $('.nilai' + count).val();
+
+                if (nilai > 80) {
+                    $('.ket' + count).val('Sangat Bagus')
+                } else if (nilai > 60) {
+                    $('.ket' + count).val('Bagus')
+                } else if (nilai >= 50) {
+                    $('.ket' + count).val('Cukup')
+                } else {
+                    $('.ket' + count).val('Kurang')
+                }
+
+            });
         });
-</script>
+    </script>
 @endsection

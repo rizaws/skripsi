@@ -37,7 +37,12 @@
 
         </div>
         <div class="col-lg-12">
-            <p>Kelas : {{ $nm_kelas }}</p>
+            @if ($level == 'siswa')
+                <p>Prestasi : {{ $siswa->nama }}</p>
+            @else
+                <p>Kelas : {{ $nm_kelas }}</p>
+            @endif
+
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>

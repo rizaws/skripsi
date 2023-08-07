@@ -53,6 +53,7 @@
                                         <th>Nama</th>
                                         <th>Tempat</th>
                                         <th>Tanggal Lahir</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,6 +64,9 @@
                                             <td>{{ $g->nm_guru }}</td>
                                             <td>{{ $g->tempat_lahir }}</td>
                                             <td>{{ tanggal($g->tgl_lahir) }}</td>
+                                            <td><a class="btn btn-primary btn-sm"
+                                                    href="{{ route('profil_guru', ['nip' => $g->nip]) }}"><i
+                                                        class="fas fa-eye"></i></a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

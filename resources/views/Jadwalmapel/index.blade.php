@@ -71,8 +71,9 @@
 
                                                     @foreach ($hari as $h)
                                                         @php
-                                                            $jadwal = DB::selectOne("SELECT a.id_jadwalmapel, b.nm_mapel FROM jadwalmapel as a 
+                                                            $jadwal = DB::selectOne("SELECT a.id_jadwalmapel, b.nm_mapel , c.nm_guru FROM jadwalmapel as a 
                                                         left join mapel as b on b.id_mapel = a.id_mapel
+                                                        left join guru as c on c.id_guru = a.id_guru
                                                         where a.id_jam = '$j->id_jam_belajar' and a.id_hari = '$h->id_hari' and a.id_kelas = '$id_kelas'
                                                         ");
                                                         @endphp
@@ -97,7 +98,7 @@
                                                                     id_jam="{{ $j->id_jam_belajar }}"
                                                                     id_hari="{{ $h->id_hari }}"
                                                                     id_jadwal={{ $jadwal->id_jadwalmapel }}>
-                                                                    {{ $jadwal->nm_mapel }}
+                                                                    {{ $jadwal->nm_mapel }} <br> ({{ $jadwal->nm_guru }})
                                                                 </a>
                                                             @endif
 
@@ -134,13 +135,19 @@
                                 <input type="hidden" name="id_jam" class="id_jam">
                                 <input type="hidden" name="id_hari" class="id_hari">
                                 <input type="hidden" name="id_jadwal" class="id_jadwal">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <label for="">Mata Pelajaran</label>
-                                    <select name="id_mapel" id="" class="choices form-select">
+                                    <select name="id_mapel" id="" class="form-control pilih_mapel">
                                         <option value="">Pilih Mata Pelajaran</option>
                                         @foreach ($mapel as $m)
                                             <option value="{{ $m->id_mapel }}">{{ $m->nm_mapel }}</option>
                                         @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="">Guru</label>
+                                    <select name="id_guru" id="" class="form-control load_guru">
+
                                     </select>
                                 </div>
                             </div>
@@ -172,6 +179,19 @@
                 $('.id_jam').val(id_jam);
                 $('.id_hari').val(id_hari);
                 $('.id_jadwal').val(id_jadwal);
+            });
+            $(document).on('change', '.pilih_mapel', function() {
+                var id_mapel = $(this).val();
+                $.ajax({
+                    type: "get",
+                    url: "{{ route('get_guru') }}",
+                    data: {
+                        'id_mapel': id_mapel
+                    },
+                    success: function(data) {
+                        $('.load_guru').html(data)
+                    }
+                });
             });
         });
     </script>

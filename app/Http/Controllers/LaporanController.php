@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Dompdf\Dompdf;
 
 class LaporanController extends Controller
@@ -410,20 +411,32 @@ class LaporanController extends Controller
     }
     public function LaporanPrestasiSiswa(Request $r)
     {
-        if (empty($r->id_kelas)) {
+        if (Auth::user()->level == 'siswa') {
             $id_kelas = '0';
+            $siswa =  DB::table("siswa")->where('nisn',Auth::user()->username)->first();
             $prestasi = DB::select("SELECT * FROM prestasi as a 
             left join siswa as b on b.id_siswa = a.id_siswa 
             left join kelas as c on c.id_kelas = b.id_kelas 
+            where a.id_siswa = '$siswa->id_siswa'
             ");
         } else {
-            $id_kelas = $r->id_kelas;
-            $prestasi = DB::select("SELECT * FROM prestasi as a 
-            left join siswa as b on b.id_siswa = a.id_siswa 
-            left join kelas as c on c.id_kelas = b.id_kelas 
-            where b.id_kelas = '$r->id_kelas'
-            ");
+            if (empty($r->id_kelas)) {
+                $id_kelas = '0';
+                $prestasi = DB::select("SELECT * FROM prestasi as a 
+                left join siswa as b on b.id_siswa = a.id_siswa 
+                left join kelas as c on c.id_kelas = b.id_kelas 
+                ");
+            } else {
+                $id_kelas = $r->id_kelas;
+                $prestasi = DB::select("SELECT * FROM prestasi as a 
+                left join siswa as b on b.id_siswa = a.id_siswa 
+                left join kelas as c on c.id_kelas = b.id_kelas 
+                where b.id_kelas = '$r->id_kelas'
+                ");
+            }
         }
+        
+        
 
 
         $kelas = DB::table('kelas')->where('id_kelas', $id_kelas)->first();
@@ -433,25 +446,36 @@ class LaporanController extends Controller
             'kelas' => DB::table('kelas')->get(),
             'prestasi' => $prestasi,
             'id_kelas' => $id_kelas,
+            'level' =>Auth::user()->level
         ];
         return view('laporan.prestasi', $data);
     }
 
     public function qr_prestasi(Request $r)
     {
-        if (empty($r->id_kelas)) {
+        if (Auth::user()->level == 'siswa') {
             $id_kelas = '0';
+            $siswa =  DB::table("siswa")->where('nisn',Auth::user()->username)->first();
             $prestasi = DB::select("SELECT * FROM prestasi as a 
             left join siswa as b on b.id_siswa = a.id_siswa 
             left join kelas as c on c.id_kelas = b.id_kelas 
+            where a.id_siswa = '$siswa->id_siswa'
             ");
         } else {
-            $id_kelas = $r->id_kelas;
-            $prestasi = DB::select("SELECT * FROM prestasi as a 
-            left join siswa as b on b.id_siswa = a.id_siswa 
-            left join kelas as c on c.id_kelas = b.id_kelas 
-            where b.id_kelas = '$r->id_kelas'
-            ");
+            if (empty($r->id_kelas)) {
+                $id_kelas = '0';
+                $prestasi = DB::select("SELECT * FROM prestasi as a 
+                left join siswa as b on b.id_siswa = a.id_siswa 
+                left join kelas as c on c.id_kelas = b.id_kelas 
+                ");
+            } else {
+                $id_kelas = $r->id_kelas;
+                $prestasi = DB::select("SELECT * FROM prestasi as a 
+                left join siswa as b on b.id_siswa = a.id_siswa 
+                left join kelas as c on c.id_kelas = b.id_kelas 
+                where b.id_kelas = '$r->id_kelas'
+                ");
+            }
         }
 
 
@@ -469,30 +493,44 @@ class LaporanController extends Controller
 
     public function print_prestasi(Request $r)
     {
-        if (empty($r->id_kelas)) {
+        if (Auth::user()->level == 'siswa') {
             $id_kelas = '0';
+            $siswa =  DB::table("siswa")->where('nisn',Auth::user()->username)->first();
             $prestasi = DB::select("SELECT * FROM prestasi as a 
             left join siswa as b on b.id_siswa = a.id_siswa 
             left join kelas as c on c.id_kelas = b.id_kelas 
+            where a.id_siswa = '$siswa->id_siswa'
             ");
         } else {
-            $id_kelas = $r->id_kelas;
-            $prestasi = DB::select("SELECT * FROM prestasi as a 
-            left join siswa as b on b.id_siswa = a.id_siswa 
-            left join kelas as c on c.id_kelas = b.id_kelas 
-            where b.id_kelas = '$r->id_kelas'
-            ");
+            if (empty($r->id_kelas)) {
+                $id_kelas = '0';
+                $siswa ="null";
+                $prestasi = DB::select("SELECT * FROM prestasi as a 
+                left join siswa as b on b.id_siswa = a.id_siswa 
+                left join kelas as c on c.id_kelas = b.id_kelas 
+                ");
+            } else {
+                $id_kelas = $r->id_kelas;
+                $siswa ="null";
+                $prestasi = DB::select("SELECT * FROM prestasi as a 
+                left join siswa as b on b.id_siswa = a.id_siswa 
+                left join kelas as c on c.id_kelas = b.id_kelas 
+                where b.id_kelas = '$r->id_kelas'
+                ");
+            }
         }
 
 
         $kelas = DB::table('kelas')->where('id_kelas', $id_kelas)->first();
         $data =  [
             'title' => 'Data prestasi siswa ',
+            'siswa' => $siswa,
             'nm_kelas' => empty($kelas->kelas) ? 'Semua siswa' : $kelas->kelas . $kelas->huruf,
             'kelas' => DB::table('kelas')->get(),
             'prestasi' => $prestasi,
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
             'id_kelas' => $id_kelas,
+            'level' =>Auth::user()->level
         ];
         return view('laporan.print.prestasi', $data);
     }

@@ -74,6 +74,7 @@ class GuruController extends Controller
             'level' => $request->posisi,
             'email' => $request->email,
             'password' => Hash::make($request->nip),
+            'image' => $request->jenis_kelamin == 'L' ? '2.jpg' : '3.jpg'
         ]);
        DB::table('guru')->insert([
             'nip' => $request->nip,
@@ -85,7 +86,7 @@ class GuruController extends Controller
             'alamat'=> $request->alamat,
             'posisi'=> $request->posisi,
             'email'=> $request->email,
-            // 'image' => $filename,
+            'image' => $request->jenis_kelamin == 'L' ? '2.jpg' : '3.jpg'
         ]);
         
         
@@ -112,6 +113,7 @@ class GuruController extends Controller
                 'id_mapel'=> $request->id_mapel,
                 'alamat'=> $request->alamat,
                 'posisi'=> $request->posisi,
+                'email'=> $request->email,
             ]);
 
             
@@ -120,9 +122,30 @@ class GuruController extends Controller
 
     public function delete_guru(Request $r)
     {
-        
+        $guru = DB::table('guru')->where('id_guru',$r->id_guru)->first();
+        DB::table('users')->where('username',$guru->nip)->delete();
         DB::table('guru')->where('id_guru',$r->id_guru)->delete();
         return redirect()->route('data_guru')->with('sukses', 'Berhasil hapus data guru');
+    }
+
+    public function profil_guru(Request $r)
+    {
+        $data = [
+            'title' => 'Profil Guru',
+            'guru' => DB::selectOne("SELECT * FROM guru as a left join mapel as b on b.id_mapel = a.id_mapel where a.nip = $r->nip")
+        ];
+        return view('guru/profil',$data);
+
+    }
+
+    public function get_guru(Request $r)
+    {
+        $guru = DB::table('guru')->where('id_mapel',$r->id_mapel)->get();
+
+        echo '<option valu="">-Pilih Guru-</option>';
+        foreach ($guru as $g) {
+           echo "<option value='$g->id_guru'>$g->nm_guru</option>";
+        }
     }
 
     

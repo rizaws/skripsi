@@ -151,7 +151,7 @@
                 @endif
 
                 @php
-                    $reqL = ['LaporanSiswa', 'LaporanGuru', 'LaporanAbsen', 'LaporanJadwalPelajaran', 'LaporanNilaiRapor', 'LaporanAnggotaEskul', 'LaporanPrestasiSiswa', 'LaporanRaporSiswa', 'LaporanAbsenGuru', 'LaporanAbsen_mapel'];
+                    $reqL = ['LaporanSiswa', 'LaporanGuru', 'LaporanAbsen', 'LaporanJadwalPelajaran', 'LaporanNilaiRapor', 'LaporanAnggotaEskul', 'LaporanPrestasiSiswa', 'LaporanRaporSiswa', 'LaporanAbsenGuru', 'LaporanAbsen_mapel', 'profil_siswa', 'profil_guru'];
                 @endphp
                 <li class="sidebar-item  has-sub {{ Request::is($reqL) ? 'active' : '' }}">
                     <a href="lap_masuk" class='sidebar-link'>
@@ -197,8 +197,8 @@
 
                     @if (Auth::user()->level == 'guru')
                         <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
-                            <li class="submenu-item {{ Request::is('LaporanGuru') ? 'active' : '' }}">
-                                <a href="{{ route('LaporanGuru') }}">Guru</a>
+                            <li class="submenu-item {{ Request::is('profil_guru') ? 'active' : '' }}">
+                                <a href="{{ route('profil_guru', ['nip' => Auth::user()->username]) }}">Guru</a>
                             </li>
                             <li class="submenu-item {{ Request::is('LaporanAbsen') ? 'active' : '' }}">
                                 <a href="{{ route('LaporanAbsen') }}">Absensi</a>
@@ -209,22 +209,19 @@
                         </ul>
                     @else
                     @endif
-                    @if (Auth::user()->level == 'alumni')
+                    {{-- @if (Auth::user()->level == 'alumni')
                         <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
-                            <li class="submenu-item {{ Request::is('LaporanAnggotaEskul') ? 'active' : '' }}">
-                                <a href="{{ route('LaporanAnggotaEskul') }}">Ekstrakurikuler</a>
-                            </li>
-                            <li class="submenu-item {{ Request::is('LaporanPrestasiSiswa') ? 'active' : '' }}">
-                                <a href="{{ route('LaporanPrestasiSiswa') }}">Prestasi</a>
-                            </li>
                             <li class="submenu-item {{ Request::is('LaporanSiswa') ? 'active' : '' }}">
                                 <a href="{{ route('LaporanSiswa') }}">Siswa</a>
                             </li>
                         </ul>
                     @else
-                    @endif
+                    @endif --}}
                     @if (Auth::user()->level == 'wali')
                         <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
+                            <li class="submenu-item {{ Request::is('profil_guru') ? 'active' : '' }}">
+                                <a href="{{ route('profil_guru', ['nip' => Auth::user()->username]) }}">Guru</a>
+                            </li>
                             <li class="submenu-item {{ Request::is('LaporanSiswa') ? 'active' : '' }}">
                                 <a href="{{ route('LaporanSiswa') }}">Siswa</a>
                             </li>
@@ -239,6 +236,10 @@
                     @endif
                     @if (Auth::user()->level == 'siswa')
                         <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
+                            <li class="submenu-item {{ Request::is('profil_siswa') ? 'active' : '' }}">
+                                <a href="{{ route('profil_siswa', ['nisn' => Auth::user()->username]) }}">Profil
+                                    Siswa</a>
+                            </li>
                             <li class="submenu-item {{ Request::is('LaporanPrestasiSiswa') ? 'active' : '' }}">
                                 <a href="{{ route('LaporanPrestasiSiswa') }}">Prestasi</a>
                             </li>
@@ -283,8 +284,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-lg-0">
                     </ul>
-                    <div class="dropdown">
+                    {{-- <div class="dropdown">
                         <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="avatar avatar-md2">
+                                <img src="{{ asset('theme') }}/assets/images/faces/1.jpg" alt="Avatar">
+                            </div>
                             <div class="user-menu d-flex">
                                 <div class="user-name text-end me-3">
                                     <h6 class="mb-0 text-gray-600">{{ ucwords(Auth::user()->name) }}</h6>
@@ -303,6 +307,27 @@
                                         class="icon-mid bi bi-box-arrow-left me-2"></i>
                                     Logout</a>
                             </li>
+                        </ul>
+                    </div> --}}
+                    <div class="dropdown">
+                        <a href="#" id="topbarUserDropdown"
+                            class="user-dropdown d-flex align-items-center dropend dropdown-toggle "
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="avatar avatar-md2">
+                                <img src="{{ asset('storage/image/' . Auth::user()->image) }}" alt="Avatar">
+                            </div>
+                            <div class="text">
+                                <h6 class="user-dropdown-name">{{ ucwords(Auth::user()->name) }}</h6>
+                                <p class="user-dropdown-status text-sm text-muted">{{ ucwords(Auth::user()->level) }}
+                                </p>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="topbarUserDropdown">
+                            <li><a class="dropdown-item" href="{{ route('profil') }}">Profil</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                         </ul>
                     </div>
                 </div>
