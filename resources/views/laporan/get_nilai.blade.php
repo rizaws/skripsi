@@ -40,41 +40,41 @@
                     <input type="hidden" name="id_mapel" id="id_mapel" value="{{ $id_mapel }}">
                     <input type="hidden" name="id_kelas" value="{{ $id_kelas }}">
                     @foreach ($siswa as $no => $s)
-                    @php
-                    $nilai = DB::table('nilai')
-                    ->where(['id_siswa' => $s->id_siswa, 'id_mapel' => $id_mapel])
-                    ->first();
-                    @endphp
-                    <tr>
-                        <td>{{ $no + 1 }}</td>
-                        <td>{{ $s->nama }}</td>
-                        <td>
-                            @if (empty($nilai->nilai))
-                            F
-                            @elseif ($nilai->nilai > '80')
-                            A
-                            @elseif ($nilai->nilai > '60')
-                            B
-                            @elseif ($nilai->nilai >= '50')
-                            C
-                            @else
-                            D
-                            @endif
-                        </td>
-                        <td>
-                            @if (empty($nilai->nilai))
-                            Sangat Kurang
-                            @elseif ($nilai->nilai > '80')
-                            Sangat Bagus
-                            @elseif ($nilai->nilai > '60')
-                            Bagus
-                            @elseif ($nilai->nilai >= '50')
-                            Cukup
-                            @else
-                            Kurang
-                            @endif
-                        </td>
-                    </tr>
+                        @php
+                            $nilai = DB::table('nilai')
+                                ->where(['id_siswa' => $s->id_siswa, 'id_mapel' => $id_mapel])
+                                ->first();
+                        @endphp
+                        <tr>
+                            <td>{{ $no + 1 }}</td>
+                            <td>{{ $s->nama }}</td>
+                            <td>
+                                @if (empty($nilai->nilai))
+                                    F
+                                @elseif ($nilai->nilai > '80')
+                                    A
+                                @elseif ($nilai->nilai > '60')
+                                    B
+                                @elseif ($nilai->nilai >= '50')
+                                    C
+                                @else
+                                    D
+                                @endif
+                            </td>
+                            <td>
+                                @if (empty($nilai->nilai))
+                                    Sangat Kurang
+                                @elseif ($nilai->nilai > '80')
+                                    Sangat Bagus
+                                @elseif ($nilai->nilai > '60')
+                                    Bagus
+                                @elseif ($nilai->nilai >= '50')
+                                    Cukup
+                                @else
+                                    Kurang
+                                @endif
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
 

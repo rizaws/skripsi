@@ -55,13 +55,13 @@
                                         class="form-control nilai nilai{{ $no + 1 }}"
                                         count="{{ $no + 1 }}">
                                     <input type="hidden" name="nilai_wali[]" max="100"
-                                        value="{{ $nilai->nilai_wali == 0 ? $nilai->nilai : $nilai->nilai_wali }}"
+                                        value="{{ empty($nilai->nilai_wali) ? '0' : $nilai->nilai_wali }}"
                                         class="form-control">
                                 @else
                                     <input type="hidden" name="nilai[]" max="100"
                                         value="{{ empty($nilai->nilai) ? '0' : $nilai->nilai }}" class="form-control">
                                     <input type="number" name="nilai_wali[]" max="100"
-                                        value="{{ $nilai->nilai_wali == 0 ? $nilai->nilai : $nilai->nilai_wali }}"
+                                        value="{{ $nilai->nilai_wali == 0 || empty($nilai->nilai_wali) ? $nilai->nilai : $nilai->nilai_wali }}"
                                         class="form-control nilai nilai{{ $no + 1 }}"
                                         count="{{ $no + 1 }}">
                                 @endif
@@ -72,7 +72,7 @@
                                     <input type="text" name="ket[]" class="form-control ket{{ $no + 1 }}"
                                         value="{{ empty($nilai->ket) ? 'Sangat kurang' : $nilai->ket }}" readonly>
                                     <input type="hidden" name="ket_wali[]" class="form-control"
-                                        value="{{ empty($nilai->ket_wali) ? $nilai->ket : $nilai->ket_wali }}"
+                                        value="{{ empty($nilai->ket_wali) ? 'Sangat Kurang' : $nilai->ket_wali }}"
                                         readonly>
                                 @else
                                     <input type="text" name="ket_wali[]" class="form-control ket{{ $no + 1 }}"
