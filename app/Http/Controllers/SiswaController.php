@@ -25,7 +25,7 @@ class SiswaController extends Controller
         'id_kelas' => $id_kelas,
         'kelas_9' => $kelas
        ];
-       return view('Siswa.index',$data);
+       return view('siswa.index',$data);
     }
 
     public function tbh_siswa(Request $r)
@@ -44,7 +44,7 @@ class SiswaController extends Controller
             'nis' => $nis
             
            ];
-        return view('Siswa.add',$data);
+        return view('siswa.add',$data);
     }
 
     public function save_siswa(Request $r)
@@ -93,7 +93,7 @@ class SiswaController extends Controller
        $data = [
         'siswa' => DB::table('siswa')->where('id_siswa',$id_siswa)->first()
        ];
-       return view('Siswa.detail',$data);
+       return view('siswa.detail',$data);
     }
 
     public function delete_siswa(Request $r)
@@ -110,7 +110,7 @@ class SiswaController extends Controller
             'siswa' => DB::table('siswa')->where('id_siswa',$r->id_siswa)->first()
             
            ];
-        return view('Siswa.edit',$data);
+        return view('siswa.edit',$data);
     }
     public function save_edit_siswa(Request $r)
     {
