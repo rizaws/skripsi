@@ -78,7 +78,7 @@ class LaporanController extends Controller
             'guru' => $guru,
             'id_mapel' => $r->id_mapel,
         ];
-        return view('laporan.guru', $data);
+        return view('Laporan.guru', $data);
     }
 
     public function qr_guru(Request $r)
@@ -97,7 +97,7 @@ class LaporanController extends Controller
             'id_mapel' => $r->id_mapel,
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
         ];
-        return view('laporan.qr.qr_guru', $data);
+        return view('Laporan.qr.qr_guru', $data);
     }
     public function print_guru(Request $r)
     {
@@ -115,7 +115,7 @@ class LaporanController extends Controller
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
             'id_mapel' => $r->id_mapel,
         ];
-        return view('laporan.print.guru', $data);
+        return view('Laporan.print.guru', $data);
     }
 
     public function LaporanAbsen(Request $r)
@@ -145,7 +145,7 @@ class LaporanController extends Controller
             'tgl2' => $tgl2,
 
         ];
-        return view('laporan.absen', $data);
+        return view('Laporan.absen', $data);
     }
 
     public function qr_absensi_siswa(Request $r)
@@ -194,7 +194,7 @@ class LaporanController extends Controller
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
 
         ];
-        return view('laporan.print.absen', $data);
+        return view('Laporan.print.absen', $data);
     }
     public function LaporanJadwalPelajaran(Request $r)
     {
@@ -217,7 +217,7 @@ class LaporanController extends Controller
             'mapel' => DB::table('mapel')->get(),
 
         ];
-        return view('laporan.jadwal_pelajaran', $data);
+        return view('Laporan.jadwal_pelajaran', $data);
     }
 
     public function print_jadwal(Request $r)
@@ -241,7 +241,7 @@ class LaporanController extends Controller
             'mapel' => DB::table('mapel')->get(),
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
         ];
-        return view('laporan.print.jadwal_pelajaran', $data);
+        return view('Laporan.print.jadwal_pelajaran', $data);
     }
 
     public function qr_jadwal(Request $r)
@@ -268,7 +268,7 @@ class LaporanController extends Controller
             'mapel' => DB::table('mapel')->get(),
             'kelas' => DB::table('kelas')->get(),
         ];
-        return view('laporan.nilai', $data);
+        return view('Laporan.nilai', $data);
     }
     public function qr_nilai_siswa(Request $r)
     {
@@ -283,7 +283,7 @@ class LaporanController extends Controller
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
 
         ];
-        return view('laporan.qr.nilai', $data);
+        return view('Laporan.qr.nilai', $data);
     }
     public function get_nilai_siswa(Request $r)
     {
@@ -296,7 +296,7 @@ class LaporanController extends Controller
             'id_mapel' => $r->id_mapel
 
         ];
-        return view('laporan.get_nilai', $data);
+        return view('Laporan.get_nilai', $data);
     }
 
     public function print_nilai(Request $r)
@@ -311,7 +311,7 @@ class LaporanController extends Controller
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
 
         ];
-        return view('laporan.print.nilai', $data);
+        return view('Laporan.print.nilai', $data);
     }
     public function LaporanAnggotaEskul(Request $r)
     {
@@ -341,7 +341,7 @@ class LaporanController extends Controller
             'id_ekskul' => $id_ekskul,
             'kelas' => DB::table('kelas')->get()
         ];
-        return view('laporan.ekskul', $data);
+        return view('Laporan.ekskul', $data);
     }
 
     public function qr_ekskul(Request $r)
@@ -374,7 +374,7 @@ class LaporanController extends Controller
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
             'kelas' => DB::table('kelas')->get()
         ];
-        return view('laporan.qr.ekskul', $data);
+        return view('Laporan.qr.ekskul', $data);
     }
 
     public function print_ekskul(Request $r)
@@ -407,7 +407,7 @@ class LaporanController extends Controller
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
             'kelas' => DB::table('kelas')->get()
         ];
-        return view('laporan.print.ekskul', $data);
+        return view('Laporan.print.ekskul', $data);
     }
     public function LaporanPrestasiSiswa(Request $r)
     {
@@ -448,7 +448,7 @@ class LaporanController extends Controller
             'id_kelas' => $id_kelas,
             'level' =>Auth::user()->level
         ];
-        return view('laporan.prestasi', $data);
+        return view('Laporan.prestasi', $data);
     }
 
     public function qr_prestasi(Request $r)
@@ -488,7 +488,7 @@ class LaporanController extends Controller
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
             'id_kelas' => $id_kelas,
         ];
-        return view('laporan.qr.prestasi', $data);
+        return view('Laporan.qr.prestasi', $data);
     }
 
     public function print_prestasi(Request $r)
@@ -532,7 +532,7 @@ class LaporanController extends Controller
             'id_kelas' => $id_kelas,
             'level' =>Auth::user()->level
         ];
-        return view('laporan.print.prestasi', $data);
+        return view('Laporan.print.prestasi', $data);
     }
     public function LaporanRaporSiswa(Request $r)
     {
@@ -549,7 +549,7 @@ class LaporanController extends Controller
             'siswa' => DB::table('siswa')->where('id_kelas', $id_kelas)->get(),
             'id_kelas' => $id_kelas,
         ];
-        return view('laporan.rapor', $data);
+        return view('Laporan.rapor', $data);
     }
 
     public function qr_rapor(Request $r)
@@ -567,7 +567,7 @@ class LaporanController extends Controller
             'wali_kelas' => DB::selectOne("SELECT * FROM kelas as a left join guru as b on b.id_guru = a.id_guru where a.id_kelas = $siswa->id_kelas"),
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
         ];
-        return view('laporan.qr.rapor', $data);
+        return view('Laporan.qr.rapor', $data);
     }
 
     public function print_rapor(Request $r)
@@ -585,7 +585,7 @@ class LaporanController extends Controller
             'wali_kelas' => DB::selectOne("SELECT * FROM kelas as a left join guru as b on b.id_guru = a.id_guru where a.id_kelas = $siswa->id_kelas"),
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
         ];
-        return view('laporan.print.rapor', $data);
+        return view('Laporan.print.rapor', $data);
     }
 
     public function LaporanAbsenGuru(Request $r)
@@ -604,7 +604,7 @@ class LaporanController extends Controller
             'guru' => DB::table('guru')->get()
 
         ];
-        return view('laporan.absen_guru', $data);
+        return view('Laporan.absen_guru', $data);
     }
     public function QrAbsenGuru(Request $r)
     {
@@ -623,7 +623,7 @@ class LaporanController extends Controller
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
 
         ];
-        return view('laporan.qr.absen_guru', $data);
+        return view('Laporan.qr.absen_guru', $data);
     }
 
     public function print_absen_guru(Request $r)
@@ -638,7 +638,7 @@ class LaporanController extends Controller
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
 
         ];
-        return view('laporan.print.absen_guru', $data);
+        return view('Laporan.print.absen_guru', $data);
     }
 
     public function LaporanAbsen_mapel(Request $r)
@@ -673,7 +673,7 @@ class LaporanController extends Controller
             'id_mapel' => $id_mapel,
 
         ];
-        return view('laporan.absen_mapel', $data);
+        return view('Laporan.absen_mapel', $data);
     }
 
     public function qr_absensi_mapel(Request $r)
@@ -727,6 +727,6 @@ class LaporanController extends Controller
             'kepsek' => DB::table('guru')->where('posisi', 'kepsek')->first(),
 
         ];
-        return view('laporan.print.absen_mapel', $data);
+        return view('Laporan.print.absen_mapel', $data);
     }
 }
