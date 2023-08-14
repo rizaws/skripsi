@@ -119,9 +119,9 @@
                     @endif
                     @if (Auth::user()->level == 'guru')
                     <ul class="submenu {{ Request::is($reqK) ? 'active' : '' }}">
-                        <li class="submenu-item {{ Request::is('absensi_siswa') ? 'active' : '' }}">
+                        {{-- <li class="submenu-item {{ Request::is('absensi_siswa') ? 'active' : '' }}">
                             <a href="{{ route('absensi_siswa') }}">Absensi</a>
-                        </li>
+                        </li> --}}
                         <li class="submenu-item {{ Request::is('nilai_rapor') ? 'active' : '' }}">
                             <a href="{{ route('nilai_rapor') }}">Nilai Rapor</a>
                         </li>
