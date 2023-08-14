@@ -10,7 +10,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-10">
                         <img src="https://kalsel.kemenag.go.id/files/fotoberita/530618.jpg" alt="" width="100%"
-                            height="350px">
+                            height="450px">
                     </div>
 
                 </div>
