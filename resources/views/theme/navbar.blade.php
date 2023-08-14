@@ -203,9 +203,9 @@
                         <li class="submenu-item {{ Request::is('profil_guru') ? 'active' : '' }}">
                             <a href="{{ route('profil_guru', ['nip' => Auth::user()->username]) }}">Guru</a>
                         </li>
-                        <li class="submenu-item {{ Request::is('LaporanAbsen') ? 'active' : '' }}">
+                        {{-- <li class="submenu-item {{ Request::is('LaporanAbsen') ? 'active' : '' }}">
                             <a href="{{ route('LaporanAbsen') }}">Absensi</a>
-                        </li>
+                        </li> --}}
                         <li class="submenu-item {{ Request::is('LaporanNilaiRapor') ? 'active' : '' }}">
                             <a href="{{ route('LaporanNilaiRapor') }}">Nilai</a>
                         </li>
