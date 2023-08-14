@@ -122,6 +122,9 @@
                         {{-- <li class="submenu-item {{ Request::is('absensi_siswa') ? 'active' : '' }}">
                             <a href="{{ route('absensi_siswa') }}">Absensi</a>
                         </li> --}}
+                        <li class="submenu-item {{ Request::is('absensi_siswaMapel') ? 'active' : '' }}">
+                            <a href="{{ route('absensi_siswaMapel') }}">Absensi per Mapel</a>
+                        </li>
                         <li class="submenu-item {{ Request::is('nilai_rapor') ? 'active' : '' }}">
                             <a href="{{ route('nilai_rapor') }}">Nilai Rapor</a>
                         </li>
