@@ -206,6 +206,9 @@
                         {{-- <li class="submenu-item {{ Request::is('LaporanAbsen') ? 'active' : '' }}">
                             <a href="{{ route('LaporanAbsen') }}">Absensi</a>
                         </li> --}}
+                        <li class="submenu-item {{ Request::is('LaporanAbsen_mapel') ? 'active' : '' }}">
+                            <a href="{{ route('LaporanAbsen_mapel') }}">Laporan Absensi Mapel</a>
+                        </li>
                         <li class="submenu-item {{ Request::is('LaporanNilaiRapor') ? 'active' : '' }}">
                             <a href="{{ route('LaporanNilaiRapor') }}">Nilai</a>
                         </li>
