@@ -13,17 +13,17 @@ class AlumniController extends Controller
         } else {
             $id_kelas = $r->id_kelas;
         }
-        
-       
-       $kelas = DB::table('kelas')->where('id_kelas',$id_kelas)->first();
-       $data =  [
-        'title' => 'Data siswa',
-        'nm_kelas' => empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
-        'kelas' => DB::table('kelas')->get(),
-        'alumni' => DB::select("SELECT * FROM alumni as a left join siswa as b on b.id_siswa = a.id_siswa"),
-        'id_kelas' => $id_kelas,
-        'kelas_9' => $kelas
-       ];
-       return view('Alumni.index',$data);
+
+
+        $kelas = DB::table('kelas')->where('id_kelas', $id_kelas)->first();
+        $data =  [
+            'title' => 'Data siswa',
+            'nm_kelas' => empty($kelas) ? '' : $kelas->kelas . $kelas->huruf,
+            'kelas' => DB::table('kelas')->get(),
+            'alumni' => DB::select("SELECT * FROM alumni as a left join siswa as b on b.id_siswa = a.id_siswa"),
+            'id_kelas' => $id_kelas,
+            'kelas_9' => $kelas
+        ];
+        return view('Alumni.index', $data);
     }
 }
