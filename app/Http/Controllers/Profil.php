@@ -21,7 +21,7 @@ class Profil extends Controller
             'mapel' => DB::table('mapel')->get(),
             
         ];
-        return view('Profil.index',$data);
+        return view('profil.index',$data);
     }
 
     public function update(Request $r)
