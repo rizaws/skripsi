@@ -54,7 +54,8 @@ class PrestasiController extends Controller
     {
         $data = [
             'id_siswa' => $r->id_siswa,
-            'prestasi' => $r->prestasi
+            'prestasi' => $r->prestasi,
+            'juara' => $r->juara,
         ];
         DB::table('prestasi')->insert($data);
         return redirect()->route('prestasi_siswa')->with('sukses', 'Berhasil tambah data prestasi');
@@ -63,7 +64,8 @@ class PrestasiController extends Controller
     {
         $data = [
             'id_siswa' => $r->id_siswa,
-            'prestasi' => $r->prestasi
+            'prestasi' => $r->prestasi,
+            'juara' => $r->juara
         ];
         DB::table('prestasi')->where('id_prestasi',$r->id_prestasi)->update($data);
         return redirect()->route('prestasi_siswa')->with('sukses', 'Berhasil edit data prestasi');

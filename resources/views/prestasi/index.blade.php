@@ -52,6 +52,7 @@
                                         <th>Kelas</th>
                                         <th>Tempat,Tanggal Lahir</th>
                                         <th>Jenis Kelamin</th>
+                                        <th>Juara</th>
                                         <th>Prestasi</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -64,6 +65,7 @@
                                             <td>{{ $a->kelas }}{{ $a->huruf }}</td>
                                             <td>{{ $a->tempat_lahir }}, {{ tanggal($a->tgl_lahir) }}</td>
                                             <td>{{ $a->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                                            <td>{{ $a->juara }}</td>
                                             <td>{{ $a->prestasi }}</td>
                                             <td>
                                                 <a href="#" class="btn btn-sm btn-warning edit" data-bs-toggle="modal"
@@ -97,7 +99,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <label for="">Pilih Kelas</label>
                                     <select name="" id="" class="form-control get_siswa">
                                         <option value="">-Pilih Kelas-</option>
@@ -107,13 +109,17 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <label for="">Pilih Siswa</label>
                                     <select name="id_siswa" id="" class="form-control load_siswa">
 
                                     </select>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
+                                    <label for="">Juara</label>
+                                    <input type="number" class="form-control" name="juara">
+                                </div>
+                                <div class="col-lg-3">
                                     <label for="">Prestasi</label>
                                     <input type="text" class="form-control" name="prestasi">
                                 </div>
@@ -139,7 +145,8 @@
                     <div class="modal-content ">
                         <div class="modal-header">
                             <h5 class="modal-title" id="myModalLabel1">Edit Siswa berprestasi</h5>
-                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                                aria-label="Close">
                                 <i data-feather="x"></i>
                             </button>
                         </div>
@@ -203,7 +210,7 @@
                 var id_kelas = $(this).val();
                 $.ajax({
                     type: "get",
-                    url: "{{route('get_siswa')}}",
+                    url: "{{ route('get_siswa') }}",
                     data: {
                         'id_kelas': id_kelas
                     },

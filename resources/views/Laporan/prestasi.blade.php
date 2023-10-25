@@ -56,6 +56,7 @@
                                         <th>Kelas</th>
                                         <th>Tempat,Tanggal Lahir</th>
                                         <th>Jenis Kelamin</th>
+                                        <th>Juara</th>
                                         <th>Prestasi</th>
                                     </tr>
                                 </thead>
@@ -67,6 +68,7 @@
                                             <td>{{ $a->kelas }}{{ $a->huruf }}</td>
                                             <td>{{ $a->tempat_lahir }}, {{ tanggal($a->tgl_lahir) }}</td>
                                             <td>{{ $a->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                                            <td>{{ $a->juara }}</td>
                                             <td>{{ $a->prestasi }}</td>
                                         </tr>
                                     @endforeach
