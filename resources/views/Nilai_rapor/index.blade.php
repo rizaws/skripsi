@@ -135,21 +135,21 @@
                     }
                 });
             });
-            $(document).on('keyup', '.nilai', function() {
-                var count = $(this).attr('count');
-                var nilai = $('.nilai' + count).val();
+            // $(document).on('keyup', '.nilai', function() {
+            //     var count = $(this).attr('count');
+            //     var nilai = $('.nilai' + count).val();
 
-                if (nilai > 80) {
-                    $('.ket' + count).val('Sangat Bagus')
-                } else if (nilai > 60) {
-                    $('.ket' + count).val('Bagus')
-                } else if (nilai >= 50) {
-                    $('.ket' + count).val('Cukup')
-                } else {
-                    $('.ket' + count).val('Kurang')
-                }
+            //     if (nilai > 80) {
+            //         $('.ket' + count).val('Sangat Bagus')
+            //     } else if (nilai > 60) {
+            //         $('.ket' + count).val('Bagus')
+            //     } else if (nilai >= 50) {
+            //         $('.ket' + count).val('Cukup')
+            //     } else {
+            //         $('.ket' + count).val('Kurang')
+            //     }
 
-            });
+            // });
         });
     </script>
 @endsection

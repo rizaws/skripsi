@@ -16,6 +16,7 @@ use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\Profil;
+use App\Http\Controllers\JenisPelanggaranController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -94,6 +95,13 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(JadwalmapelController::class)->group(function () {
         Route::get('/jadwal_mapel', 'index')->name('jadwal_mapel');
         Route::post('/save_jadwal', 'save_jadwal')->name('save_jadwal');
+    });
+    Route::controller(JenisPelanggaranController::class)->group(function () {
+        Route::get('/jenis_pelanggaran', 'index')->name('jenis_pelanggaran');
+        Route::post('/tambah_jenis_pelanggaran', 'tambah_jenis_pelanggaran')->name('tambah_jenis_pelanggaran');
+        Route::get('/delete_jenis_pelanggaran', 'delete_jenis_pelanggaran')->name('delete_jenis_pelanggaran');
+        Route::get('/get_edit_jenis_pelanggaran', 'get_edit_jenis_pelanggaran')->name('get_edit_jenis_pelanggaran');
+        Route::post('/edit_jenis_pelanggaran', 'edit_jenis_pelanggaran')->name('edit_jenis_pelanggaran');
     });
     Route::controller(GuruController::class)->group(function () {
         Route::get('/data_guru', 'index')->name('data_guru');

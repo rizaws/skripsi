@@ -8,8 +8,8 @@
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                        aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20" height="20"
-                        preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
+                        aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20"
+                        height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
                         <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round"
                             stroke-linejoin="round">
                             <path
@@ -52,112 +52,112 @@
                 </li>
 
                 @if (Auth::user()->level == 'admin')
-                @php
-                $req = ['data_siswa', 'data_kelas', 'data_mapel', 'data_guru', 'ekskul', 'add_siswa'];
-                @endphp
-                <li class="sidebar-item  has-sub {{ Request::is($req) ? 'active' : '' }}">
-                    <a href="#" class='sidebar-link'>
-                        <i class="fas fa-database"></i>
-                        <span>Data Master</span>
-                    </a>
-                    <ul class="submenu {{ Request::is($req) ? 'active' : '' }}">
-                        <li
-                            class="submenu-item {{ Request::is('data_siswa') || Request::is('add_siswa') ? 'active' : '' }}">
-                            <a href="{{ route('data_siswa') }}">Data Siswa</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('data_guru') ? 'active' : '' }}">
-                            <a href="{{ route('data_guru') }}">Data Guru</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('data_kelas') ? 'active' : '' }}">
-                            <a href="{{ route('data_kelas') }}">Data Kelas</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('data_mapel') ? 'active' : '' }}">
-                            <a href="{{ route('data_mapel') }}">Data Mapel</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('ekskul') ? 'active' : '' }}">
-                            <a href="{{ route('ekskul') }}">Data Ekstrakurikuler</a>
-                        </li>
-                    </ul>
-                </li>
+                    @php
+                        $req = ['data_siswa', 'data_kelas', 'data_mapel', 'data_guru', 'ekskul', 'add_siswa', 'jenis_pelanggaran'];
+                    @endphp
+                    <li class="sidebar-item  has-sub {{ Request::is($req) ? 'active' : '' }}">
+                        <a href="#" class='sidebar-link'>
+                            <i class="fas fa-database"></i>
+                            <span>Data Master</span>
+                        </a>
+                        <ul class="submenu {{ Request::is($req) ? 'active' : '' }}">
+                            <li
+                                class="submenu-item {{ Request::is('data_siswa') || Request::is('add_siswa') ? 'active' : '' }}">
+                                <a href="{{ route('data_siswa') }}">Data Siswa</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('data_guru') ? 'active' : '' }}">
+                                <a href="{{ route('data_guru') }}">Data Guru</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('data_kelas') ? 'active' : '' }}">
+                                <a href="{{ route('data_kelas') }}">Data Kelas</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('data_mapel') ? 'active' : '' }}">
+                                <a href="{{ route('data_mapel') }}">Data Mapel</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('ekskul') ? 'active' : '' }}">
+                                <a href="{{ route('ekskul') }}">Data Ekstrakurikuler</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('jenis_pelanggaran') ? 'active' : '' }}">
+                                <a href="{{ route('jenis_pelanggaran') }}">Data Jenis Pelanggaran</a>
+                            </li>
+                        </ul>
+                    </li>
                 @else
                 @endif
 
 
 
                 @php
-                $reqK = ['absensi_siswa', 'jadwal_mapel', 'nilai_rapor', 'anggota_ekskul', 'prestasi_siswa', 'alumni',
-                'absensi_siswaMapel', 'absensi_guru'];
+                    $reqK = ['absensi_siswa', 'jadwal_mapel', 'nilai_rapor', 'anggota_ekskul', 'prestasi_siswa', 'alumni', 'absensi_siswaMapel', 'absensi_guru'];
                 @endphp
                 @if (Auth::user()->level == 'siswa')
                 @else
-                <li class="sidebar-item  has-sub {{ Request::is($reqK) ? 'active' : '' }}">
+                    <li class="sidebar-item  has-sub {{ Request::is($reqK) ? 'active' : '' }}">
 
-                    <a href="lap_masuk" class='sidebar-link'>
-                        <i class="fas fa-book"></i>
-                        <span>Data Kegiatan Siswa</span>
-                    </a>
+                        <a href="lap_masuk" class='sidebar-link'>
+                            <i class="fas fa-book"></i>
+                            <span>Data Kegiatan Siswa</span>
+                        </a>
 
-                    @if (Auth::user()->level == 'admin')
-                    <ul class="submenu {{ Request::is($reqK) ? 'active' : '' }}">
-                        <li class="submenu-item {{ Request::is('anggota_ekskul') ? 'active' : '' }}">
-                            <a href="{{ route('anggota_ekskul') }}">Anggota Ekskul</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('jadwal_mapel') ? 'active' : '' }}">
-                            <a href="{{ route('jadwal_mapel') }}">Jadwal Pelajaran</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('prestasi_siswa') ? 'active' : '' }}">
-                            <a href="{{ route('prestasi_siswa') }}">Prestasi Siswa</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('absensi_guru') ? 'active' : '' }}">
-                            <a href="{{ route('absensi_guru') }}">Absensi Guru</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('absensi_siswa') ? 'active' : '' }}">
-                            <a href="{{ route('absensi_siswa') }}">Absensi</a>
-                        </li>
-                    </ul>
-                    @else
-                    @endif
-                    @if (Auth::user()->level == 'guru')
-                    <ul class="submenu {{ Request::is($reqK) ? 'active' : '' }}">
-                        {{-- <li class="submenu-item {{ Request::is('absensi_siswa') ? 'active' : '' }}">
+                        @if (Auth::user()->level == 'admin')
+                            <ul class="submenu {{ Request::is($reqK) ? 'active' : '' }}">
+                                <li class="submenu-item {{ Request::is('anggota_ekskul') ? 'active' : '' }}">
+                                    <a href="{{ route('anggota_ekskul') }}">Anggota Ekskul</a>
+                                </li>
+                                <li class="submenu-item {{ Request::is('jadwal_mapel') ? 'active' : '' }}">
+                                    <a href="{{ route('jadwal_mapel') }}">Jadwal Pelajaran</a>
+                                </li>
+                                <li class="submenu-item {{ Request::is('prestasi_siswa') ? 'active' : '' }}">
+                                    <a href="{{ route('prestasi_siswa') }}">Prestasi Siswa</a>
+                                </li>
+                                <li class="submenu-item {{ Request::is('absensi_guru') ? 'active' : '' }}">
+                                    <a href="{{ route('absensi_guru') }}">Absensi Guru</a>
+                                </li>
+                                <li class="submenu-item {{ Request::is('absensi_siswa') ? 'active' : '' }}">
+                                    <a href="{{ route('absensi_siswa') }}">Absensi</a>
+                                </li>
+                            </ul>
+                        @else
+                        @endif
+                        @if (Auth::user()->level == 'guru')
+                            <ul class="submenu {{ Request::is($reqK) ? 'active' : '' }}">
+                                {{-- <li class="submenu-item {{ Request::is('absensi_siswa') ? 'active' : '' }}">
                             <a href="{{ route('absensi_siswa') }}">Absensi</a>
                         </li> --}}
-                        <li class="submenu-item {{ Request::is('absensi_siswaMapel') ? 'active' : '' }}">
-                            <a href="{{ route('absensi_siswaMapel') }}">Absensi per Mapel</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('nilai_rapor') ? 'active' : '' }}">
-                            <a href="{{ route('nilai_rapor') }}">Nilai Rapor</a>
-                        </li>
-                    </ul>
-                    @else
-                    @endif
-                    @php
-                    $reqwali = ['absensi_siswa', 'nilai_rapor', 'absensi_siswaMapel'];
-                    @endphp
-                    @if (Auth::user()->level == 'wali')
-                    <ul class="submenu {{ Request::is($reqwali) ? 'active' : '' }}">
-                        <li class="submenu-item {{ Request::is('absensi_siswa') ? 'active' : '' }}">
-                            <a href="{{ route('absensi_siswa') }}">Absensi</a>
-                        </li>
-                        {{-- <li class="submenu-item {{ Request::is('absensi_siswaMapel') ? 'active' : '' }}">
+                                <li class="submenu-item {{ Request::is('absensi_siswaMapel') ? 'active' : '' }}">
+                                    <a href="{{ route('absensi_siswaMapel') }}">Absensi per Mapel</a>
+                                </li>
+                                <li class="submenu-item {{ Request::is('nilai_rapor') ? 'active' : '' }}">
+                                    <a href="{{ route('nilai_rapor') }}">Nilai Rapor</a>
+                                </li>
+                            </ul>
+                        @else
+                        @endif
+                        @php
+                            $reqwali = ['absensi_siswa', 'nilai_rapor', 'absensi_siswaMapel'];
+                        @endphp
+                        @if (Auth::user()->level == 'wali')
+                            <ul class="submenu {{ Request::is($reqwali) ? 'active' : '' }}">
+                                <li class="submenu-item {{ Request::is('absensi_siswa') ? 'active' : '' }}">
+                                    <a href="{{ route('absensi_siswa') }}">Absensi</a>
+                                </li>
+                                {{-- <li class="submenu-item {{ Request::is('absensi_siswaMapel') ? 'active' : '' }}">
                             <a href="{{ route('absensi_siswaMapel') }}">Absensi per Mapel</a>
                         </li> --}}
-                        <li class="submenu-item {{ Request::is('nilai_rapor') ? 'active' : '' }}">
-                            <a href="{{ route('nilai_rapor') }}">Nilai Rapor</a>
-                        </li>
+                                <li class="submenu-item {{ Request::is('nilai_rapor') ? 'active' : '' }}">
+                                    <a href="{{ route('nilai_rapor') }}">Nilai Rapor</a>
+                                </li>
 
-                    </ul>
-                    @else
-                    @endif
+                            </ul>
+                        @else
+                        @endif
 
 
-                </li>
+                    </li>
                 @endif
 
                 @php
-                $reqL = ['LaporanSiswa', 'LaporanGuru', 'LaporanAbsen', 'LaporanJadwalPelajaran', 'LaporanNilaiRapor',
-                'LaporanAnggotaEskul', 'LaporanPrestasiSiswa', 'LaporanRaporSiswa', 'LaporanAbsenGuru',
-                'LaporanAbsen_mapel', 'profil_siswa', 'profil_guru'];
+                    $reqL = ['LaporanSiswa', 'LaporanGuru', 'LaporanAbsen', 'LaporanJadwalPelajaran', 'LaporanNilaiRapor', 'LaporanAnggotaEskul', 'LaporanPrestasiSiswa', 'LaporanRaporSiswa', 'LaporanAbsenGuru', 'LaporanAbsen_mapel', 'profil_siswa', 'profil_guru'];
                 @endphp
                 <li class="sidebar-item  has-sub {{ Request::is($reqL) ? 'active' : '' }}">
                     <a href="lap_masuk" class='sidebar-link'>
@@ -165,57 +165,57 @@
                         <span>Laporan</span>
                     </a>
                     @if (Auth::user()->level == 'admin')
-                    <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
-                        <li class="submenu-item {{ Request::is('LaporanSiswa') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanSiswa') }}">Siswa</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanGuru') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanGuru') }}">Guru</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanAbsen') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanAbsen') }}">Absensi</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanAbsen_mapel') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanAbsen_mapel') }}">Laporan Absensi Mapel</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanAbsenGuru') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanAbsenGuru') }}">Absensi Guru</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanJadwalPelajaran') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanJadwalPelajaran') }}">Jadwal Pelajaran</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanNilaiRapor') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanNilaiRapor') }}">Nilai</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanRaporSiswa') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanRaporSiswa') }}">Rapor</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanAnggotaEskul') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanAnggotaEskul') }}">Ekstrakurikuler</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanPrestasiSiswa') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanPrestasiSiswa') }}">Prestasi</a>
-                        </li>
+                        <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
+                            <li class="submenu-item {{ Request::is('LaporanSiswa') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanSiswa') }}">Siswa</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanGuru') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanGuru') }}">Guru</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanAbsen') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanAbsen') }}">Absensi</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanAbsen_mapel') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanAbsen_mapel') }}">Laporan Absensi Mapel</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanAbsenGuru') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanAbsenGuru') }}">Absensi Guru</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanJadwalPelajaran') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanJadwalPelajaran') }}">Jadwal Pelajaran</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanNilaiRapor') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanNilaiRapor') }}">Nilai</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanRaporSiswa') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanRaporSiswa') }}">Rapor</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanAnggotaEskul') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanAnggotaEskul') }}">Ekstrakurikuler</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanPrestasiSiswa') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanPrestasiSiswa') }}">Prestasi</a>
+                            </li>
 
-                    </ul>
+                        </ul>
                     @else
                     @endif
 
                     @if (Auth::user()->level == 'guru')
-                    <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
-                        <li class="submenu-item {{ Request::is('profil_guru') ? 'active' : '' }}">
-                            <a href="{{ route('profil_guru', ['nip' => Auth::user()->username]) }}">Guru</a>
-                        </li>
-                        {{-- <li class="submenu-item {{ Request::is('LaporanAbsen') ? 'active' : '' }}">
+                        <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
+                            <li class="submenu-item {{ Request::is('profil_guru') ? 'active' : '' }}">
+                                <a href="{{ route('profil_guru', ['nip' => Auth::user()->username]) }}">Guru</a>
+                            </li>
+                            {{-- <li class="submenu-item {{ Request::is('LaporanAbsen') ? 'active' : '' }}">
                             <a href="{{ route('LaporanAbsen') }}">Absensi</a>
                         </li> --}}
-                        <li class="submenu-item {{ Request::is('LaporanAbsen_mapel') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanAbsen_mapel') }}">Laporan Absensi Mapel</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanNilaiRapor') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanNilaiRapor') }}">Nilai</a>
-                        </li>
-                    </ul>
+                            <li class="submenu-item {{ Request::is('LaporanAbsen_mapel') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanAbsen_mapel') }}">Laporan Absensi Mapel</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanNilaiRapor') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanNilaiRapor') }}">Nilai</a>
+                            </li>
+                        </ul>
                     @else
                     @endif
                     {{-- @if (Auth::user()->level == 'alumni')
@@ -227,52 +227,52 @@
                     @else
                     @endif --}}
                     @if (Auth::user()->level == 'wali')
-                    <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
-                        <li class="submenu-item {{ Request::is('profil_guru') ? 'active' : '' }}">
-                            <a href="{{ route('profil_guru', ['nip' => Auth::user()->username]) }}">Guru</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanSiswa') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanSiswa') }}">Siswa</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanAbsen') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanAbsen') }}">Absensi</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanRaporSiswa') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanRaporSiswa') }}">Rapor</a>
-                        </li>
-                    </ul>
+                        <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
+                            <li class="submenu-item {{ Request::is('profil_guru') ? 'active' : '' }}">
+                                <a href="{{ route('profil_guru', ['nip' => Auth::user()->username]) }}">Guru</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanSiswa') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanSiswa') }}">Siswa</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanAbsen') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanAbsen') }}">Absensi</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanRaporSiswa') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanRaporSiswa') }}">Rapor</a>
+                            </li>
+                        </ul>
                     @else
                     @endif
                     @if (Auth::user()->level == 'siswa')
-                    <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
-                        <li class="submenu-item {{ Request::is('profil_siswa') ? 'active' : '' }}">
-                            <a href="{{ route('profil_siswa', ['nisn' => Auth::user()->username]) }}">Profil
-                                Siswa</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanPrestasiSiswa') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanPrestasiSiswa') }}">Prestasi</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanNilaiRapor') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanNilaiRapor') }}">Nilai</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanJadwalPelajaran') ? 'active' : '' }}">
-                            <a href="{{ route('LaporanJadwalPelajaran') }}">Jadwal Pelajaran</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('LaporanRaporSiswa') ? 'active' : '' }}">
-                            <a href="{{ route('qr_rapor', ['nisn' => Auth::user()->username]) }}">Rapor</a>
-                        </li>
-                    </ul>
+                        <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
+                            <li class="submenu-item {{ Request::is('profil_siswa') ? 'active' : '' }}">
+                                <a href="{{ route('profil_siswa', ['nisn' => Auth::user()->username]) }}">Profil
+                                    Siswa</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanPrestasiSiswa') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanPrestasiSiswa') }}">Prestasi</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanNilaiRapor') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanNilaiRapor') }}">Nilai</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanJadwalPelajaran') ? 'active' : '' }}">
+                                <a href="{{ route('LaporanJadwalPelajaran') }}">Jadwal Pelajaran</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('LaporanRaporSiswa') ? 'active' : '' }}">
+                                <a href="{{ route('qr_rapor', ['nisn' => Auth::user()->username]) }}">Rapor</a>
+                            </li>
+                        </ul>
                     @else
                     @endif
                 </li>
 
                 @if (Auth::user()->level == 'admin')
-                <li class="sidebar-item  {{ Request::is('user') ? 'active' : '' }}">
-                    <a href="{{ route('user') }}" class='sidebar-link'>
-                        <i class="bi bi-file-person"></i>
-                        <span>Data User</span>
-                    </a>
-                </li>
+                    <li class="sidebar-item  {{ Request::is('user') ? 'active' : '' }}">
+                        <a href="{{ route('user') }}" class='sidebar-link'>
+                            <i class="bi bi-file-person"></i>
+                            <span>Data User</span>
+                        </a>
+                    </li>
                 @else
                 @endif
             </ul>

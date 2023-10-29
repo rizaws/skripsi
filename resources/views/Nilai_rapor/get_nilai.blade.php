@@ -70,15 +70,12 @@
                             <td>
                                 @if ($guru->posisi == 'guru')
                                     <input type="text" name="ket[]" class="form-control ket{{ $no + 1 }}"
-                                        value="{{ empty($nilai->ket) ? 'Sangat kurang' : $nilai->ket }}" readonly>
-                                    <input type="hidden" name="ket_wali[]" class="form-control"
-                                        value="{{ empty($nilai->ket_wali) ? 'Sangat Kurang' : $nilai->ket_wali }}"
-                                        readonly>
+                                        value="{{ empty($nilai->ket) ? '' : $nilai->ket }}">
+                                    <input type="hidden" name="ket_wali[]" class="form-control" value="">
                                 @else
                                     <input type="text" name="ket_wali[]" class="form-control ket{{ $no + 1 }}"
-                                        value="{{ empty($nilai->ket_wali) ? $nilai->ket : $nilai->ket_wali }}"
-                                        readonly>
-                                    <input type="hidden" name="ket[]" class="form-control"
+                                        value="{{ empty($nilai->ket_wali) ? $nilai->ket : $nilai->ket_wali }}">
+                                    <input type="hidden" name="ket[]" class="form-contr ol"
                                         value="{{ empty($nilai->ket) ? 'Sangat kurang' : $nilai->ket }}" readonly>
                                 @endif
 
