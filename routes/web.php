@@ -17,6 +17,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\Profil;
 use App\Http\Controllers\JenisPelanggaranController;
+use App\Http\Controllers\PelanggaranSiswaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -102,6 +103,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/delete_jenis_pelanggaran', 'delete_jenis_pelanggaran')->name('delete_jenis_pelanggaran');
         Route::get('/get_edit_jenis_pelanggaran', 'get_edit_jenis_pelanggaran')->name('get_edit_jenis_pelanggaran');
         Route::post('/edit_jenis_pelanggaran', 'edit_jenis_pelanggaran')->name('edit_jenis_pelanggaran');
+    });
+    Route::controller(PelanggaranSiswaController::class)->group(function () {
+        Route::get('/pelanggaran', 'index')->name('pelanggaran');
+        Route::post('/tambah_pelanggaran', 'tambah_pelanggaran')->name('tambah_pelanggaran');
+        Route::post('/edit_pelanggaran', 'edit_pelanggaran')->name('edit_pelanggaran');
+        Route::get('/delete_pelanggaran', 'delete_pelanggaran')->name('delete_pelanggaran');
+        Route::get('/get_edit_pelanggaran', 'get_edit_pelanggaran')->name('get_edit_pelanggaran');
     });
     Route::controller(GuruController::class)->group(function () {
         Route::get('/data_guru', 'index')->name('data_guru');

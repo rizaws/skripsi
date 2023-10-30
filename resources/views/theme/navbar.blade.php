@@ -88,7 +88,7 @@
 
 
                 @php
-                    $reqK = ['absensi_siswa', 'jadwal_mapel', 'nilai_rapor', 'anggota_ekskul', 'prestasi_siswa', 'alumni', 'absensi_siswaMapel', 'absensi_guru'];
+                    $reqK = ['absensi_siswa', 'jadwal_mapel', 'nilai_rapor', 'anggota_ekskul', 'prestasi_siswa', 'alumni', 'absensi_siswaMapel', 'absensi_guru', 'pelanggaran'];
                 @endphp
                 @if (Auth::user()->level == 'siswa')
                 @else
@@ -116,6 +116,9 @@
                                 <li class="submenu-item {{ Request::is('absensi_siswa') ? 'active' : '' }}">
                                     <a href="{{ route('absensi_siswa') }}">Absensi</a>
                                 </li>
+                                <li class="submenu-item {{ Request::is('pelanggaran') ? 'active' : '' }}">
+                                    <a href="{{ route('pelanggaran') }}">Pelanggaran</a>
+                                </li>
                             </ul>
                         @else
                         @endif
@@ -129,6 +132,9 @@
                                 </li>
                                 <li class="submenu-item {{ Request::is('nilai_rapor') ? 'active' : '' }}">
                                     <a href="{{ route('nilai_rapor') }}">Nilai Rapor</a>
+                                </li>
+                                <li class="submenu-item {{ Request::is('pelanggaran') ? 'active' : '' }}">
+                                    <a href="{{ route('pelanggaran') }}">Pelanggaran</a>
                                 </li>
                             </ul>
                         @else
@@ -146,6 +152,9 @@
                         </li> --}}
                                 <li class="submenu-item {{ Request::is('nilai_rapor') ? 'active' : '' }}">
                                     <a href="{{ route('nilai_rapor') }}">Nilai Rapor</a>
+                                </li>
+                                <li class="submenu-item {{ Request::is('pelanggaran') ? 'active' : '' }}">
+                                    <a href="{{ route('pelanggaran') }}">Pelanggaran</a>
                                 </li>
 
                             </ul>
