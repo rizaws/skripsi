@@ -53,6 +53,7 @@
                                         <th>Tempat,Tanggal Lahir</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Juara</th>
+                                        <th>Tingkat</th>
                                         <th>Prestasi</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -66,6 +67,7 @@
                                             <td>{{ $a->tempat_lahir }}, {{ tanggal($a->tgl_lahir) }}</td>
                                             <td>{{ $a->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
                                             <td>{{ $a->juara }}</td>
+                                            <td>{{ $a->tingkat }}</td>
                                             <td>{{ $a->prestasi }}</td>
                                             <td>
                                                 <a href="#" class="btn btn-sm btn-warning edit" data-bs-toggle="modal"
@@ -118,6 +120,16 @@
                                 <div class="col-lg-3">
                                     <label for="">Juara</label>
                                     <input type="number" class="form-control" name="juara">
+                                </div>
+                                <div class="col-lg-3">
+                                    <label for="">Tingkat</label>
+                                    <select name="tingkat" id="" class="form-control">
+                                            <option value="sekolah">Sekolah</option>
+                                            <option value="kabupaten">Kabupaten</option>
+                                            <option value="regional">Regional</option>
+                                            <option value="nasional">Nasional</option>
+                                            <option value="internasional">Internasional</option>
+                                    </select>
                                 </div>
                                 <div class="col-lg-3">
                                     <label for="">Prestasi</label>

@@ -26,6 +26,16 @@
         <input type="number" class="form-control" name="juara" value="{{ $prestasi->juara }}">
     </div>
     <div class="col-lg-3">
+                                    <label for="">Tingkat</label>
+                                    <select name="tingkat" id="" class="form-control">
+                                            <option value="sekolah" {{ $prestasi->tingkat == sekolah ? 'Selected' : '' }} >Sekolah</option>
+                                            <option value="kabupaten" {{ $prestasi->tingkat == kabupaten ? 'Selected' : '' }}>Kabupaten</option>
+                                            <option value="regional" {{ $prestasi->tingkat == regional ? 'Selected' : '' }}>Regional</option>
+                                            <option value="nasional" {{ $prestasi->tingkat == nasional ? 'Selected' : '' }}>Nasional</option>
+                                            <option value="internasional" {{ $prestasi->tingkat == internasional ? 'Selected' : '' }}>Internasional</option>
+                                    </select>
+                                </div>
+    <div class="col-lg-3">
         <label for="">Prestasi</label>
         <input type="text" class="form-control" name="prestasi" value="{{ $prestasi->prestasi }}">
     </div>

@@ -70,30 +70,10 @@
                             <td>{{ $no + 1 }}</td>
                             <td>{{ $m->nm_mapel }}</td>
                             <td>
-                                @if (empty($nilai->nilai))
-                                    F
-                                @elseif ($nilai->nilai > '80')
-                                    A
-                                @elseif ($nilai->nilai > '60')
-                                    B
-                                @elseif ($nilai->nilai >= '50')
-                                    C
-                                @else
-                                    D
-                                @endif
+                                {{$nilai->nilai}}
                             </td>
                             <td>
-                                @if (empty($nilai->nilai))
-                                    Sangat Kurang
-                                @elseif ($nilai->nilai > '80')
-                                    Sangat Bagus
-                                @elseif ($nilai->nilai > '60')
-                                    Bagus
-                                @elseif ($nilai->nilai >= '50')
-                                    Cukup
-                                @else
-                                    Kurang
-                                @endif
+                                {{$nilai->ket}}
                             </td>
                         </tr>
                     @endforeach
