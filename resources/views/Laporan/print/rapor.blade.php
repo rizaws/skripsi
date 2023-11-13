@@ -70,10 +70,10 @@
                             <td>{{ $no + 1 }}</td>
                             <td>{{ $m->nm_mapel }}</td>
                             <td>
-                                {{$nilai->nilai}}
+                                {{empty($nilai->nilai) ? '-' : $nilai->nilai}}
                             </td>
                             <td>
-                                {{$nilai->ket}}
+                                {{empty($nilai->ket) ? '-' : $nilai->ket}}
                             </td>
                         </tr>
                     @endforeach
