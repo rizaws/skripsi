@@ -68,12 +68,11 @@
                         @endphp
                         <tr>
                             <td>{{ $no + 1 }}</td>
-                            <td>{{ $m->nm_mapel }}</td>
-                            <td>
-                                {{ empty($nilai->nilai) ? '-' : $nilai->nilai }}
+                            <td>{{ $m->nm_mapel }}</td> 
+                                {{empty($nilai->nilai) ? '-' : $nilai->nilai}}
                             </td>
                             <td>
-                                {{ empty($nilai->ket) ? '-' : $nilai->ket }}
+                                {{empty($nilai->ket) ? '-' : $nilai->ket}}
                             </td>
                         </tr>
                     @endforeach
